@@ -1,18 +1,17 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { StaticImageData } from "next/image";
 import React, { FC } from "react";
+import { PiCaretRight } from "react-icons/pi";
 
 interface TherapyWidgetProps {
   therapy: Therapy;
 }
 
-const TherapyWidget: FC<TherapyWidgetProps> = ({
-  therapy
-}) => {
+const TherapyWidget: FC<TherapyWidgetProps> = ({ therapy }) => {
   return (
     <div className="flex flex-col items-center text-center p-4">
-      <div className="relative transition-all duration-300 hover:mb-4">
-        <Avatar className="size-20 shadow-lg">
+      <div className="">
+        <Avatar className="h-56 w-56 shadow-lg">
           <AvatarImage
             src={therapy.image}
             alt="Therapist"
@@ -24,11 +23,14 @@ const TherapyWidget: FC<TherapyWidgetProps> = ({
       <p className="mt-2 text-gray-600">{therapy.description}</p>
       <a
         href={therapy.link}
-        className="mt-3 text-blue-500 hover:underline"
+        className="group mt-3 w-40 mx-0 border border-[#a99870] text-[#a99870] px-4 py-2 rounded-4xl flex items-center justify-center transition-all duration-300 hover:bg-[#a99870] hover:text-white"
         target="_blank"
         rel="noopener noreferrer"
       >
         Learn More
+        <span className="max-w-0 overflow-hidden transition-all  group-hover:max-w-fit group-hover:ml-2 duration-300 flex items-center">
+          <PiCaretRight className="text-2xl text-white" size={24} />
+        </span>
       </a>
     </div>
   );
