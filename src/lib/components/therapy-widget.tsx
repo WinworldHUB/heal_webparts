@@ -25,6 +25,8 @@ const TherapyWidget: FC<TherapyWidgetProps> = ({ therapy }) => {
       <Link
         href={therapy.link}
         className="group mt-3 w-40 mx-0 border border-[#a99870] text-[#a99870] px-4 py-2 rounded-4xl flex items-center justify-center transition-all duration-300 hover:bg-[#a99870] hover:text-white"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Learn More
         <span className="max-w-0 overflow-hidden transition-all  group-hover:max-w-fit group-hover:ml-2 duration-300 flex items-center">
