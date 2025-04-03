@@ -1,11 +1,11 @@
-const practitioners: Practitioner[] = [
+export const DUMMY_PRACTITIONERS: Practitioner[] = [
     {
       id: "1",
       name: "Dr. Megan R. Ramos",
       qualification: "BDS, MDS - Plastic And Cosmetic Surgeon, 16 Years Experience",
       email: "info@example.com",
       phone: "888-123-4567",
-      image: "https://example.com/images/megan-ramos.jpg",
+      image: "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
       practice: "Plastic And Cosmetic Surgeon",
       description:
         "We provide the highest quality medical care, individualized treatment by the country’s leading experts, and in the shortest amount of time. Each patient is assigned a case manager to handle all medical issues.\n\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don’t look even slightly believable. If you are going to use a passage.\n\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.",
