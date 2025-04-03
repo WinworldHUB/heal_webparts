@@ -13,31 +13,7 @@ export default function Home() {
 
   return (
     <div className="flex justify-between items-center w-full px-4 overflow-hidden">
-      <Carousel
-        className="w-full"
-        opts={{
-          loop: true,
-          align:"start" 
-        }}
-        plugins={[
-          Autoplay({
-            delay: 5000,
-          }),
-        ]}
-      >
-        <CarouselContent className="">
-          {extendedTherapies.map((therapy, index) => (
-            <CarouselItem key={index} className="basis-1/4">
-              <TherapyWidget
-                therapy={{
-                  ...therapy,
-                  title: `${index + 1}. ${therapy.title}`,
-                }}
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
+  
     </div>
   );
 }
