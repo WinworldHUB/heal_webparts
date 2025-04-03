@@ -1,9 +1,10 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { FC, useState } from "react";
+import { motion } from "framer-motion";
+import { truncateDescription } from "../utils/string-util";
 
 interface HoverCardProps {
   name: string;
@@ -24,29 +25,25 @@ const HoverCard: FC<HoverCardProps> = ({
 
   return (
     <Card
-      className="relative w-80 h-100 overflow-hidden cursor-pointer"
+      className="relative w-80 h-100 overflow-hidden cursor-pointer p-0"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={onCardClick}
     >
-      <CardContent className="p-4">
-        <Image src={image} alt={name} fill />
+      <CardContent className="p-4 h-full relative">
+        <Image src={image} alt={name} fill className="object-cover" />
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 50 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="absolute bottom-0 text-center left-0 w-full h-1/2 bg-[#a99870]/90 p-4 flex flex-col justify-start rounded-t-lg shadow-md overflow-hidden"
+        >
+          <p className="text-xl font-semibold text-white">{practice}</p>
+          <p className="text-lg text-white mt-1">
+            {truncateDescription(description, 140)}
+          </p>
+        </motion.div>
       </CardContent>
-
-      {/* Description Overlay */}
-      <motion.div
-        initial={{ y: "100%" }}
-        animate={{ y: hovered ? "10%" : "100%" }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="absolute bottom-0 left-0 w-full h-24 bg-black/80 text-white flex items-center justify-center p-3"
-      >
-        <div className="text-center">
-          <p className="text-sm">{practice}</p>
-          <p className="text-xs mt-1">{description}</p>
-        </div>
-      </motion.div>
-
-
     </Card>
   );
 };

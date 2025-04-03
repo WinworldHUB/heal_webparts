@@ -7,7 +7,7 @@ type Therapy = {
 
 type Availability =
   | { day: string; startTime: string; endTime: string }
-  | { day: string; status: "Not working" };
+  | { day: string; status: string};
 
 
 type Practitioner = {
