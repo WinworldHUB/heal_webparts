@@ -1,10 +1,10 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { Separator } from "@radix-ui/react-separator";
 import { error } from "console";
 import React, { FC } from "react";
 import { FaPhone, FaEnvelope } from "react-icons/fa6";
 import { truncateText } from "../utils/string-util";
 import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
 
 interface PractitionerInfoProps {
   practitioner: Practitioner | null;
@@ -38,13 +38,13 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
       <div className="flex flex-row justify-center items-start gap-8 w-full">
         <div className="flex flex-col gap-2">
           <div className="flex flex-col h-full bg-white rounded-l-lg shadow-lg p-4">
-            <div className="flex flex-col items-start  text-start mb-4">
-              <h1 className="text-3xl font-bold mb-8">{practitioner?.name} </h1>
+            <div className="flex flex-col items-start  text-start mb-2">
+              <h1 className="text-2xl font-bold mb-4">{practitioner?.name} </h1>
               <p className="text-gray-700 mb-1">{practitioner?.practice}</p>
             </div>
             <Separator className="mb-2" />
             <div className="flex flex-col items-start text-start my-2">
-              <h2 className="flex flex-col text-black font-semibold mb-4 text-2xl">
+              <h2 className="flex flex-col text-black font-semibold mb-2 text-xl">
                 Qualifications:
               </h2>
               <p className="text-gray-700">
@@ -53,7 +53,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
             </div>
 
             <div className="flex flex-col items-start text-start mb-2">
-              <h2 className="flex flex-col text-black font-semibold mb-4 text-2xl">
+              <h2 className="flex flex-col text-black font-semibold mb-4 text-xl">
                 Contacts
               </h2>
 
