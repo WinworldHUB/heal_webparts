@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Quicksand } from "next/font/google";
 import "./globals.css";
 
 const quicksand = Quicksand({
+  subsets: ["latin"],
   variable: "--font-quicksand",
 });
 export const metadata: Metadata = {
