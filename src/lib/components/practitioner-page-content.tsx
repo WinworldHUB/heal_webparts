@@ -88,7 +88,7 @@ const PractitionerPageContent = () => {
       >
         <CarouselContent className="p">
           {practitioners.map((practitioner) => (
-            <CarouselItem key={practitioner.id} className="basis-1/4 p-0">
+            <CarouselItem key={practitioner.id} className="basis-1/3 p-0">
               <div className="flex flex-col items-center justify-center">
                 <HoverCard
                   name={practitioner.name}
