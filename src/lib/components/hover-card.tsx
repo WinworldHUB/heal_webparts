@@ -25,7 +25,7 @@ const HoverCard: FC<HoverCardProps> = ({
 
   return (
     <Card
-      className="relative w-80 h-100 overflow-hidden cursor-pointer p-0"
+      className="relative w-84 h-100 overflow-hidden cursor-pointer p-0"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={onCardClick}

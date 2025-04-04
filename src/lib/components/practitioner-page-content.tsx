@@ -96,12 +96,12 @@ const PractitionerPageContent = () => {
                   practice={practitioner.practice}
                   description={practitioner.description}
                   onCardClick={() =>
-                    handleCardClick("/practitioner/" + practitioner.id)
+                    handleCardClick("https://heal-wellness.co.uk/practitioner?id=" + practitioner.id)
                   }
                 />
                 <div className="flex flex-col items-center justify-center mt-4">
                   <h2>
-                    <span className="text-md font-light text-gray-800">
+                    <span className="text-md font-semibold text-[#193a5e]">
                       {practitioner.name}
                     </span>
                   </h2>

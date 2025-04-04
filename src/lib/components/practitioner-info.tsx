@@ -26,9 +26,11 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
   }
 
   if (error) {
+    console.log("error:",error);
+
     return (
-      <div className="flex justify-center items-center w-full h-48 text-red-500 text-lg font-medium">
-        {error}
+      <div className="flex justify-center items-center w-full">
+        <Skeleton className="w-full h-48" />
       </div>
     );
   }
@@ -39,7 +41,9 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
         <div className="flex flex-col gap-2 w-1/3">
           <div className="flex flex-col h-full bg-white w-full shadow-lg p-4">
             <div className="flex flex-col items-start  text-start mb-2">
-              <h1 className="text-2xl font-semibold text-gray-800 mb-4">{practitioner?.name} </h1>
+              <h1 className="text-2xl font-semibold text-gray-800 mb-4">
+                {practitioner?.name}{" "}
+              </h1>
               <p className="text-gray-700 mb-1">{practitioner?.practice}</p>
             </div>
             <Separator className="mb-2" />
@@ -88,7 +92,9 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
                     </p>
                   )}
                 </div>
-               {index != practitioner?.availability.length -1 && <Separator className="my-2" />}
+                {index != practitioner?.availability.length - 1 && (
+                  <Separator className="my-2" />
+                )}
               </>
             ))}
           </div>
@@ -104,7 +110,9 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
             />
           </div>
           <div className="p-4">
-            <h3 className="text-4xl font-semibold text-gray-800 mb-6">{practitioner?.name} </h3>
+            <h3 className="text-4xl font-semibold text-gray-800 mb-6">
+              {practitioner?.name}{" "}
+            </h3>
             <p className="text-gray-500 mb-4">{practitioner?.description}</p>
           </div>
         </div>
