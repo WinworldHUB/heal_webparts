@@ -34,17 +34,17 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
   }
 
   return (
-    <div className="bg-[#f2f0ea] h-screen flex flex-col items-center p-4">
-      <div className="flex flex-row justify-center items-start gap-8 w-full">
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-col h-full bg-white rounded-l-lg shadow-lg p-4">
+    <div className="bg-[#f2f0ea] h-screen flex flex-col items-center py-4">
+      <div className="flex flex-row justify-center items-center gap-8 w-full">
+        <div className="flex flex-col gap-2 w-1/3">
+          <div className="flex flex-col h-full bg-white w-full shadow-lg p-4">
             <div className="flex flex-col items-start  text-start mb-2">
-              <h1 className="text-2xl font-bold mb-4">{practitioner?.name} </h1>
+              <h1 className="text-2xl font-semibold text-gray-800 mb-4">{practitioner?.name} </h1>
               <p className="text-gray-700 mb-1">{practitioner?.practice}</p>
             </div>
             <Separator className="mb-2" />
-            <div className="flex flex-col items-start text-start my-2">
-              <h2 className="flex flex-col text-black font-semibold mb-2 text-xl">
+            <div className="flex flex-col items-start text-start my-4">
+              <h2 className="flex flex-col text-gray-800 font-semibold mb-2 text-xl">
                 Qualifications:
               </h2>
               <p className="text-gray-700">
@@ -53,7 +53,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
             </div>
 
             <div className="flex flex-col items-start text-start mb-2">
-              <h2 className="flex flex-col text-black font-semibold mb-4 text-xl">
+              <h2 className="flex flex-col text-gray-800 font-semibold mb-4 text-xl">
                 Contacts
               </h2>
 
@@ -94,17 +94,17 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
           </div>
         </div>
 
-        <div className="flex flex-col w-1/2 h-full p-0 border-0 bg-transparent">
-          <div className="w-full h-80 relative mb-4">
+        <div className="flex flex-col w-full h-full p-0 border-0 bg-transparent">
+          <div className="w-full 2xl:w-3/4 h-96 relative mb-4">
             <Image
               src="/assets/doctor_image.jpg"
               alt="Practitioner"
               fill
-              className="rounded-lg"
+              className="rounded-lg object-cover"
             />
           </div>
           <div className="p-4">
-            <h3 className="text-4xl font-bold mb-8">{practitioner?.name} </h3>
+            <h3 className="text-4xl font-semibold text-gray-800 mb-6">{practitioner?.name} </h3>
             <p className="text-gray-500 mb-4">{practitioner?.description}</p>
           </div>
         </div>

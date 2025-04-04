@@ -86,10 +86,10 @@ const PractitionerPage = () => {
         }}
         plugins={[Autoplay({ delay })]}
       >
-        <CarouselContent>
+        <CarouselContent className="p">
           {practitioners.map((practitioner) => (
-            <CarouselItem key={practitioner.id} className="basis-1/4">
-              <div className="flex flex-col items-center justify-center p-4">
+            <CarouselItem key={practitioner.id} className="basis-1/4 p-0">
+              <div className="flex flex-col items-center justify-center">
                 <HoverCard
                   name={practitioner.name}
                   image={practitioner.image}

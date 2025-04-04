@@ -57,13 +57,16 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="flex justify-center items-center w-full h-screen bg-[#f2f0ea] p-4">
+    <div className="flex justify-center items-start w-full h-screen bg-[#f2f0ea] p-4">
       {practitioner ? (
-        <PractitionerInfo
-          practitioner={practitioner}
-          loading={loading}
-          error={error}
-        />
+     <div className="w-3/4">
+
+          <PractitionerInfo
+            practitioner={practitioner}
+            loading={loading}
+            error={error}
+          />
+        </div>
       ) : (
         <Skeleton className="w-full h-48" />
       )}
