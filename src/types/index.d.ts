@@ -19,6 +19,5 @@ type Practitioner = {
   image: string;
   practice: string;
   description: string;
-  link: string;
   availability: Availability[];
 }

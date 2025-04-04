@@ -9,7 +9,6 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     practice: "Plastic And Cosmetic Surgeon",
     description:
       "We provide the highest quality medical care, individualized treatment by the country’s leading experts, and in the shortest amount of time...",
-    link: "https://example.com/dr-megan-ramos",
     availability: [
       { day: "Monday - Friday", startTime: "09:00", endTime: "13:00" },
       { day: "Saturday", startTime: "09:00", endTime: "17:00" },
@@ -26,7 +25,6 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     practice: "Cardiologist",
     description:
       "I'm a highly experienced cardiologist dedicated to providing top-notch heart care...",
-    link: "https://example.com/dr-john-carter",
     availability: [
       { day: "Monday - Friday", startTime: "08:00", endTime: "14:00" },
       { day: "Saturday", startTime: "10:00", endTime: "16:00" },
@@ -43,7 +41,6 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     practice: "Holistic Therapist",
     description:
       "Sabrina is an integrative holistic therapist specializing in Vortex Energy Therapy, Reiki with Crystals, Flower Essence Remedies, and Quantum Biofeedback...",
-    link: "https://example.com/sabrina-khaliya",
     availability: [
       { day: "Monday - Thursday", startTime: "10:00", endTime: "16:00" },
       { day: "Friday", startTime: "12:00", endTime: "18:00" },
@@ -60,7 +57,6 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     practice: "Ayurvedic Practitioner",
     description:
       "Rajiv is an Ayurvedic practitioner and health coach, guiding individuals toward optimal health through Ayurveda and Yoga...",
-    link: "https://example.com/rajiv-raja",
     availability: [
       { day: "Monday - Friday", startTime: "09:00", endTime: "15:00" },
       { day: "Saturday", startTime: "10:00", endTime: "14:00" },
@@ -77,7 +73,6 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     practice: "Chiropractic & Acupuncture Specialist",
     description:
       "Dr. Amelia is a certified chiropractor and acupuncture specialist, focusing on musculoskeletal alignment and holistic pain relief...",
-    link: "https://example.com/dr-amelia-stone",
     availability: [
       { day: "Monday - Wednesday", startTime: "08:00", endTime: "14:00" },
       { day: "Thursday - Friday", startTime: "10:00", endTime: "18:00" },
@@ -95,7 +90,6 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     practice: "Clinical Nutrition & Holistic Wellness",
     description:
       "Sophia is a clinical nutritionist dedicated to helping individuals achieve optimal health through personalized nutrition plans...",
-    link: "https://example.com/sophia-martinez",
     availability: [
       { day: "Monday - Friday", startTime: "09:00", endTime: "17:00" },
       { day: "Saturday", startTime: "10:00", endTime: "14:00" },
@@ -112,7 +106,6 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     practice: "Breathwork & Meditation",
     description:
       "Ethan specializes in breathwork and meditation techniques to promote relaxation, mental clarity, and overall well-being...",
-    link: "https://example.com/ethan-williams",
     availability: [
       { day: "Monday - Friday", startTime: "07:00", endTime: "12:00" },
       { day: "Saturday", startTime: "09:00", endTime: "13:00" },
