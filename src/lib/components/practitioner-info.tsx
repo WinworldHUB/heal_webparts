@@ -88,7 +88,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
                     </p>
                   )}
                 </div>
-                <Separator className="my-2" />
+               {index != practitioner?.availability.length -1 && <Separator className="my-2" />}
               </>
             ))}
           </div>
