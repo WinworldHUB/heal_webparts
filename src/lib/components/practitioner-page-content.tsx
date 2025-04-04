@@ -22,8 +22,9 @@ const PractitionerPageContent = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const handleCardClick = (link: string) => {
-    router.push(link);
+    window.open(link, '_blank');
   };
+  
 
   useEffect(() => {
     const fetchPractitioners = async () => {
@@ -96,7 +97,7 @@ const PractitionerPageContent = () => {
                   practice={practitioner.practice}
                   description={practitioner.description}
                   onCardClick={() =>
-                    handleCardClick("https://heal-wellness.co.uk/practitioner?id=" + practitioner.id)
+                    handleCardClick(`https://heal-wellness.co.uk/practitioner?id=${practitioner.id}`)
                   }
                 />
                 <div className="flex flex-col items-center justify-center mt-4">
