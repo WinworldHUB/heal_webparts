@@ -1,6 +1,6 @@
 "use client";
 
-import PractitionerPageContent from "@/lib/components/practitioner-page-content";
+import TherapyPageContent from "@/lib/components/therapies-page-content";
 import { Suspense } from "react";
 
  const TherapyPage = () => {
@@ -8,7 +8,7 @@ import { Suspense } from "react";
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <PractitionerPageContent />
+      <TherapyPageContent />
     </Suspense>
   );
 };
