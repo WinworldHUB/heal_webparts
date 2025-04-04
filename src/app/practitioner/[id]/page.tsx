@@ -1,7 +1,13 @@
 "use client";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import PractitionerInfo from "@/lib/components/practitioner-info";
+import { truncateText } from "@/lib/utils/string-util";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { FC, useEffect, useState } from "react";
+import { FaPhone, FaEnvelope } from "react-icons/fa6";
 
 const ProfilePage = () => {
   const params = useParams();
@@ -42,34 +48,25 @@ const ProfilePage = () => {
     fetchPractitioners();
   }, []);
 
-  if (loading) {
+  if (!practitioner) {
     return (
-      <div className="flex justify-center items-center w-full">
-        <Skeleton className="w-full h-48" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex justify-center items-center w-full h-48 text-red-500 text-lg font-medium">
-        {error}
+      <div className="flex justify-center items-center w-full p-4">
+        <Skeleton className="w-1/2 h-48" />
       </div>
     );
   }
 
   return (
-    <div className="bg-[#f2f0ea] h-screen flex flex-col items-center p-4">
-      <div className="flex flex-row">
-        <div className="flex flex-col w-1/2 h-full bg-white rounded-l-lg shadow-lg p-4">
-          <h1 className="text-2xl font-bold mb-4">Profile</h1>
-          <p className="text-gray-700">Profile details go here...</p>
-        </div>
-        <div className="flex flex-col w-1/2 h-full bg-white rounded-r-lg shadow-lg p-4">
-          <h1 className="text-2xl font-bold mb-4">Settings</h1>
-          <p className="text-gray-700">Settings options go here...</p>
-        </div>
-      </div>
+    <div className="flex justify-center items-center w-full h-screen bg-[#f2f0ea] p-4">
+      {practitioner ? (
+        <PractitionerInfo
+          practitioner={practitioner}
+          loading={loading}
+          error={error}
+        />
+      ) : (
+        <Skeleton className="w-full h-48" />
+      )}
     </div>
   );
 };

@@ -1,0 +1,116 @@
+import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@radix-ui/react-separator";
+import { error } from "console";
+import React, { FC } from "react";
+import { FaPhone, FaEnvelope } from "react-icons/fa6";
+import { truncateText } from "../utils/string-util";
+import Image from "next/image";
+
+interface PractitionerInfoProps {
+  practitioner: Practitioner | null;
+  loading: boolean;
+  error: string;
+}
+
+const PractitionerInfo: FC<PractitionerInfoProps> = ({
+  practitioner,
+  loading,
+  error,
+}) => {
+  if (!practitioner) {
+    return (
+      <div className="flex justify-center items-center w-full">
+        <Skeleton className="w-full h-48" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center w-full h-48 text-red-500 text-lg font-medium">
+        {error}
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-[#f2f0ea] h-screen flex flex-col items-center p-4">
+      <div className="flex flex-row justify-center items-start gap-8 w-full">
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-col h-full bg-white rounded-l-lg shadow-lg p-4">
+            <div className="flex flex-col items-start  text-start mb-4">
+              <h1 className="text-3xl font-bold mb-8">{practitioner?.name} </h1>
+              <p className="text-gray-700 mb-1">{practitioner?.practice}</p>
+            </div>
+            <Separator className="mb-2" />
+            <div className="flex flex-col items-start text-start my-2">
+              <h2 className="flex flex-col text-black font-semibold mb-4 text-2xl">
+                Qualifications:
+              </h2>
+              <p className="text-gray-700">
+                {truncateText(practitioner?.qualification as string, 50)}
+              </p>
+            </div>
+
+            <div className="flex flex-col items-start text-start mb-2">
+              <h2 className="flex flex-col text-black font-semibold mb-4 text-2xl">
+                Contacts
+              </h2>
+
+              <div className="flex flex-row items-start text-start">
+                <FaPhone size={16} className="text-black mt-1 mx-2" />
+                <p className="text-gray-700 mb-4">{practitioner?.email}</p>
+              </div>
+
+              <div className="flex flex-row items-start text-start">
+                <FaEnvelope size={16} className="text-black mt-1 mx-2" />
+                <p className="text-gray-700 mb-4">{practitioner?.phone}</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col h-full bg-white rounded-l-lg shadow-lg p-4">
+            {practitioner?.availability.map((slot, index) => (
+              <>
+                <div
+                  key={index}
+                  className="flex flex-row items-center justify-between font-light mb-2"
+                >
+                  <p className="text-gray-900  mr-2 text-nowrap text-sm">
+                    {slot.day}
+                  </p>
+                  {"status" in slot ? (
+                    <p className="text-gray-500 italic text-sm">
+                      {slot.status}
+                    </p>
+                  ) : (
+                    <p className="text-gray-900 text-sm">
+                      {slot.startTime} - {slot.endTime}
+                    </p>
+                  )}
+                </div>
+                <Separator className="my-2" />
+              </>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col w-1/2 h-full p-0 border-0 bg-transparent">
+          <div className="w-full h-80 relative mb-4">
+            <Image
+              src="/assets/doctor_image.jpg"
+              alt="Practitioner"
+              fill
+              className="rounded-lg"
+            />
+          </div>
+          <div className="p-4">
+            <h3 className="text-4xl font-bold mb-8">{practitioner?.name} </h3>
+            <p className="text-gray-500 mb-4">{practitioner?.description}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PractitionerInfo;

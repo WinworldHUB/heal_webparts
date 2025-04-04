@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { FC, useState } from "react";
 import { motion } from "framer-motion";
-import { truncateDescription } from "../utils/string-util";
+import { truncateText } from "../utils/string-util";
 
 interface HoverCardProps {
   name: string;
@@ -40,7 +40,7 @@ const HoverCard: FC<HoverCardProps> = ({
         >
           <p className="text-xl font-semibold text-white">{practice}</p>
           <p className="text-lg text-white mt-1">
-            {truncateDescription(description, 140)}
+            {truncateText(description, 140)}
           </p>
         </motion.div>
       </CardContent>
