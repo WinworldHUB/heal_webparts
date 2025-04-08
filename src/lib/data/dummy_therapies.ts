@@ -1,26 +1,42 @@
-export const therapies: Therapy[] = [
-    {
-      title: "Skin Nourshment",
-      description: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.",
-      image: "/assets/skin_nourishment.png",
-      link: "https://heal-wellness.co.uk/",
-    },
-    {
-      title: "Beautician",
-      description: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.",
-      image: "/assets/beautician.png",
-      link: "https://heal-wellness.co.uk/",
-    },
-    {
-      title: "Skin Rejuvenation",
-      description: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.",
-      image: "/assets/skin_rej.png",
-      link: "https://heal-wellness.co.uk/",
-    },
-    {
-      title: "Lip Enhancement",
-      description: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.",
-      image: "/assets/lip_enhance.png",
-      link: "https://heal-wellness.co.uk/",
-    },
-  ];
+const titles = [
+  "Skin Nourshment",
+  "Beautician",
+  "Skin Rejuvenation",
+  "Lip Enhancement",
+  "Private GP Services",
+  "Homeopathy",
+  "Holistic Therapist",
+  "Herbal & wellness practitioner",
+  "Podiatrist",
+  "Skin specialist",
+  "test therapy 4 updated",
+  "Acupuncture",
+  "Health Psychologist",
+  "Nutritionist",
+  "Speech and language therapist",
+  "Test Therapy",
+  "Psychotherapist",
+  "Chiropractor",
+  "Reflexologist",
+  "Aesthetics",
+  "Osteopath",
+  "Physiotherapist",
+  "Medical Herbalist",
+  "Massage Therapist",
+  "Art Therapist",
+  "Reiki Practitioner",
+  "Ayurvedic Specialist"
+];
+
+
+const images = [
+  "/assets/skin_nourishment.png",
+  "/assets/beautician.png",
+];
+
+export const therapies: Therapy[] = titles.map((title, idx) => ({
+  title,
+  description: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.",
+  image: images[idx % 2],
+  link: "https://heal-wellness.co.uk/",
+}));

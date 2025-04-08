@@ -6,15 +6,13 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from "@/components/ui/carousel";
+} from "./ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
- const TherapyPageContent = () => {
+const TherapyPageContent = () => {
   const searchParams = useSearchParams();
   const speed = searchParams.get("speed");
   const delay = speed ? parseInt(speed, 10) : 5000;
-
-  const extendedTherapies = [...therapies, ...therapies];
 
   return (
     <div className="flex justify-between items-center w-full px-4 overflow-hidden">
@@ -31,7 +29,7 @@ import Autoplay from "embla-carousel-autoplay";
         ]}
       >
         <CarouselContent>
-          {extendedTherapies.map((therapy, index) => (
+          {therapies.map((therapy, index) => (
             <CarouselItem key={index} className="basis-1/4">
               <TherapyWidget
                 therapy={{
@@ -46,6 +44,5 @@ import Autoplay from "embla-carousel-autoplay";
     </div>
   );
 };
-
 
 export default TherapyPageContent;

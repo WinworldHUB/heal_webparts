@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "./ui/avatar";
 import { StaticImageData } from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
