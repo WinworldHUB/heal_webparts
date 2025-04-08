@@ -35,6 +35,7 @@ const images = [
 ];
 
 export const therapies: Therapy[] = titles.map((title, idx) => ({
+  id: `therapy-${idx + 1}`,
   title,
   description: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.",
   image: images[idx % 2],

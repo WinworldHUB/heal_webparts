@@ -1,4 +1,5 @@
 type Therapy = {
+  id: string;
   title: string;
   description: string;
   image: string;
@@ -20,4 +21,10 @@ type Practitioner = {
   practice: string;
   description: string;
   availability: Availability[];
+  therapies: Therapy[];
+}
+
+type Option = {
+  label: string
+  value: string
 }

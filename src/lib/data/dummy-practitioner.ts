@@ -1,11 +1,15 @@
+import { getRandomTherapies } from "../utils/therapy-util";
+
 export const DUMMY_PRACTITIONERS: Practitioner[] = [
   {
     id: "1",
     name: "Dr. Megan R. Ramos",
-    qualification: "BDS, MDS - Plastic And Cosmetic Surgeon, 16 Years Experience",
+    qualification:
+      "BDS, MDS - Plastic And Cosmetic Surgeon, 16 Years Experience",
     email: "info@example.com",
     phone: "888-123-4567",
-    image: "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
+    image:
+      "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
     practice: "Plastic And Cosmetic Surgeon",
     description:
       "We provide the highest quality medical care, individualized treatment by the country’s leading experts, and in the shortest amount of time...",
@@ -14,6 +18,7 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "09:00", endTime: "17:00" },
       { day: "Sunday", status: "Not working" },
     ],
+    therapies: getRandomTherapies(3),
   },
   {
     id: "2",
@@ -21,7 +26,8 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     qualification: "MBBS, MD - Cardiology, 20 Years Experience",
     email: "dr.carter@example.com",
     phone: "777-987-6543",
-    image: "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
+    image:
+      "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
     practice: "Cardiologist",
     description:
       "I'm a highly experienced cardiologist dedicated to providing top-notch heart care...",
@@ -30,6 +36,7 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "10:00", endTime: "16:00" },
       { day: "Sunday", status: "Not working" },
     ],
+    therapies: getRandomTherapies(3),
   },
   {
     id: "3",
@@ -37,7 +44,8 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     qualification: "Vortexenergy, Reiki, Quantum Biofeedback Specialist",
     email: "sabrina@example.com",
     phone: "555-234-5678",
-    image: "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
+    image:
+      "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
     practice: "Holistic Therapist",
     description:
       "Sabrina is an integrative holistic therapist specializing in Vortex Energy Therapy, Reiki with Crystals, Flower Essence Remedies, and Quantum Biofeedback...",
@@ -46,6 +54,7 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Friday", startTime: "12:00", endTime: "18:00" },
       { day: "Saturday - Sunday", status: "By Appointment Only" },
     ],
+    therapies: getRandomTherapies(3),
   },
   {
     id: "4",
@@ -53,7 +62,8 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     qualification: "BSc. (Hons.) Ayurveda, MAPA",
     email: "rajiv@example.com",
     phone: "555-987-1234",
-    image: "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
+    image:
+      "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
     practice: "Ayurvedic Practitioner",
     description:
       "Rajiv is an Ayurvedic practitioner and health coach, guiding individuals toward optimal health through Ayurveda and Yoga...",
@@ -62,6 +72,7 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "10:00", endTime: "14:00" },
       { day: "Sunday", status: "Not working" },
     ],
+    therapies: getRandomTherapies(3),
   },
   {
     id: "5",
@@ -69,7 +80,8 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     qualification: "Doctor of Chiropractic, Certified in Acupuncture",
     email: "amelia@example.com",
     phone: "555-678-4321",
-    image: "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
+    image:
+      "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
     practice: "Chiropractic & Acupuncture Specialist",
     description:
       "Dr. Amelia is a certified chiropractor and acupuncture specialist, focusing on musculoskeletal alignment and holistic pain relief...",
@@ -79,6 +91,7 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "10:00", endTime: "16:00" },
       { day: "Sunday", status: "Not working" },
     ],
+    therapies: getRandomTherapies(3),
   },
   {
     id: "6",
@@ -86,7 +99,8 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     qualification: "Certified Clinical Nutritionist, Holistic Wellness Coach",
     email: "sophia@example.com",
     phone: "555-789-6543",
-    image: "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
+    image:
+      "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
     practice: "Clinical Nutrition & Holistic Wellness",
     description:
       "Sophia is a clinical nutritionist dedicated to helping individuals achieve optimal health through personalized nutrition plans...",
@@ -95,6 +109,7 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "10:00", endTime: "14:00" },
       { day: "Sunday", status: "By Appointment Only" },
     ],
+    therapies: getRandomTherapies(3),
   },
   {
     id: "7",
@@ -102,7 +117,8 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
     qualification: "Certified Breathwork & Meditation Instructor",
     email: "ethan@example.com",
     phone: "555-456-7890",
-    image: "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
+    image:
+      "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg",
     practice: "Breathwork & Meditation",
     description:
       "Ethan specializes in breathwork and meditation techniques to promote relaxation, mental clarity, and overall well-being...",
@@ -111,5 +127,6 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "09:00", endTime: "13:00" },
       { day: "Sunday", status: "Closed" },
     ],
-  }
+    therapies: getRandomTherapies(3),
+  },
 ];
