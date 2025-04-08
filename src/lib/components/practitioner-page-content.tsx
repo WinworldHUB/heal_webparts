@@ -1,12 +1,12 @@
 "use client";
 
 import HoverCard from "@/lib/components/hover-card";
-import { SkeletonCard } from "@/components/ui/skeleton";
+import { SkeletonCard } from "@/lib/components/ui/skeleton";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from "@/components/ui/carousel";
+} from "@/lib/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
