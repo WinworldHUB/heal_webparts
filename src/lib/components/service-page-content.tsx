@@ -19,9 +19,9 @@ const ServicePageContent = () => {
   );
 
   return (
-    <div className="flex gap-4 p-4">
-      {/* Fixed Sidebar Filter */}
-      <div className="sticky top-4 h-fit w-full max-w-md">
+    <div className="flex flex-col md:flex-row gap-6 p-4">
+      {/* Sidebar Filter */}
+      <div className="w-full md:max-w-xs sticky top-4 h-fit">
         <ServiceFilter
           practitionerOptions={practitionerOptions}
           therapiesOptions={therpaiesOptions}
@@ -32,7 +32,7 @@ const ServicePageContent = () => {
       </div>
 
       {/* Practitioner Cards */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 w-full">
         {DUMMY_PRACTITIONERS.map((practitioner) => (
           <PractitionerCard
             key={practitioner.id}

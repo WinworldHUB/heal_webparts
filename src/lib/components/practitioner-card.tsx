@@ -7,6 +7,8 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/lib/components/ui/popover";
+import { Card, CardContent } from "@/lib/components/ui/card";
+import Image from "next/image";
 
 interface PractitionerCardProps {
   practitioner: Practitioner;
@@ -25,14 +27,23 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
   if (error) return <p className="text-red-500 text-center py-8">{error}</p>;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-      <div
-        key={practitioner.id}
-        className="bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between border"
-      >
-        <div>
-          <h2 className="text-xl font-semibold">{practitioner.name}</h2>
+    <Card
+      key={practitioner.id}
+      className="w-full sm:w-4/5 lg:w-2/3 p-4 rounded-2xl shadow-md"
+    >
+      <CardContent className="flex flex-col items-start px-0 sm:justify-start sm:flex-row gap-4">
+        <img
+          src={practitioner.image}
+          alt={practitioner.name}
+          className="object-cover rounded-2xl hidden sm:block h-60 w-60"
+        />
+
+        <div className="flex flex-col w-full">
+          <h2 className="text-xl font-bold">{practitioner.name}</h2>
           <p className="text-gray-600 mt-2">{practitioner.description}</p>
+          <p className="text-gray-500 font-semibold text-md mt-2">
+            {practitioner.qualification}
+          </p>
 
           <div className="mt-4">
             <Popover>
@@ -51,24 +62,25 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
               </PopoverContent>
             </Popover>
           </div>
-        </div>
 
-        <div className="mt-6 flex flex-col gap-2">
-          <Button
-            variant="default"
-            onClick={() => console.log("View Profile", practitioner.id)}
-          >
-            View Profile
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={() => console.log("Book Appointment", practitioner.id)}
-          >
-            Book Appointment
-          </Button>
+          <div className="mt-6 flex flex-col sm:flex-row gap-2">
+            <Button
+              className="bg-green-600 text-white hover:bg-green-700 rounded-4xl"
+              onClick={() => onPractitionerClick(practitioner)}
+            >
+              View Profile
+            </Button>
+            <Button
+              variant="outline"
+              className="rounded-4xl border-black text-gray-800"
+              onClick={() => console.log("Book Appointment", practitioner.id)}
+            >
+              Book Appointment
+            </Button>
+          </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

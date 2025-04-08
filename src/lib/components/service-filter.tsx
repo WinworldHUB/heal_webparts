@@ -20,7 +20,7 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
   onButtonClick,
 }) => {
   return (
-    <Card className="w-full max-w-sm p-4 gap-3">
+    <Card className="w-full p-4 gap-3">
       <CardHeader className="p-0">
         <CardTitle className="text-lg mb-0">Find your Perfect Service</CardTitle>
       </CardHeader>
