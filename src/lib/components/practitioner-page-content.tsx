@@ -10,16 +10,16 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Loader from "./ui/loader";
 
 const PractitionerPageContent = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const speed = searchParams.get("speed");
   const delay = speed ? parseInt(speed, 10) : 5000;
 
   const [practitioners, setPractitioners] = useState<Practitioner[]>([]);
   const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleCardClick = (link: string) => {
     window.open(link, '_blank');
@@ -48,35 +48,12 @@ const PractitionerPageContent = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex justify-between items-center w-full px-4 overflow-hidden">
-        <Carousel
-          className="w-full"
-          opts={{ loop: true, align: "start" }}
-          plugins={[Autoplay({ delay })]}
-        >
-          <CarouselContent>
-            {[...Array(4)].map((_, index) => (
-              <CarouselItem key={index} className="basis-1/4">
-                <div className="p-4">
-                  <SkeletonCard />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (error) {
-    return (
-      <div className="flex justify-center items-center w-full h-48 text-red-500 text-lg font-medium">
-        {error}
-      </div>
-    );
+    return <Loader />;
   }
-
   return (
     <div className="flex justify-between items-center w-full px-4 overflow-hidden">
       <Carousel

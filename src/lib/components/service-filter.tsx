@@ -2,14 +2,14 @@ import React from "react"
 import { Combobox } from "./ui/combobox"
 import { Separator } from "./ui/separator"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
-
-
 interface ServiceFilterProps {
   therapiesOptions: Option[]
   practitionerOptions: Option[]
   onTherapyChange: (value: string) => void
   onPractitionerChange: (value: string) => void
-  onButtonClick: () => void
+  onSearch: () => void
+  selectedTherapyId: string | null
+  selectedPractitionerId: string | null
 }
 
 const ServiceFilter: React.FC<ServiceFilterProps> = ({
@@ -17,7 +17,9 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
   practitionerOptions,
   onTherapyChange,
   onPractitionerChange,
-  onButtonClick,
+  onSearch,
+  selectedTherapyId,
+  selectedPractitionerId,
 }) => {
   return (
     <Card className="w-full p-4 gap-3">
@@ -26,11 +28,22 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
       </CardHeader>
       <CardContent className="flex flex-col gap-4 p-0">
         <Separator />
-        <Combobox options={therapiesOptions} onChange={onTherapyChange} />
-        <Combobox options={practitionerOptions} onChange={onPractitionerChange} />
+        <Combobox
+          options={therapiesOptions}
+          selected={selectedTherapyId || ""}
+          onChange={onTherapyChange}
+          placeholder="Select Therapy..."
+        />
+        <Combobox
+          options={practitionerOptions}
+          selected={selectedPractitionerId || ""}
+          onChange={onPractitionerChange}
+          placeholder="Select Practitioner..."
+        />
         <button
+          type="button"
           className="bg-transparent hover:bg-black/5 transition-colors font-semibold text-black border cursor-pointer hover:text-gray-800 px-4 py-2 rounded-3xl"
-          onClick={onButtonClick}
+          onClick={onSearch}
         >
           Search
         </button>
