@@ -9,6 +9,14 @@ type TherapyResponse = {
   metadata: Record<string, unknown>;
 };
 
+type TherapyDummy = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  link: string;
+}
+
 type Therapy = {
   link: string;
 } & TherapyResponse;
@@ -28,7 +36,7 @@ type Practitioner = {
   practice: string;
   description: string;
   availability: Availability[];
-  therapies: Therapy[];
+  therapies: TherapyDummy[];
 }
 
 type Option = {
