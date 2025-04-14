@@ -34,10 +34,10 @@ const images = [
   "/assets/beautician.png",
 ];
 
-export const therapies: Therapy[] = titles.map((title, idx) => ({
-  id: `therapy-${idx + 1}`,
-  title,
-  description: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.",
-  image: images[idx % 2],
-  link: "https://heal-wellness.co.uk/",
-}));
+// export const therapies: Therapy[] = titles.map((title, idx) => ({
+//   id: `therapy-${idx + 1}`,
+//   name: title,
+//   description: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.",
+//   image: images[idx % 2],
+//   link: "https://heal-wellness.co.uk/",
+// }));

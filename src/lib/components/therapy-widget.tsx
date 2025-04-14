@@ -3,7 +3,6 @@ import { StaticImageData } from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 import { PiCaretRight } from "react-icons/pi";
-
 interface TherapyWidgetProps {
   therapy: Therapy;
 }
@@ -14,13 +13,13 @@ const TherapyWidget: FC<TherapyWidgetProps> = ({ therapy }) => {
       <div className="">
         <Avatar className="h-56 w-56 shadow-lg">
           <AvatarImage
-            src={therapy.image}
+            src="assets/skin_nourishment.png"
             alt="Therapist"
             className="size-full object-cover rounded-full"
           />
         </Avatar>
       </div>
-      <h3 className="mt-4 text-xl font-semibold">{therapy.title}</h3>
+      <h3 className="mt-4 text-xl font-semibold">{therapy.name}</h3>
       <p className="mt-2 text-gray-600">{therapy.description}</p>
       <Link
         href={therapy.link}

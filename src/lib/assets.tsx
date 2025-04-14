@@ -1,1 +1,0 @@
-export {default as skinNourish} from "../../public/assets/skin_nourishment.png";

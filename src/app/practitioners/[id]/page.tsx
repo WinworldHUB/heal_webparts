@@ -1,13 +1,9 @@
 "use client";
-import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
+
+import { Skeleton } from "@/lib/components/ui/skeleton";
 import PractitionerInfo from "@/lib/components/practitioner-info";
-import { truncateText } from "@/lib/utils/string-util";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { FC, useEffect, useState } from "react";
-import { FaPhone, FaEnvelope } from "react-icons/fa6";
 
 const ProfilePage = () => {
   const params = useParams();
@@ -17,8 +13,6 @@ const ProfilePage = () => {
   const [practitioner, setPractitioner] = useState<Practitioner | null>(null);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-
-  console.log(practitionerId);
 
   useEffect(() => {
     const fetchPractitioners = async () => {
@@ -31,7 +25,6 @@ const ProfilePage = () => {
 
         const data = await response.json();
 
-        console.log(data);
         if (!data) {
           setError("Practitioner not found");
         }

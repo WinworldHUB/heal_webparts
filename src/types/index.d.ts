@@ -1,10 +1,17 @@
-type Therapy = {
+type TherapyResponse = {
   id: string;
-  title: string;
+  name: string;
   description: string;
-  image: string;
-  link: string;
+  expiryDate: string | null;
+  preRequisites: string | null;
+  createdAt: string;
+  updatedAt: string;
+  metadata: Record<string, unknown>;
 };
+
+type Therapy = {
+  link: string;
+} & TherapyResponse;
 
 type Availability =
   | { day: string; startTime: string; endTime: string }
