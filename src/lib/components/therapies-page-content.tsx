@@ -19,7 +19,7 @@ const TherapyPageContent = () => {
     const fetchTherapies = async () => {
       try {
         setLoading(true);
-        const response = await fetch(API_BASE_URL + "/therapies");
+        const response = await fetch(API_BASE_URL + "/analytics/therapies/all");
         if (!response.ok) throw new Error("Failed to fetch Therapies");
 
         const { data } = await response.json();

@@ -11,6 +11,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loader from "./ui/loader";
+import { API_BASE_URL } from "../constants/api-constants";
 
 const PractitionerPageContent = () => {
   const searchParams = useSearchParams();
@@ -30,7 +31,7 @@ const PractitionerPageContent = () => {
     const fetchPractitioners = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/practitioner");
+        const response = await fetch(API_BASE_URL + "/analytics/practitioners/all");
         if (!response.ok) {
           throw new Error("Failed to fetch practitioners");
         }
