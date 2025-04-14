@@ -7,14 +7,18 @@ import Loader from "./ui/loader";
 
 import { DUMMY_PRACTITIONERS } from "../data/dummy-practitioner";
 import { therapies } from "../data/dummy_therapies";
+import { useRouter } from "next/navigation";
 
 const ServicePageContent = () => {
+  const router = useRouter();
   const [practitioners, setPractitioners] = useState<Practitioner[]>([]);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
   const [selectedTherapyIds, setSelectedTherapyIds] = useState<string[]>([]);
-  const [selectedPractitionerIds, setSelectedPractitionerIds] = useState<string[]>([]);
+  const [selectedPractitionerIds, setSelectedPractitionerIds] = useState<
+    string[]
+  >([]);
   const [selectedClinicId, setSelectedClinicId] = useState<string | null>(null);
 
   const therapiesOptions: Option[] = therapies.map((therapy) => ({
@@ -22,16 +26,22 @@ const ServicePageContent = () => {
     label: therapy.title,
   }));
 
-  const practitionerOptions: Option[] = DUMMY_PRACTITIONERS.map((practitioner) => ({
-    value: practitioner.id,
-    label: practitioner.name,
-  }));
+  const practitionerOptions: Option[] = DUMMY_PRACTITIONERS.map(
+    (practitioner) => ({
+      value: practitioner.id,
+      label: practitioner.name,
+    })
+  );
 
   const dummyClinics: Option[] = [
     { value: "clinic-1", label: "Downtown Wellness" },
     { value: "clinic-2", label: "Lakeside Healing Center" },
     { value: "clinic-3", label: "Sunrise Therapy Hub" },
   ];
+
+  const onPractitionerClick = (practitioner: Practitioner) => {
+    router.push(`/practitioners/${practitioner.id}`);
+  };
 
   const fetchPractitioners = async (
     practitionerId?: string | null,
@@ -43,8 +53,11 @@ const ServicePageContent = () => {
       if (practitionerId) queryParams.append("practitionerId", practitionerId);
       if (therapyId) queryParams.append("therapyId", therapyId);
 
-      const response = await fetch(`/api/practitioner?${queryParams.toString()}`);
-      if (!response.ok) throw new Error("Failed to fetch filtered practitioners");
+      const response = await fetch(
+        `/api/practitioner?${queryParams.toString()}`
+      );
+      if (!response.ok)
+        throw new Error("Failed to fetch filtered practitioners");
 
       const data = await response.json();
       setPractitioners(data);
@@ -98,7 +111,10 @@ const ServicePageContent = () => {
             practitioner={practitioner}
             loading={false}
             error={null}
-            onPractitionerClick={(p) => console.log(p)}
+            onPractitionerClick={onPractitionerClick}
+            onBookAppointmentClick={(practitionerId) =>
+              console.log(practitionerId)
+            }
           />
         ))}
       </div>

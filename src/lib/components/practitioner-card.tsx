@@ -7,14 +7,22 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/lib/components/ui/popover";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/lib/components/ui/dialog";
+import { Calendar } from "@/lib/components/ui/calendar";
 import { Card, CardContent } from "@/lib/components/ui/card";
-import Image from "next/image";
 
 interface PractitionerCardProps {
   practitioner: Practitioner;
   loading: boolean;
   error: string | null;
   onPractitionerClick: (practitioner: Practitioner) => void;
+  onBookAppointmentClick: (practitionerId: string) => void;
 }
 
 const PractitionerCard: FC<PractitionerCardProps> = ({
@@ -22,6 +30,7 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
   loading,
   error,
   onPractitionerClick,
+  onBookAppointmentClick,
 }) => {
   if (loading) return <p className="text-center py-8">Loading...</p>;
   if (error) return <p className="text-red-500 text-center py-8">{error}</p>;
@@ -41,9 +50,6 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
         <div className="flex flex-col w-full">
           <h2 className="text-xl font-bold">{practitioner.name}</h2>
           <p className="text-gray-600 mt-2">{practitioner.description}</p>
-          <p className="text-gray-500 font-semibold text-md mt-2">
-            {practitioner.qualification}
-          </p>
 
           <div className="mt-4">
             <Popover>
@@ -70,13 +76,24 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
             >
               View Profile
             </Button>
-            <Button
-              variant="outline"
-              className="rounded-4xl border-black text-gray-800"
-              onClick={() => console.log("Book Appointment", practitioner.id)}
-            >
-              Book Appointment
-            </Button>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="rounded-4xl border-black text-gray-800"
+                  onClick={() => onBookAppointmentClick(practitioner.id)}
+                >
+                  Book Appointment
+                </Button>
+              </DialogTrigger>
+
+              <DialogContent className="w-full">
+                <DialogHeader>
+                  <DialogTitle>Select Appointment Date</DialogTitle>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </CardContent>

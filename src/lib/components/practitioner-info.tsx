@@ -47,14 +47,6 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
               <p className="text-gray-700 mb-1">{practitioner?.practice}</p>
             </div>
             <Separator className="mb-2" />
-            <div className="flex flex-col items-start text-start my-4">
-              <h2 className="flex flex-col text-gray-800 font-semibold mb-2 text-xl">
-                Qualifications:
-              </h2>
-              <p className="text-gray-700">
-                {truncateText(practitioner?.qualification as string, 50)}
-              </p>
-            </div>
 
             <div className="flex flex-col items-start text-start mb-2">
               <h2 className="flex flex-col text-gray-800 font-semibold mb-4 text-xl">

@@ -1,11 +1,10 @@
 import { getRandomTherapies } from "../utils/therapy-util";
+import { therapies } from "./dummy_therapies";
 
 export const DUMMY_PRACTITIONERS: Practitioner[] = [
   {
     id: "1",
     name: "Dr. Megan R. Ramos",
-    qualification:
-      "BDS, MDS - Plastic And Cosmetic Surgeon, 16 Years Experience",
     email: "info@example.com",
     phone: "888-123-4567",
     image:
@@ -18,12 +17,11 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "09:00", endTime: "17:00" },
       { day: "Sunday", status: "Not working" },
     ],
-    therapies: getRandomTherapies(3),
+    therapies: getRandomTherapies(3, therapies),
   },
   {
     id: "2",
     name: "Dr. John A. Carter",
-    qualification: "MBBS, MD - Cardiology, 20 Years Experience",
     email: "dr.carter@example.com",
     phone: "777-987-6543",
     image:
@@ -36,12 +34,11 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "10:00", endTime: "16:00" },
       { day: "Sunday", status: "Not working" },
     ],
-    therapies: getRandomTherapies(3),
+    therapies: getRandomTherapies(3, therapies),
   },
   {
     id: "3",
     name: "Sabrina Khaliya",
-    qualification: "Vortexenergy, Reiki, Quantum Biofeedback Specialist",
     email: "sabrina@example.com",
     phone: "555-234-5678",
     image:
@@ -54,12 +51,11 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Friday", startTime: "12:00", endTime: "18:00" },
       { day: "Saturday - Sunday", status: "By Appointment Only" },
     ],
-    therapies: getRandomTherapies(3),
+    therapies: getRandomTherapies(3, therapies),
   },
   {
     id: "4",
     name: "Rajiv Raja",
-    qualification: "BSc. (Hons.) Ayurveda, MAPA",
     email: "rajiv@example.com",
     phone: "555-987-1234",
     image:
@@ -72,12 +68,11 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "10:00", endTime: "14:00" },
       { day: "Sunday", status: "Not working" },
     ],
-    therapies: getRandomTherapies(3),
+    therapies: getRandomTherapies(3, therapies),
   },
   {
     id: "5",
     name: "Dr. Amelia Stone",
-    qualification: "Doctor of Chiropractic, Certified in Acupuncture",
     email: "amelia@example.com",
     phone: "555-678-4321",
     image:
@@ -91,12 +86,11 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "10:00", endTime: "16:00" },
       { day: "Sunday", status: "Not working" },
     ],
-    therapies: getRandomTherapies(3),
+    therapies: getRandomTherapies(3, therapies),
   },
   {
     id: "6",
     name: "Sophia Martinez",
-    qualification: "Certified Clinical Nutritionist, Holistic Wellness Coach",
     email: "sophia@example.com",
     phone: "555-789-6543",
     image:
@@ -109,12 +103,11 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "10:00", endTime: "14:00" },
       { day: "Sunday", status: "By Appointment Only" },
     ],
-    therapies: getRandomTherapies(3),
+    therapies: getRandomTherapies(3, therapies),
   },
   {
     id: "7",
     name: "Ethan Williams",
-    qualification: "Certified Breathwork & Meditation Instructor",
     email: "ethan@example.com",
     phone: "555-456-7890",
     image:
@@ -127,6 +120,6 @@ export const DUMMY_PRACTITIONERS: Practitioner[] = [
       { day: "Saturday", startTime: "09:00", endTime: "13:00" },
       { day: "Sunday", status: "Closed" },
     ],
-    therapies: getRandomTherapies(3),
+    therapies: getRandomTherapies(3, therapies),
   },
 ];

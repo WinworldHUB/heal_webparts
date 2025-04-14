@@ -29,7 +29,6 @@ type Availability =
 type Practitioner = {
   id: string;
   name: string;
-  qualification: string;
   email: string;
   phone: string;
   image: string;
