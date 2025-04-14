@@ -37,7 +37,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
 
   return (
     <div className="bg-[#f2f0ea] h-screen flex flex-col items-center py-4">
-      <div className="flex flex-row justify-center items-center gap-8 w-full">
+      <div className="flex flex-row justify-center items-start gap-8 w-full">
         <div className="flex flex-col gap-2 w-1/3">
           <div className="flex flex-col h-full bg-white w-full shadow-lg p-4">
             <div className="flex flex-col items-start  text-start mb-2">
