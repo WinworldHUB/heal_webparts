@@ -46,5 +46,22 @@ type PractitionerResponse = {
 
 type Practitioner = {
   availability: Availability[];
-  therapies: TherapyDummy[];
+  therapies: Therapy[];
 } & PractitionerResponse;
+
+interface AvailableHour {
+  day: string;
+  fromTime: string;
+  toTime: string;
+}
+
+interface Clinic {
+  id: string;
+  name: string;
+  address: string;
+  postCode: string;
+  websiteURL: string;
+  noOfAvailableRooms: number;
+  availableHours: AvailableHour[];
+  metadata: Record<string, any>;
+}

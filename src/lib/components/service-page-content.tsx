@@ -8,12 +8,14 @@ import Loader from "./ui/loader";
 import { therapies } from "../data/dummy_therapies";
 import { useRouter } from "next/navigation";
 import usePractitioners from "../hooks/usePractitioners";
+import useClinics from "../hooks/useClinics";
 
 const ServicePageContent = () => {
   const router = useRouter();
 
   const { practitioners, loading, error, getAllPractitioners } =
     usePractitioners();
+  const { clinics } = useClinics();
   const [selectedTherapyIds, setSelectedTherapyIds] = useState<string[]>([]);
   const [selectedPractitionerIds, setSelectedPractitionerIds] = useState<
     string[]
@@ -30,11 +32,10 @@ const ServicePageContent = () => {
     label: practitioner?.firstName + practitioner?.lastName,
   }));
 
-  const dummyClinics: Option[] = [
-    { value: "clinic-1", label: "Downtown Wellness" },
-    { value: "clinic-2", label: "Lakeside Healing Center" },
-    { value: "clinic-3", label: "Sunrise Therapy Hub" },
-  ];
+  const clinicOptions: Option[] = clinics.map((clinic) => ({
+    value: clinic.id,
+    label: clinic?.name,
+  }));
 
   const onPractitionerClick = (practitioner: Practitioner) => {
     router.push(`/practitioners/${practitioner.id}`);
@@ -52,7 +53,7 @@ const ServicePageContent = () => {
       {/* Sidebar Filter */}
       <div className="w-full md:max-w-xs sticky top-4 h-fit">
         <ServiceFilter
-          clinics={dummyClinics}
+          clinics={clinicOptions}
           therapies={therapiesOptions}
           practitioners={practitionerOptions}
           filteredTherapies={therapiesOptions}
@@ -69,12 +70,10 @@ const ServicePageContent = () => {
 
       {/* Practitioner Cards */}
       <div className="flex flex-col gap-6 w-full">
-        {(practitioners ?? []).map((practitioner) => (
+        {(practitioners && practitioners).map((practitioner) => (
           <PractitionerCard
             key={practitioner.id}
-            practitioner={practitioner}
-            loading={false}
-            error={null}
+            practitionerId={practitioner.id}
             onPractitionerClick={onPractitionerClick}
             onBookAppointmentClick={(practitionerId) =>
               console.log(practitionerId)

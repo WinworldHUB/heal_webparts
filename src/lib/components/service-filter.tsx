@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { Separator } from "./ui/separator";
 import {
@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import dynamic from "next/dynamic";
 
 interface ServiceFilterProps {
   clinics: Option[];
@@ -38,6 +39,11 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
   onPractitionerChange,
   onSearch,
 }) => {
+  const [mounted, setMounted] = useState<boolean>(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const selectedTherapyOptions = filteredTherapies.filter((t) =>
     selectedTherapyIds.includes(t.value)
   );
@@ -78,30 +84,35 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
           </div>
         </div>
         <Separator />
-        <Select
-          options={clinics}
-          value={clinics.find((opt) => opt.value === selectedClinicId) || null}
-          onChange={(opt) => onClinicChange(opt?.value || "")}
-          placeholder="Select Clinic..."
-          isClearable
-        />
-
-        <Select
-          isMulti
-          options={filteredTherapies}
-          value={selectedTherapyOptions}
-          onChange={(opts) => onTherapyChange(opts.map((o) => o.value))}
-          placeholder="Select Therapies..."
-        />
-
-        <Select
-          isMulti
-          options={filteredPractitioners}
-          value={selectedPractitionerOptions}
-          onChange={(opts) => onPractitionerChange(opts.map((o) => o.value))}
-          placeholder="Select Practitioners..."
-        />
-
+        {mounted && (
+          <Select
+            options={clinics}
+            value={
+              clinics.find((opt) => opt.value === selectedClinicId) || null
+            }
+            onChange={(opt) => onClinicChange(opt?.value || "")}
+            placeholder="Select Clinic..."
+            isClearable
+          />
+        )}
+        {mounted && (
+          <Select
+            isMulti
+            options={filteredTherapies}
+            value={selectedTherapyOptions}
+            onChange={(opts) => onTherapyChange(opts.map((o) => o.value))}
+            placeholder="Select Therapies..."
+          />
+        )}
+        {mounted && (
+          <Select
+            isMulti
+            options={filteredPractitioners}
+            value={selectedPractitionerOptions}
+            onChange={(opts) => onPractitionerChange(opts.map((o) => o.value))}
+            placeholder="Select Practitioners..."
+          />
+        )}
         <button
           type="button"
           className="bg-transparent hover:bg-black/5 transition-colors font-semibold text-black border cursor-pointer hover:text-gray-800 px-4 py-2 rounded-3xl"
