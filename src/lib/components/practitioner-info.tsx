@@ -1,8 +1,6 @@
 import { Skeleton } from "@/lib/components/ui/skeleton";
-import { error } from "console";
 import React, { FC } from "react";
 import { FaPhone, FaEnvelope } from "react-icons/fa6";
-import { truncateText } from "../utils/string-util";
 import Image from "next/image";
 import { Separator } from "@/lib/components/ui/separator";
 

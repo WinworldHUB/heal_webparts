@@ -1,17 +1,15 @@
 "use client";
 
 import HoverCard from "@/lib/components/hover-card";
-import { SkeletonCard } from "@/lib/components/ui/skeleton";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/lib/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import Loader from "./ui/loader";
-import { API_BASE_URL } from "../constants/api-constants";
 import usePractitioners from "../hooks/usePractitioners";
 
 const PractitionerPageContent = () => {
