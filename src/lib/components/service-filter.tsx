@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Select from "react-select";
 import { Separator } from "./ui/separator";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
-import dynamic from "next/dynamic";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Combobox } from "./ui/combobox"; // your shadcn combobox
+import { Button } from "./ui/button";
+
+interface Option {
+  label: string;
+  value: string;
+}
 
 interface ServiceFilterProps {
   clinics: Option[];
@@ -17,11 +16,11 @@ interface ServiceFilterProps {
   filteredTherapies: Option[];
   filteredPractitioners: Option[];
   selectedClinicId: string | null;
-  selectedTherapyIds: string[];
-  selectedPractitionerIds: string[];
+  selectedTherapyIds: string;
+  selectedPractitionerIds: string;
   onClinicChange: (value: string) => void;
-  onTherapyChange: (values: string[]) => void;
-  onPractitionerChange: (values: string[]) => void;
+  onTherapyChange: (values: string) => void;
+  onPractitionerChange: (values: string) => void;
   onSearch: () => void;
 }
 
@@ -39,10 +38,8 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
   onPractitionerChange,
   onSearch,
 }) => {
-  const [mounted, setMounted] = useState<boolean>(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const selectedTherapyOptions = filteredTherapies.filter((t) =>
     selectedTherapyIds.includes(t.value)
@@ -52,15 +49,12 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
     selectedPractitionerIds.includes(p.value)
   );
 
-  const selectedClinicCount = selectedClinicId ? 1 : 0;
-
   return (
     <Card className="w-full p-4 gap-3">
       <CardHeader className="p-0">
         <CardTitle className="text-lg mb-2">Book an Appointment</CardTitle>
       </CardHeader>
 
-      {/* Summary Line */}
       <Card className="mb-4 px-4 py-2 bg-muted text-sm text-muted-foreground border">
         <p className="flex flex-wrap gap-x-4">
           <span>Total Clinics: {clinics.length}</span>
@@ -71,55 +65,47 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
 
       <CardContent className="flex flex-col gap-5 p-0">
         <Separator />
-        <div className="flex flex-col gap-2 justify-center items-start text-start">
-          {/* Selected Counts */}
-          <div className="text-sm text-muted-foreground">
-            {`${selectedClinicCount} of ${clinics.length} clinics selected`}
-          </div>
-          <div className="text-sm text-muted-foreground">
-            {`${selectedTherapyOptions.length} of ${filteredTherapies.length} therapies selected`}
-          </div>
-          <div className="text-sm text-muted-foreground">
-            {`${selectedPractitionerOptions.length} of ${filteredPractitioners.length} practitioners selected`}
-          </div>
+        <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+          <div>{`${selectedClinicId ? 1 : 0} of ${
+            clinics.length
+          } clinics selected`}</div>
+          <div>{`${selectedTherapyOptions.length} of ${filteredTherapies.length} therapies selected`}</div>
+          <div>{`${selectedPractitionerOptions.length} of ${filteredPractitioners.length} practitioners selected`}</div>
         </div>
         <Separator />
+
         {mounted && (
-          <Select
+          <Combobox
             options={clinics}
-            value={
-              clinics.find((opt) => opt.value === selectedClinicId) || null
-            }
-            onChange={(opt) => onClinicChange(opt?.value || "")}
+            onChange={onClinicChange}
             placeholder="Select Clinic..."
-            isClearable
           />
         )}
+
         {mounted && (
-          <Select
-            isMulti
+          <Combobox
             options={filteredTherapies}
-            value={selectedTherapyOptions}
-            onChange={(opts) => onTherapyChange(opts.map((o) => o.value))}
+            onChange={onTherapyChange}
             placeholder="Select Therapies..."
           />
         )}
+
         {mounted && (
-          <Select
-            isMulti
+          <Combobox
             options={filteredPractitioners}
-            value={selectedPractitionerOptions}
-            onChange={(opts) => onPractitionerChange(opts.map((o) => o.value))}
+            onChange={onPractitionerChange}
             placeholder="Select Practitioners..."
           />
         )}
-        <button
+
+        <Button
           type="button"
-          className="bg-transparent hover:bg-black/5 transition-colors font-semibold text-black border cursor-pointer hover:text-gray-800 px-4 py-2 rounded-3xl"
+          variant="outline"
+          className="rounded-3xl"
           onClick={onSearch}
         >
           Search
-        </button>
+        </Button>
       </CardContent>
     </Card>
   );

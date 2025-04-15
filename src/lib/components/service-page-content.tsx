@@ -13,13 +13,12 @@ import useClinics from "../hooks/useClinics";
 const ServicePageContent = () => {
   const router = useRouter();
 
-  const { practitioners, loading, error, getAllPractitioners } =
+  const { practitioners, loading, error, getAllPractitioners, getPractitionerById } =
     usePractitioners();
-  const { clinics } = useClinics();
-  const [selectedTherapyIds, setSelectedTherapyIds] = useState<string[]>([]);
-  const [selectedPractitionerIds, setSelectedPractitionerIds] = useState<
-    string[]
-  >([]);
+  const { clinics, getClinicById } = useClinics();
+  const [selectedTherapyId, setSelectedTherapyId] = useState<string>("");
+  const [selectedPractitionerId, setSelectedPractitionerId] =
+    useState<string>("");
   const [selectedClinicId, setSelectedClinicId] = useState<string | null>(null);
 
   const therapiesOptions: Option[] = therapies.map((therapy) => ({
@@ -59,11 +58,11 @@ const ServicePageContent = () => {
           filteredTherapies={therapiesOptions}
           filteredPractitioners={practitionerOptions}
           selectedClinicId={selectedClinicId}
-          selectedTherapyIds={selectedTherapyIds}
-          selectedPractitionerIds={selectedPractitionerIds}
+          selectedTherapyIds={selectedTherapyId}
+          selectedPractitionerIds={selectedPractitionerId}
           onClinicChange={(id) => setSelectedClinicId(id)}
-          onTherapyChange={(ids) => setSelectedTherapyIds(ids)}
-          onPractitionerChange={(ids) => setSelectedPractitionerIds(ids)}
+          onTherapyChange={(id) => setSelectedTherapyId(id)}
+          onPractitionerChange={(id) => setSelectedPractitionerId(id)}
           onSearch={() => {}}
         />
       </div>

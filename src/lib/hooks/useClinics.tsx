@@ -7,7 +7,7 @@ interface UseClinicData {
   clinics: Clinic[];
   selectedClinic: Clinic | null;
   getAllClinics: VoidFunction;
-  getClinicById: VoidFunction;
+  getClinicById: (id: string) => void;
 }
 
 const useClinics = (clinicId?: string): UseClinicData => {
@@ -35,12 +35,10 @@ const useClinics = (clinicId?: string): UseClinicData => {
     }
   };
 
-  const getClinicById = async () => {
+  const getClinicById = async (id: string) => {
     try {
       setLoading(true);
-      const response = await fetch(
-        API_BASE_URL + `/analytics/clinics/${clinicId}`
-      );
+      const response = await fetch(API_BASE_URL + `/analytics/clinics/${id}`);
       if (!response.ok) throw new Error("Failed to fetch practitioners");
       const data = await response.json();
 
@@ -58,7 +56,7 @@ const useClinics = (clinicId?: string): UseClinicData => {
   };
 
   useEffect(() => {
-    if (clinicId) getClinicById();
+    if (clinicId) getClinicById(clinicId);
   }, [clinicId]);
 
   useEffect(() => {
