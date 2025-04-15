@@ -26,7 +26,7 @@ const TherapyPageContent = () => {
 
         const transformed = data.map((therapy: Therapy) => ({
           ...therapy,
-          title: therapy.name,
+          title: therapy.therapyName,
           link: therapy.link || "https://heal-wellness.co.uk/",
         }));
 
@@ -69,7 +69,7 @@ const TherapyPageContent = () => {
               <TherapyWidget
                 therapy={{
                   ...therapy,
-                  name: `${index + 1}. ${therapy.name}`,
+                  therapyName: `${index + 1}. ${therapy.therapyName}`,
                 }}
               />
             </CarouselItem>

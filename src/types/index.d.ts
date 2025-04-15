@@ -1,12 +1,9 @@
 type TherapyResponse = {
-  id: string;
-  name: string;
-  description: string;
+  therapyId: string;
+  therapyName: string;
+  therapyDescription: string;
   expiryDate: string | null;
   preRequisites: string | null;
-  createdAt: string;
-  updatedAt: string;
-  metadata: Record<string, unknown>;
 };
 
 type TherapyDummy = {
