@@ -23,19 +23,28 @@ type Availability =
   | { day: string; status: string};
 
 
-type Practitioner = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  image: string;
-  practice: string;
-  description: string;
-  availability: Availability[];
-  therapies: TherapyDummy[];
-}
-
 type Option = {
   label: string
   value: string
 }
+
+type PractitionerResponse = {
+  id: string;
+  businessName: string;
+  firstName: string;
+  lastName: string;
+  contactNumber: string;
+  email: string;
+  biography: string;
+  practitionerImage: string;
+  status: string;
+  isActive: boolean;
+  websiteLink: string;
+  businessSummary: string;
+};
+
+
+type Practitioner = {
+  availability: Availability[];
+  therapies: TherapyDummy[];
+} & PractitionerResponse;
