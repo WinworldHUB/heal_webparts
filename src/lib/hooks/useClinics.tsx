@@ -1,78 +1,63 @@
-import React, { useEffect, useState } from "react";
-import { API_BASE_URL } from "../constants/api-constants";
+import { useState } from "react";
+import { API_ROUTES } from "../constants/api-constants";
+import useApi from "./useApi";
 
-interface UseClinicData {
+interface ClinicState {
   loading: boolean;
   error: string;
   clinics: Clinic[];
-  selectedClinic: Clinic | null;
-  getAllClinics: VoidFunction;
-  getClinicById: (id: string) => void;
+  getAllClinics: (onSuccess?: (allClinics: Clinic[]) => void) => void;
+  getClinicDetails: (
+    id: string,
+    onSuccess?: (clinicDetails: ClinicDetails) => void
+  ) => void;
 }
 
-const useClinics = (clinicId?: string): UseClinicData => {
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+const useClinics = (): ClinicState => {
+  const [error, setError] = useState<string>(null);
   const [clinics, setClinics] = useState<Clinic[]>([]);
-  const [selectedClinic, setSelectedClinic] = useState<Clinic | null>(null);
-  const getAllClinics = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(API_BASE_URL + "/analytics/clinics/all");
-      if (!response.ok) throw new Error("Failed to fetch practitioners");
-      const data = await response.json();
 
-      if ((data.data as Clinic[]).length > 0) {
-        setClinics(data.data);
-      } else {
-        setClinics([]);
-      }
+  const { getData: getAllClinicsRequest, loading: getAllClinicsLoading } =
+    useApi<Clinic[]>();
+  const { getData: getClinicDetailsRequest, loading: getClinicDetailsLoading } =
+    useApi<ClinicDetails>();
+
+  const getAllClinics = async (onSuccess?: (allClinics: Clinic[]) => void) => {
+    try {
+      await getAllClinicsRequest(
+        `${API_ROUTES.BASE_URL}${API_ROUTES.CLINICS}${API_ROUTES.ALL}`,
+        (response) => {
+          setClinics(response);
+          onSuccess?.(response);
+        },
+        setError
+      );
     } catch (error) {
-      console.error("Error fetching practitioners:", error);
-      setError("Unable to load practitioners at this time.");
-    } finally {
-      setLoading(false);
+      setError(error.message);
     }
   };
 
-  const getClinicById = async (id: string) => {
-    if (!id) return;
-
+  const getClinicDetails = async (
+    id: string,
+    onSuccess?: (clinicDetails: ClinicDetails) => void
+  ) => {
     try {
-      setLoading(true);
-      const response = await fetch(API_BASE_URL + `/analytics/clinics/${id}`);
-      if (!response.ok) throw new Error("Failed to fetch practitioners");
-      const data = await response.json();
-      console.log(data);
-
-      //   if (data.data as Clinic) {
-      //     setSelectedClinic(data.data);
-      //   } else {
-      //     setSelectedClinic(null);
-      //   }
+      await getClinicDetailsRequest(
+        `${API_ROUTES.BASE_URL}${API_ROUTES.CLINICS}/${id}`,
+        onSuccess,
+        setError
+      );
     } catch (error) {
-      console.error("Error fetching practitioners:", error);
-      setError("Unable to load practitioners at this time.");
-    } finally {
-      setLoading(false);
+      setError(error.message);
     }
   };
-
-  useEffect(() => {
-    if (clinicId) getClinicById(clinicId);
-  }, [clinicId]);
-
-  useEffect(() => {
-    getAllClinics();
-  }, []);
 
   return {
-    loading,
+    loading: getAllClinicsLoading,
     error,
     clinics,
-    selectedClinic,
     getAllClinics,
-    getClinicById,
+    getClinicDetails,
   };
 };
 

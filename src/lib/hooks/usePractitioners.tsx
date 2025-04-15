@@ -1,70 +1,71 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { API_BASE_URL } from "../constants/api-constants";
+import { useState } from "react";
+import { API_ROUTES } from "../constants/api-constants";
+import useApi from "./useApi";
 
-interface usePractitionerData {
+interface PractitionersState {
   loading: boolean;
   error: string;
   practitioners: Practitioner[];
-  selectedPractitioner: Practitioner | null;
-  getAllPractitioners: VoidFunction;
-  getPractitionerById: (id: string) => void;
+  getAllPractitioners: (
+    onSuccess?: (allPractitioners: Practitioner[]) => void
+  ) => void;
+  getPractitionerDetails: (
+    id: string,
+    onSuccess?: (practitionerDetails: PractitionerDetails) => void
+  ) => void;
 }
 
-const usePractitioners = (practitionerId?: string): usePractitionerData => {
+const usePractitioners = (): PractitionersState => {
+  const [error, setError] = useState<string>(null);
   const [practitioners, setPractitioners] = useState<Practitioner[]>([]);
-  const [selectedPractitioner, setSelectedPractitioner] =
-    useState<Practitioner | null>(null);
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
 
-  const getAllPractitioners = async () => {
+  const {
+    getData: getAllPractitionersRequest,
+    loading: getAllPractitionersLoading,
+  } = useApi<Practitioner[]>();
+  const {
+    getData: getPractitionerDetailsRequest,
+    loading: getPractitionerDetailsLoading,
+  } = useApi<PractitionerDetails>();
+
+  const getAllPractitioners = async (
+    onSuccess?: (allTherapies: Practitioner[]) => void
+  ) => {
     try {
-      setLoading(true);
-      const response = await fetch(
-        API_BASE_URL + "/analytics/practitioners/all"
+      await getAllPractitionersRequest(
+        `${API_ROUTES.BASE_URL}${API_ROUTES.PRACTITIONERS}${API_ROUTES.ALL}`,
+        (response) => {
+          setPractitioners(response);
+          onSuccess?.(response);
+        },
+        setError
       );
-      if (!response.ok) throw new Error("Failed to fetch practitioners");
-      const data = await response.json();
-      setPractitioners(data.data);
     } catch (error) {
-      console.error("Error fetching practitioners:", error);
-      setError("Unable to load practitioners at this time.");
-    } finally {
-      setLoading(false);
+      setError(error.message);
     }
   };
 
-  const getPractitionerById = async (id: string) => {
-    if (!id) return;
-
+  const getPractitionerDetails = async (
+    id: string,
+    onSuccess?: (PractitionerDetails: PractitionerDetails) => void
+  ) => {
     try {
-      setLoading(true);
-      const response = await fetch(
-        API_BASE_URL + `/analytics/practitioners/${id}`
+      await getPractitionerDetailsRequest(
+        `${API_ROUTES.BASE_URL}${API_ROUTES.PRACTITIONERS}/${id}`,
+        onSuccess,
+        setError
       );
-      if (!response.ok) throw new Error("Failed to fetch practitioner");
-      const data = await response.json();
-      setSelectedPractitioner(data.data.practitioner);
     } catch (error) {
-      console.error("Error fetching practitioner:", error);
-      setError("Unable to load practitioner at this time.");
-    } finally {
-      setLoading(false);
+      setError(error.message);
     }
   };
-
-  useEffect(() => {
-    if (practitionerId) getPractitionerById(practitionerId);
-  }, [practitionerId]);
 
   return {
-    practitioners,
-    selectedPractitioner,
-    loading,
+    loading: getAllPractitionersLoading,
     error,
+    practitioners,
     getAllPractitioners,
-    getPractitionerById,
+    getPractitionerDetails,
   };
 };
 

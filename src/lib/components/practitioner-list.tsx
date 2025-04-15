@@ -1,3 +1,4 @@
+"use client";
 import React, { FC } from "react";
 import PractitionerCard from "./practitioner-card";
 
@@ -10,12 +11,13 @@ const PractitionerList: FC<PractitionerListProps> = ({
   practitioners,
   onPractitionerClick,
 }) => {
+  console.log("PractitionerList", practitioners);
   return (
     <div className="flex flex-col gap-6 w-full">
-      {(practitioners && practitioners).map((practitioner) => (
+      {(practitioners ?? []).map((practitioner) => (
         <PractitionerCard
           key={practitioner.id}
-          practitionerId={practitioner.id}
+          practitioner={practitioner}
           onPractitionerClick={onPractitionerClick}
           onBookAppointmentClick={(practitionerId) =>
             console.log(practitionerId)

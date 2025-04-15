@@ -1,8 +1,5 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
-import ServiceFilter from "./service-filter";
-import PractitionerCard from "./practitioner-card";
 import Loader from "./ui/loader";
 
 import { useRouter } from "next/navigation";
@@ -10,97 +7,151 @@ import usePractitioners from "../hooks/usePractitioners";
 import useClinics from "../hooks/useClinics";
 import useTherapy from "../hooks/useTherapy";
 import PractitionerList from "./practitioner-list";
+import ServiceFilters from "./service-filters";
+import { EMPTY_FILTER_SELECTIONS } from "../constants";
 
 const ServicePageContent = () => {
   const router = useRouter();
 
   const {
-    practitioners,
-    loading,
-    error,
+    practitioners: allPractitioners,
+    loading: practitionersLoading,
+    error: practitionersError,
     getAllPractitioners,
-    getPractitionerById,
+    getPractitionerDetails,
   } = usePractitioners();
-  const { clinics, getClinicById } = useClinics();
-  const { getTherapyById, therapies } = useTherapy();
-  const [selectedTherapyId, setSelectedTherapyId] = useState<string>("");
-  const [selectedPractitionerId, setSelectedPractitionerId] =
-    useState<string>("");
-  const [selectedClinicId, setSelectedClinicId] = useState<string | null>(null);
+  const {
+    clinics: allClinics,
+    getAllClinics,
+    getClinicDetails,
+    loading: clinicsLoading,
+    error: clinicsError,
+  } = useClinics();
+  const {
+    getAllTherapies,
+    getTherapyDetails,
+    therapies: allTherapies,
+    loading: therapiesLoading,
+    error: therapiesError,
+  } = useTherapy();
 
-  const therapiesOptions: Option[] = therapies.map((therapy) => ({
-    value: therapy.therapyId,
-    label: therapy.therapyName,
-  }));
+  const [clinics, setClinics] = useState<Clinic[]>(allClinics);
+  const [practitioners, setPractitioners] =
+    useState<Practitioner[]>(allPractitioners);
+  const [therapies, setTherapies] = useState<Therapy[]>(allTherapies);
 
-  const practitionerOptions: Option[] = practitioners.map((practitioner) => ({
-    value: practitioner.id,
-    label: practitioner?.firstName + practitioner?.lastName,
-  }));
+  const [filterSelections, setFilterSelections] = useState<FilterSelections>(
+    EMPTY_FILTER_SELECTIONS
+  );
 
-  const clinicOptions: Option[] = clinics.map((clinic) => ({
-    value: clinic.id,
-    label: clinic?.name,
-  }));
+  const handleFilterChange = ({
+    selectedClinicId,
+    selectedTherapyId,
+    selectedPractitionerId,
+  }: FilterSelections) => {
+    const clinicId = selectedClinicId === "" ? null : selectedClinicId;
+    const therapyId = selectedTherapyId === "" ? null : selectedTherapyId;
+    const practitionerId =
+      selectedPractitionerId === "" ? null : selectedPractitionerId;
+
+    if (!clinicId) {
+      setClinics(allClinics);
+    }
+
+    if (!therapyId) {
+      setTherapies(allTherapies);
+    }
+
+    if (!practitionerId) {
+      setPractitioners(allPractitioners);
+    }
+
+    // If ClinicID !== null, get clinic by ID
+    if (clinicId) {
+      getClinicDetails(clinicId, (clinicDetails) => {
+        if (clinicDetails) {
+          setClinics([clinicDetails.clinic]);
+          setTherapies(clinicDetails.therapies);
+          setPractitioners(clinicDetails.practitioners);
+        }
+      });
+    }
+    // If TherapyID !== null, get therapy by ID
+    if (therapyId) {
+      getTherapyDetails(therapyId, (therapyDetails) => {
+        if (therapyDetails) {
+          setClinics(therapyDetails.clinics);
+          setTherapies([therapyDetails.therapy]);
+          setPractitioners(therapyDetails.practitioners);
+        }
+      });
+    }
+    // If PractitionerID !== null, get practitioner by ID
+    if (practitionerId) {
+      getPractitionerDetails(practitionerId, (practitionerDetails) => {
+        if (practitionerDetails) {
+          setClinics(practitionerDetails.clinics);
+          setTherapies(practitionerDetails.therapies);
+          setPractitioners([practitionerDetails.practitioner]);
+        }
+      });
+    }
+
+    setFilterSelections({
+      selectedClinicId: clinicId,
+      selectedTherapyId: therapyId,
+      selectedPractitionerId: practitionerId,
+    });
+  };
 
   const onPractitionerClick = (practitioner: Practitioner) => {
     router.push(`/practitioners/${practitioner.id}`);
   };
 
   useEffect(() => {
-    getAllPractitioners();
+    getAllClinics(setClinics);
+    getAllTherapies(setTherapies);
+    getAllPractitioners(setPractitioners);
   }, []);
 
-  if (loading) return <Loader />;
-  if (error) return <Loader />;
-
-  const handleSearch = () => {
-    if (selectedClinicId) {
-      console.log("clinic id", selectedClinicId);
-
-      getClinicById(selectedClinicId);
-    }
-
-    if (selectedTherapyId) {
-      console.log("Therapy id", selectedTherapyId);
-      getTherapyById(selectedTherapyId);
-    }
-
-    if (selectedPractitionerId) {
-      console.log("practioner id", selectedPractitionerId);
-      getPractitionerById(selectedPractitionerId);
-    }
-  };
-
-  const handleClear = () => {
-      setSelectedClinicId("")
-      setSelectedPractitionerId("")
-      setSelectedTherapyId("")
-  }
+  if (practitionersLoading || clinicsLoading || therapiesLoading)
+    return <Loader />;
+  if (practitionersError || clinicsError || therapiesError) return <Loader />;
 
   return (
     <div className="flex flex-col md:flex-row gap-6 p-4 bg-[#f2f0ea] min-h-dvh">
       {/* Sidebar Filter */}
       <div className="w-full md:max-w-sm sticky top-4 h-fit">
-        <ServiceFilter
-          clinics={clinicOptions}
-          therapies={therapiesOptions}
-          practitioners={practitionerOptions}
-          filteredTherapies={therapiesOptions}
-          filteredPractitioners={practitionerOptions}
-          selectedClinicId={selectedClinicId}
-          selectedTherapyId={selectedTherapyId}
-          selectedPractitionerId={selectedPractitionerId}
-          onClinicChange={(id) => setSelectedClinicId(id)}
-          onTherapyChange={(id) => setSelectedTherapyId(id)}
-          onPractitionerChange={(id) => setSelectedPractitionerId(id)}
-          onSearch={handleSearch}
-          onClear={handleClear}
+        <ServiceFilters
+          clinics={clinics ?? []}
+          therapies={therapies ?? []}
+          practitioners={practitioners ?? []}
+          selectedClinicId={filterSelections.selectedClinicId}
+          selectedTherapyId={filterSelections.selectedTherapyId}
+          selectedPractitionerId={filterSelections.selectedPractitionerId}
+          onClinicChange={(id) => {
+            handleFilterChange({ ...filterSelections, selectedClinicId: id });
+          }}
+          onTherapyChange={(id) => {
+            handleFilterChange({ ...filterSelections, selectedTherapyId: id });
+          }}
+          onPractitionerChange={(id) => {
+            handleFilterChange({
+              ...filterSelections,
+              selectedPractitionerId: id,
+            });
+          }}
+          onClearClicked={() => {
+            handleFilterChange(EMPTY_FILTER_SELECTIONS);
+          }}
         />
       </div>
 
       {/* Practitioner List */}
-     <PractitionerList practitioners={practitioners} onPractitionerClick={onPractitionerClick}/>
+      <PractitionerList
+        practitioners={practitioners ?? []}
+        onPractitionerClick={onPractitionerClick}
+      />
     </div>
   );
 };

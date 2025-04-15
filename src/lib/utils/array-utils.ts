@@ -105,3 +105,15 @@ export const removeArrayItems = <T>(
   const updatedArray = [...array];
   return updatedArray.filter((item) => item[key] !== value);
 };
+
+export const getComboBoxOptions = <T>(
+  array: T[],
+  key: string,
+  label: string
+): { value: string; label: string }[] => {
+  const updatedArray = [...array];
+  return updatedArray.map((item) => ({
+    value: item[key],
+    label: item[label],
+  }));
+};

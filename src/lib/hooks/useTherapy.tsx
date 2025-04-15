@@ -1,79 +1,68 @@
-import { useEffect, useState } from "react";
-import { API_BASE_URL } from "../constants/api-constants";
+import { useState } from "react";
+import { API_ROUTES } from "../constants/api-constants";
+import useApi from "./useApi";
 
-interface UseTherapyData {
+interface TherapyState {
   loading: boolean;
   error: string;
   therapies: Therapy[];
-  selectedTherapy: Therapy | null;
-  getAllTherapies: VoidFunction;
-  getTherapyById: (id: string) => void;
+  getAllTherapies: (onSuccess?: (allTherapies: Therapy[]) => void) => void;
+  getTherapyDetails: (
+    id: string,
+    onSuccess?: (therapyDetails: TherapyDetails) => void
+  ) => void;
 }
 
-const useTherapies = (therapyId?: string): UseTherapyData => {
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+const useTherapy = (): TherapyState => {
+  const [error, setError] = useState<string>(null);
   const [therapies, setTherapies] = useState<Therapy[]>([]);
-  const [selectedTherapy, setSelectedTherapy] = useState<Therapy | null>(null);
 
-  const getAllTherapies = async () => {
+  const { getData: getAllTherapiesRequest, loading: getAllClinicsLoading } =
+    useApi<Therapy[]>();
+  const {
+    getData: getTherapyDetailsRequest,
+    loading: getTherapyDetailsLoading,
+  } = useApi<TherapyDetails>();
+
+  const getAllTherapies = async (
+    onSuccess?: (allTherapies: Therapy[]) => void
+  ) => {
     try {
-      setLoading(true);
-      const response = await fetch(API_BASE_URL + "/analytics/therapies/all");
-      if (!response.ok) throw new Error("Failed to fetch therapies");
-      const data = await response.json();
-
-      if ((data.data as Therapy[]).length > 0) {
-        setTherapies(data.data);
-      } else {
-        setTherapies([]);
-      }
+      await getAllTherapiesRequest(
+        `${API_ROUTES.BASE_URL}${API_ROUTES.THERAPIES}${API_ROUTES.ALL}`,
+        (response) => {
+          setTherapies(response);
+          onSuccess?.(response);
+        },
+        setError
+      );
     } catch (error) {
-      console.error("Error fetching therapies:", error);
-      setError("Unable to load therapies at this time.");
-    } finally {
-      setLoading(false);
+      setError(error.message);
     }
   };
 
-  const getTherapyById = async (id: string) => {
-    if (!id) return;
-
+  const getTherapyDetails = async (
+    id: string,
+    onSuccess?: (therapyDetails: TherapyDetails) => void
+  ) => {
     try {
-      setLoading(true);
-      const response = await fetch(API_BASE_URL + `/analytics/therapies/${id}`);
-      if (!response.ok) throw new Error("Failed to fetch therapy");
-      const data = await response.json();
-
-      if (data.data as Therapy) {
-        setSelectedTherapy(data.data);
-      } else {
-        setSelectedTherapy(null);
-      }
+      await getTherapyDetailsRequest(
+        `${API_ROUTES.BASE_URL}${API_ROUTES.THERAPIES}/${id}`,
+        onSuccess,
+        setError
+      );
     } catch (error) {
-      console.error("Error fetching therapy:", error);
-      setError("Unable to load therapy at this time.");
-    } finally {
-      setLoading(false);
+      setError(error.message);
     }
   };
-
-  useEffect(() => {
-    if (therapyId) getTherapyById(therapyId);
-  }, [therapyId]);
-
-  useEffect(() => {
-    getAllTherapies();
-  }, []);
 
   return {
-    loading,
+    loading: getAllClinicsLoading,
     error,
     therapies,
-    selectedTherapy,
     getAllTherapies,
-    getTherapyById,
+    getTherapyDetails,
   };
 };
 
-export default useTherapies;
+export default useTherapy;
