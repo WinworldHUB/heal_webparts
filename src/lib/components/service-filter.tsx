@@ -16,12 +16,13 @@ interface ServiceFilterProps {
   filteredTherapies: Option[];
   filteredPractitioners: Option[];
   selectedClinicId: string | null;
-  selectedTherapyIds: string;
-  selectedPractitionerIds: string;
+  selectedTherapyId: string;
+  selectedPractitionerId: string;
   onClinicChange: (value: string) => void;
   onTherapyChange: (values: string) => void;
   onPractitionerChange: (values: string) => void;
   onSearch: () => void;
+  onClear: () => void;
 }
 
 const ServiceFilter: React.FC<ServiceFilterProps> = ({
@@ -31,22 +32,23 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
   filteredTherapies,
   filteredPractitioners,
   selectedClinicId,
-  selectedTherapyIds,
-  selectedPractitionerIds,
+  selectedTherapyId,
+  selectedPractitionerId,
   onClinicChange,
   onTherapyChange,
   onPractitionerChange,
   onSearch,
+  onClear,
 }) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
   const selectedTherapyOptions = filteredTherapies.filter((t) =>
-    selectedTherapyIds.includes(t.value)
+    selectedTherapyId.includes(t.value)
   );
 
   const selectedPractitionerOptions = filteredPractitioners.filter((p) =>
-    selectedPractitionerIds.includes(p.value)
+    selectedPractitionerId.includes(p.value)
   );
 
   return (
@@ -79,6 +81,7 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
             options={clinics}
             onChange={onClinicChange}
             placeholder="Select Clinic..."
+            selected={selectedClinicId ?? ""}
           />
         )}
 
@@ -87,6 +90,7 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
             options={filteredTherapies}
             onChange={onTherapyChange}
             placeholder="Select Therapies..."
+            selected={selectedTherapyId ?? ""}
           />
         )}
 
@@ -94,6 +98,7 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
           <Combobox
             options={filteredPractitioners}
             onChange={onPractitionerChange}
+            selected={selectedPractitionerId ?? ""}
             placeholder="Select Practitioners..."
           />
         )}
@@ -105,6 +110,14 @@ const ServiceFilter: React.FC<ServiceFilterProps> = ({
           onClick={onSearch}
         >
           Search
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          className="rounded-3xl"
+          onClick={onClear}
+        >
+          Clear
         </Button>
       </CardContent>
     </Card>

@@ -8,7 +8,7 @@ interface usePractitionerData {
   practitioners: Practitioner[];
   selectedPractitioner: Practitioner | null;
   getAllPractitioners: VoidFunction;
-  getPractitionerById: VoidFunction;
+  getPractitionerById: (id: string) => void;
 }
 
 const usePractitioners = (practitionerId?: string): usePractitionerData => {
@@ -21,7 +21,9 @@ const usePractitioners = (practitionerId?: string): usePractitionerData => {
   const getAllPractitioners = async () => {
     try {
       setLoading(true);
-      const response = await fetch(API_BASE_URL + "/analytics/practitioners/all");
+      const response = await fetch(
+        API_BASE_URL + "/analytics/practitioners/all"
+      );
       if (!response.ok) throw new Error("Failed to fetch practitioners");
       const data = await response.json();
       setPractitioners(data.data);
@@ -33,13 +35,13 @@ const usePractitioners = (practitionerId?: string): usePractitionerData => {
     }
   };
 
-  const getPractitionerById = async () => {
-    if (!practitionerId) return;
+  const getPractitionerById = async (id: string) => {
+    if (!id) return;
 
     try {
       setLoading(true);
       const response = await fetch(
-        API_BASE_URL + `/analytics/practitioners/${practitionerId}`
+        API_BASE_URL + `/analytics/practitioners/${id}`
       );
       if (!response.ok) throw new Error("Failed to fetch practitioner");
       const data = await response.json();
@@ -53,7 +55,7 @@ const usePractitioners = (practitionerId?: string): usePractitionerData => {
   };
 
   useEffect(() => {
-    if (practitionerId) getPractitionerById();
+    if (practitionerId) getPractitionerById(practitionerId);
   }, [practitionerId]);
 
   return {

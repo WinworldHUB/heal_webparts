@@ -36,17 +36,20 @@ const useClinics = (clinicId?: string): UseClinicData => {
   };
 
   const getClinicById = async (id: string) => {
+    if (!id) return;
+
     try {
       setLoading(true);
       const response = await fetch(API_BASE_URL + `/analytics/clinics/${id}`);
       if (!response.ok) throw new Error("Failed to fetch practitioners");
       const data = await response.json();
+      console.log(data);
 
-      if (data.data as Clinic) {
-        setSelectedClinic(data.data);
-      } else {
-        setSelectedClinic(null);
-      }
+      //   if (data.data as Clinic) {
+      //     setSelectedClinic(data.data);
+      //   } else {
+      //     setSelectedClinic(null);
+      //   }
     } catch (error) {
       console.error("Error fetching practitioners:", error);
       setError("Unable to load practitioners at this time.");

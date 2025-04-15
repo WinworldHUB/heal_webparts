@@ -37,6 +37,8 @@ const useTherapies = (therapyId?: string): UseTherapyData => {
   };
 
   const getTherapyById = async (id: string) => {
+    if (!id) return;
+
     try {
       setLoading(true);
       const response = await fetch(API_BASE_URL + `/analytics/therapies/${id}`);
