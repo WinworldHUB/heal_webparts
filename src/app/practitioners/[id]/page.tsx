@@ -4,42 +4,18 @@ import { Skeleton } from "@/lib/components/ui/skeleton";
 import PractitionerInfo from "@/lib/components/practitioner-info";
 import { useParams } from "next/navigation";
 import React, { FC, useEffect, useState } from "react";
+import usePractitioners from "@/lib/hooks/usePractitioners";
 
 const ProfilePage = () => {
   const params = useParams();
 
   const practitionerId = params.id as string;
 
-  const [practitioner, setPractitioner] = useState<Practitioner | null>(null);
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchPractitioners = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch("/api/practitioner/" + practitionerId);
-        if (!response.ok) {
-          setError("Failed to fetch practitioners");
-        }
-
-        const data = await response.json();
-
-        if (!data) {
-          setError("Practitioner not found");
-        }
-
-        setPractitioner(data);
-      } catch (error) {
-        console.error("Error fetching practitioners:", error);
-        setError(`Unable to load practitioners at this time. ${error}`);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPractitioners();
-  }, []);
+  const {
+    selectedPractitioner: practitioner,
+    loading,
+    error,
+  } = usePractitioners(practitionerId);
 
   if (!practitioner) {
     return (
@@ -50,10 +26,9 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="flex justify-center items-start w-full h-screen bg-[#f2f0ea] p-4">
+    <div className="flex justify-center items-start w-full min-h-dvh bg-[#f2f0ea] p-4">
       {practitioner ? (
-     <div className="w-3/4">
-
+        <div className="w-3/4">
           <PractitionerInfo
             practitioner={practitioner}
             loading={loading}

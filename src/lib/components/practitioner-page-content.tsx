@@ -18,7 +18,7 @@ const PractitionerPageContent = () => {
   const searchParams = useSearchParams();
   const speed = searchParams.get("speed");
   const delay = speed ? parseInt(speed, 10) : 5000;
-  const { practitioners, loading, error, getAllPractitioner } =
+  const { practitioners, loading, error, getAllPractitioners } =
     usePractitioners();
 
   const handleCardClick = (link: string) => {
@@ -26,7 +26,7 @@ const PractitionerPageContent = () => {
   };
 
   useEffect(() => {
-    getAllPractitioner();
+    getAllPractitioners();
   }, []);
 
   if (loading) {

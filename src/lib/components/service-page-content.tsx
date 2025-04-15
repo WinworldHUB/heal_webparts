@@ -5,16 +5,15 @@ import ServiceFilter from "./service-filter";
 import PractitionerCard from "./practitioner-card";
 import Loader from "./ui/loader";
 
-import { DUMMY_PRACTITIONERS } from "../data/dummy-practitioner";
 import { therapies } from "../data/dummy_therapies";
 import { useRouter } from "next/navigation";
+import usePractitioners from "../hooks/usePractitioners";
 
 const ServicePageContent = () => {
   const router = useRouter();
-  const [practitioners, setPractitioners] = useState<Practitioner[]>([]);
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
 
+  const { practitioners, loading, error, getAllPractitioners } =
+    usePractitioners();
   const [selectedTherapyIds, setSelectedTherapyIds] = useState<string[]>([]);
   const [selectedPractitionerIds, setSelectedPractitionerIds] = useState<
     string[]
@@ -26,12 +25,10 @@ const ServicePageContent = () => {
     label: therapy.title,
   }));
 
-  const practitionerOptions: Option[] = DUMMY_PRACTITIONERS.map(
-    (practitioner) => ({
-      value: practitioner.id,
-      label: practitioner.name,
-    })
-  );
+  const practitionerOptions: Option[] = practitioners.map((practitioner) => ({
+    value: practitioner.id,
+    label: practitioner?.firstName + practitioner?.lastName,
+  }));
 
   const dummyClinics: Option[] = [
     { value: "clinic-1", label: "Downtown Wellness" },
@@ -43,42 +40,9 @@ const ServicePageContent = () => {
     router.push(`/practitioners/${practitioner.id}`);
   };
 
-  const fetchPractitioners = async (
-    practitionerId?: string | null,
-    therapyId?: string | null
-  ) => {
-    try {
-      setLoading(true);
-      const queryParams = new URLSearchParams();
-      if (practitionerId) queryParams.append("practitionerId", practitionerId);
-      if (therapyId) queryParams.append("therapyId", therapyId);
-
-      const response = await fetch(
-        `/api/practitioner?${queryParams.toString()}`
-      );
-      if (!response.ok)
-        throw new Error("Failed to fetch filtered practitioners");
-
-      const data = await response.json();
-      setPractitioners(data);
-    } catch (err) {
-      console.error(err);
-      setError("Unable to load practitioners.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchPractitioners();
+    getAllPractitioners();
   }, []);
-
-  const handleSearch = () => {
-    fetchPractitioners(
-      selectedPractitionerIds[0] ?? null,
-      selectedTherapyIds[0] ?? null
-    );
-  };
 
   if (loading) return <Loader />;
   if (error) return <Loader />;
@@ -99,7 +63,7 @@ const ServicePageContent = () => {
           onClinicChange={(id) => setSelectedClinicId(id)}
           onTherapyChange={(ids) => setSelectedTherapyIds(ids)}
           onPractitionerChange={(ids) => setSelectedPractitionerIds(ids)}
-          onSearch={handleSearch}
+          onSearch={() => {}}
         />
       </div>
 
