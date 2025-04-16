@@ -10,14 +10,17 @@ const ProfilePage = () => {
   const params = useParams();
 
   const practitionerId = params.id as string;
+  const [practitionerDetails, setPractitionerDetails] = useState<PractitionerDetails | null>(null);
+  const { getPractitionerDetails, loading, error } = usePractitioners();
 
-  const {
-    selectedPractitioner: practitioner,
-    loading,
-    error,
-  } = usePractitioners(practitionerId);
+  useEffect(()=> {
+    getPractitionerDetails(practitionerId, (practitionerDetails) => {
+      setPractitionerDetails(practitionerDetails);
+    }
+    );
+  }, [practitionerId])
 
-  if (!practitioner) {
+  if (!practitionerDetails?.practitioner) {
     return (
       <div className="flex justify-center items-center w-full p-4">
         <Skeleton className="w-1/2 h-48" />
@@ -27,10 +30,10 @@ const ProfilePage = () => {
 
   return (
     <div className="flex justify-center items-start w-full min-h-dvh bg-[#f2f0ea] p-4">
-      {practitioner ? (
+      {practitionerDetails?.practitioner ? (
         <div className="w-3/4">
           <PractitionerInfo
-            practitioner={practitioner}
+            practitioner={practitionerDetails?.practitioner}
             loading={loading}
             error={error}
           />

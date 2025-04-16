@@ -18,7 +18,7 @@ interface PractitionersState {
 const usePractitioners = (): PractitionersState => {
   const [error, setError] = useState<string>(null);
   const [practitioners, setPractitioners] = useState<Practitioner[]>([]);
-
+  
   const {
     getData: getAllPractitionersRequest,
     loading: getAllPractitionersLoading,
@@ -61,7 +61,7 @@ const usePractitioners = (): PractitionersState => {
   };
 
   return {
-    loading: getAllPractitionersLoading,
+    loading: getAllPractitionersLoading || getPractitionerDetailsLoading,
     error,
     practitioners,
     getAllPractitioners,

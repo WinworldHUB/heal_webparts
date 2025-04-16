@@ -69,23 +69,6 @@ const ServiceFilters: FC<ServiceFiltersProps> = ({
             selected={selectedPractitionerId}
             placeholder="Select Practitioners..."
           />
-
-          {/* <Button
-            type="button"
-            variant="outline"
-            className="rounded-3xl"
-            onClick={() => {}}
-          >
-            Search
-          </Button> */}
-          <Button
-            type="button"
-            variant="outline"
-            className="rounded-3xl"
-            onClick={onClearClicked}
-          >
-            Clear
-          </Button>
         </CardContent>
       </Card>
       <Card className="w-full p-4 gap-3">
