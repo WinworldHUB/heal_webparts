@@ -50,7 +50,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
   const { practitioner } = practitionerDetails;
   if (!practitioner) {
     return (
-      <div className="flex justify-center items-center w-full">
+      <div className="flex justify-center items-center w-full bg-[#f2f0ea] ">
         <Skeleton className="w-full h-48" />
       </div>
     );

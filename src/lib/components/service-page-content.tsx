@@ -115,8 +115,17 @@ const ServicePageContent = () => {
   }, []);
 
   if (practitionersLoading || clinicsLoading || therapiesLoading)
-    return <Loader />;
-  if (practitionersError || clinicsError || therapiesError) return <Loader />;
+    return (
+      <div className="bg-[#f2f0ea]">
+        <Loader />
+      </div>
+    );
+  if (practitionersError || clinicsError || therapiesError)
+    return (
+      <div className="bg-[#f2f0ea]">
+        <Loader />
+      </div>
+    );
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 p-4 bg-[#f2f0ea] min-h-dvh sm:items-center md:items-start justify-center">
