@@ -11,7 +11,7 @@ interface TherapyWidgetProps {
 
 const TherapyWidget: FC<TherapyWidgetProps> = ({ therapy }) => {
   return (
-    <Card className="w-full max-w-sm h-[400px] flex flex-col items-center text-center p-6 border-0 rounded-none shadow-none">
+    <Card className="w-full max-w-sm h-full flex flex-col items-center text-center p-6 border-0 rounded-none shadow-none">
       {/* Avatar */}
       <Avatar className="h-44 w-44 shadow-lg">
         <AvatarImage
