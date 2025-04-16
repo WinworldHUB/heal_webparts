@@ -33,7 +33,7 @@ const ProfilePage = () => {
       {practitionerDetails?.practitioner ? (
         <div className="w-3/4">
           <PractitionerInfo
-            practitioner={practitionerDetails?.practitioner}
+            practitionerDetails={practitionerDetails}
             loading={loading}
             error={error}
           />

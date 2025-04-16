@@ -3,19 +3,27 @@ import React, { FC } from "react";
 import { FaPhone, FaEnvelope } from "react-icons/fa6";
 import Image from "next/image";
 import { Separator } from "@/lib/components/ui/separator";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
+import RawHTML from "./raw-html";
+import { getFullName } from "../utils/string-util";
 
 interface PractitionerInfoProps {
-  practitioner: Practitioner | null;
+  practitionerDetails: PractitionerDetails | null;
   loading: boolean;
   error: string;
 }
 
 const PractitionerInfo: FC<PractitionerInfoProps> = ({
-  practitioner,
+  practitionerDetails,
   loading,
   error,
 }) => {
-  if (!practitioner) {
+  if (!practitionerDetails) {
     return (
       <div className="flex justify-center items-center w-full">
         <Skeleton className="w-full h-48" />
@@ -23,9 +31,24 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
     );
   }
 
+  if (loading) {
+    <div className="flex justify-center items-center w-full">
+      <Skeleton className="w-full h-48" />
+    </div>;
+  }
+
   if (error) {
     console.log("error:", error);
 
+    return (
+      <div className="flex justify-center items-center w-full">
+        <Skeleton className="w-full h-48" />
+      </div>
+    );
+  }
+
+  const { practitioner } = practitionerDetails;
+  if (!practitioner) {
     return (
       <div className="flex justify-center items-center w-full">
         <Skeleton className="w-full h-48" />
@@ -40,14 +63,10 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
           <div className="flex flex-col h-full bg-white w-full shadow-lg p-4">
             <div className="flex flex-col items-start  text-start mb-2">
               <h1 className="text-2xl font-semibold text-gray-800 mb-4">
-                {practitioner?.firstName + practitioner?.lastName}{" "}
+                {practitioner?.businessName ??
+                  getFullName(practitioner?.firstName, practitioner?.lastName)}
               </h1>
-              <p
-                className="text-gray-700 mb-1"
-                dangerouslySetInnerHTML={{
-                  __html: practitioner?.businessSummary,
-                }}
-              />
+              <RawHTML html={practitioner?.businessSummary} />
             </div>
             <Separator className="mb-2" />
 
@@ -69,32 +88,61 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
               </div>
             </div>
           </div>
-          {/* <div className="flex flex-col h-full bg-white rounded-l-lg shadow-lg p-4">
-            {practitioner?.availability?.map((slot, index) => (
-              <>
-                <div
-                  key={index}
-                  className="flex flex-row items-center justify-between font-light mb-2"
-                >
-                  <p className="text-gray-900  mr-2 text-nowrap text-sm">
-                    {slot.day}
-                  </p>
-                  {"status" in slot ? (
-                    <p className="text-gray-500 italic text-sm">
-                      {slot.status}
-                    </p>
-                  ) : (
-                    <p className="text-gray-900 text-sm">
-                      {slot.startTime} - {slot.endTime}
-                    </p>
-                  )}
-                </div>
-                {index != practitioner?.availability.length - 1 && (
-                  <Separator className="my-2" />
-                )}
-              </>
-            ))}
-          </div> */}
+          <div className="flex flex-col h-full bg-white rounded-l-lg shadow-lg p-4">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+              Clinic Availability
+            </h2>
+
+            <Accordion
+              type="single"
+              collapsible
+              className="w-full"
+              defaultValue={practitionerDetails?.clinics[0]?.id}
+            >
+              {practitionerDetails?.clinics?.map((clinic, index) => (
+                <AccordionItem key={clinic?.id} value={clinic?.id}>
+                  <AccordionTrigger>{clinic?.name}</AccordionTrigger>
+                  <AccordionContent>
+                    <div className="mb-4">
+                      <p className="text-sm text-gray-600 mb-1">
+                        {clinic?.address}
+                      </p>
+                      <p className="text-sm text-gray-600 mb-2">
+                        {clinic?.postCode}
+                      </p>
+
+                      <h4 className="text-sm font-semibold text-gray-700 mt-2 mb-1">
+                        Available Hours:
+                      </h4>
+                      {clinic?.availableHours.length > 0 ? (
+                        <div className="flex flex-col gap-1">
+                          {clinic?.availableHours.map((hour, idx) => (
+                            <div
+                              key={idx}
+                              className="flex justify-between text-sm text-gray-800"
+                            >
+                              <span>{hour?.day}</span>
+                              <span>
+                                {hour?.fromTime} - {hour?.toTime}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="italic text-sm text-gray-500">
+                          No available hours listed
+                        </p>
+                      )}
+
+                      {index !== practitionerDetails.clinics.length - 1 && (
+                        <Separator className="my-4" />
+                      )}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </div>
 
         <div className="flex flex-col w-full h-full p-0 border-0 bg-transparent">
@@ -110,12 +158,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
             <h3 className="text-4xl font-semibold text-gray-800 mb-6">
               {practitioner?.firstName + practitioner.lastName}{" "}
             </h3>
-            <p
-              className="text-gray-500 mb-4"
-              dangerouslySetInnerHTML={{
-                __html: practitioner?.biography || "",
-              }}
-            ></p>
+            <RawHTML html={practitioner?.biography} />
           </div>
         </div>
       </div>
