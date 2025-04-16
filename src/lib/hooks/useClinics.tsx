@@ -53,7 +53,7 @@ const useClinics = (): ClinicState => {
   };
 
   return {
-    loading: getAllClinicsLoading,
+    loading: getAllClinicsLoading || getClinicDetailsLoading,
     error,
     clinics,
     getAllClinics,

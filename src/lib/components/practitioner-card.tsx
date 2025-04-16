@@ -19,6 +19,7 @@ import usePractitioners from "../hooks/usePractitioners";
 import { truncateText } from "../utils/string-util";
 import { DatePicker } from "./ui/date-picker";
 import { Calendar } from "./ui/calendar";
+import Link from "next/link";
 
 interface PractitionerCardProps {
   practitioner: Practitioner;
@@ -39,13 +40,14 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
       <CardContent className="flex flex-col items-start px-0 sm:justify-start sm:flex-row gap-4">
         <img
           src={practitioner?.practitionerImage}
+          onError={(e) => (e.currentTarget.src = "/assets/doctor_image.jpg")}
           alt={practitioner?.firstName + practitioner?.lastName}
           className="object-cover rounded-2xl hidden sm:block h-60 w-60"
         />
 
         <div className="flex flex-col w-full">
           <h2 className="text-xl font-bold">
-            {practitioner?.firstName + practitioner?.lastName}
+            {practitioner?.firstName + " " + practitioner?.lastName}
           </h2>
           <p
             dangerouslySetInnerHTML={{
@@ -75,11 +77,14 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
           )}
 
           <div className="mt-6 flex flex-col sm:flex-row gap-2">
-            <Button
-              className="bg-green-600 text-white hover:bg-green-700 rounded-4xl"
-              onClick={() => onPractitionerClick(practitioner)}
-            >
-              View Profile
+            <Button className="bg-green-600 text-white hover:bg-green-700 rounded-4xl">
+              <Link
+                href={`/practitioners/${practitioner.id}`}
+                target="_blank"
+                referrerPolicy="no-referrer"
+              >
+                View Profile
+              </Link>
             </Button>
 
             <Dialog>

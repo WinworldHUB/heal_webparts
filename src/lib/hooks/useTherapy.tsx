@@ -57,7 +57,7 @@ const useTherapy = (): TherapyState => {
   };
 
   return {
-    loading: getAllClinicsLoading,
+    loading: getAllClinicsLoading || getTherapyDetailsLoading,
     error,
     therapies,
     getAllTherapies,
