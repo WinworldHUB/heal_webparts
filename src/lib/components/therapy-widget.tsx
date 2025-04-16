@@ -28,10 +28,9 @@ const TherapyWidget: FC<TherapyWidgetProps> = ({ therapy }) => {
           {truncateText(therapy.therapyDescription, 50)}
         </p>
 
-        {/* Learn More button pinned to bottom */}
         <div className="pt-4 flex justify-center">
           <Link
-            href={therapy.link}
+            href="https://heal-wellness.co.uk/"
             className="group w-40 border border-[#a99870] text-[#a99870] px-4 py-2 rounded-4xl flex items-center justify-center transition-all duration-300 hover:bg-[#a99870] hover:text-white"
             target="_blank"
             rel="noopener noreferrer"

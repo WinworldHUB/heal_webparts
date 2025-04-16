@@ -27,7 +27,7 @@ const TherapyPageContent = () => {
         const transformed = data.map((therapy: Therapy) => ({
           ...therapy,
           title: therapy.therapyName,
-          link: therapy.link || "https://heal-wellness.co.uk/",
+          link:"https://heal-wellness.co.uk/",
         }));
 
         setTherapies(transformed);
