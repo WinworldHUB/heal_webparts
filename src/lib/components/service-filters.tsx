@@ -33,7 +33,7 @@ const ServiceFilters: FC<ServiceFiltersProps> = ({
 }) => {
   console.log(selectedClinicId, selectedTherapyId, selectedPractitionerId);
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       <Card className="w-full p-4 gap-3">
         <CardHeader className="p-0">
           <CardTitle className="text-lg mb-2">Book an Appointment</CardTitle>

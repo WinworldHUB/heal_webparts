@@ -13,8 +13,10 @@ const PractitionerList: FC<PractitionerListProps> = ({
 }) => {
   console.log("PractitionerList", practitioners);
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex flex-col gap-6 w-full lg:justify-center ">
       {(practitioners ?? []).map((practitioner) => (
+        <div className="w-full flex sm:justify-center lg:justify-start" key={practitioner.id}>
+
         <PractitionerCard
           key={practitioner.id}
           practitioner={practitioner}
@@ -22,7 +24,8 @@ const PractitionerList: FC<PractitionerListProps> = ({
           onBookAppointmentClick={(practitionerId) =>
             console.log(practitionerId)
           }
-        />
+          />
+          </div>
       ))}
     </div>
   );

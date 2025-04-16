@@ -119,9 +119,9 @@ const ServicePageContent = () => {
   if (practitionersError || clinicsError || therapiesError) return <Loader />;
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 p-4 bg-[#f2f0ea] min-h-dvh">
+    <div className="flex flex-col lg:flex-row gap-6 p-4 bg-[#f2f0ea] min-h-dvh sm:items-center md:items-start justify-center">
       {/* Sidebar Filter */}
-      <div className="w-full md:max-w-sm sticky top-4 h-fit">
+      <div className="w-full sm:max-w-xl lg:max-w-sm sticky top-4 h-fit mx-auto">
         <ServiceFilters
           clinics={clinics ?? []}
           therapies={therapies ?? []}

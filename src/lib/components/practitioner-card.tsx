@@ -35,7 +35,7 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
   return (
     <Card
       key={practitioner?.id}
-      className="w-full sm:w-4/5 lg:w-2/3 p-4 rounded-2xl shadow-md"
+      className="w-full sm:w-4/5 lg:w-full xl:w-2/3 p-4 rounded-2xl shadow-md"
     >
       <CardContent className="flex flex-col items-start px-0 sm:justify-start sm:flex-row gap-4">
         <img
