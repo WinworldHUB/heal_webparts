@@ -1,14 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Loader from "./ui/loader";
+import Loader from "../ui/loader";
 
 import { useRouter } from "next/navigation";
-import usePractitioners from "../hooks/usePractitioners";
-import useClinics from "../hooks/useClinics";
-import useTherapy from "../hooks/useTherapy";
-import PractitionerList from "./practitioner-list";
-import ServiceFilters from "./service-filters";
-import { EMPTY_FILTER_SELECTIONS } from "../constants";
+import usePractitioners from "../../hooks/usePractitioners";
+import useClinics from "../../hooks/useClinics";
+import useTherapy from "../../hooks/useTherapy";
+import PractitionerList from "../practitioner-list";
+import ServiceFilters from "../service-filters";
+import { EMPTY_FILTER_SELECTIONS } from "../../constants";
 
 const ServicePageContent = () => {
   const router = useRouter();

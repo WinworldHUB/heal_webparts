@@ -9,8 +9,9 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import Loader from "./ui/loader";
-import usePractitioners from "../hooks/usePractitioners";
+import Loader from "../ui/loader";
+import usePractitioners from "../../hooks/usePractitioners";
+import { getFullName } from "../../utils/string-util";
 
 const PractitionerPageContent = () => {
   const searchParams = useSearchParams();
@@ -60,8 +61,8 @@ const PractitionerPageContent = () => {
 
                   <div className="flex flex-col items-center justify-center mt-4">
                     <h2>
-                      <span className="text-md font-semibold text-[#193a5e]">
-                        {practitioner.firstName + practitioner.lastName}
+                      <span className="text-xl font-semibold text-[#193a5e]">
+                        {getFullName(practitioner?.firstName, practitioner?.lastName)}
                       </span>
                     </h2>
                   </div>

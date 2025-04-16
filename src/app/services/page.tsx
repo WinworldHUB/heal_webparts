@@ -1,4 +1,4 @@
-import ServicePageContent from "@/lib/components/service-page-content";
+import ServicePageContent from "@/lib/components/content/service-page-content";
 import React, { Suspense } from "react";
 
 const ServicePage = () => {

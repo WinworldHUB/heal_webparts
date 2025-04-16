@@ -1,6 +1,6 @@
 "use client";
 
-import PractitionerPageContent from "@/lib/components/practitioner-page-content";
+import PractitionerPageContent from "@/lib/components/content/practitioner-page-content";
 import { Suspense } from "react";
 
 export default function PractitionerPage() {

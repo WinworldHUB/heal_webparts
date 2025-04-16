@@ -1,6 +1,6 @@
 "use client";
 
-import TherapyPageContent from "@/lib/components/therapies-page-content";
+import TherapyPageContent from "@/lib/components/content/therapies-page-content";
 import { Suspense } from "react";
 
  const TherapyPage = () => {
