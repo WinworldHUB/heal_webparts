@@ -17,6 +17,8 @@ import {
 import { Card, CardContent } from "@/lib/components/ui/card";
 import usePractitioners from "../hooks/usePractitioners";
 import { truncateText } from "../utils/string-util";
+import { DatePicker } from "./ui/date-picker";
+import { Calendar } from "./ui/calendar";
 
 interface PractitionerCardProps {
   practitioner: Practitioner;
@@ -95,6 +97,10 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
                 <DialogHeader>
                   <DialogTitle>Select Appointment Date</DialogTitle>
                 </DialogHeader>
+                <div className="flex flex-col items-center justify-center">
+                  <Calendar />
+                  {/* <DatePicker /> */}
+                </div>
               </DialogContent>
             </Dialog>
           </div>

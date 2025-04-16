@@ -70,14 +70,14 @@ const ServiceFilters: FC<ServiceFiltersProps> = ({
             placeholder="Select Practitioners..."
           />
 
-          <Button
+          {/* <Button
             type="button"
             variant="outline"
             className="rounded-3xl"
             onClick={() => {}}
           >
             Search
-          </Button>
+          </Button> */}
           <Button
             type="button"
             variant="outline"
