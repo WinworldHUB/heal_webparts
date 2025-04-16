@@ -69,7 +69,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
               </div>
             </div>
           </div>
-          <div className="flex flex-col h-full bg-white rounded-l-lg shadow-lg p-4">
+          {/* <div className="flex flex-col h-full bg-white rounded-l-lg shadow-lg p-4">
             {practitioner?.availability?.map((slot, index) => (
               <>
                 <div
@@ -94,7 +94,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
                 )}
               </>
             ))}
-          </div>
+          </div> */}
         </div>
 
         <div className="flex flex-col w-full h-full p-0 border-0 bg-transparent">
