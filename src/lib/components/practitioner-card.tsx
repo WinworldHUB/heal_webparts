@@ -7,18 +7,9 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/lib/components/ui/popover";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/lib/components/ui/dialog";
+
 import { Card, CardContent } from "@/lib/components/ui/card";
-import usePractitioners from "../hooks/usePractitioners";
 import { truncateText } from "../utils/string-util";
-import { DatePicker } from "./ui/date-picker";
-import { Calendar } from "./ui/calendar";
 import Link from "next/link";
 
 interface PractitionerCardProps {
@@ -87,27 +78,13 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
               </Link>
             </Button>
 
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="rounded-4xl border-black text-gray-800"
-                  onClick={() => onBookAppointmentClick(practitioner?.id)}
-                >
-                  Book Appointment
-                </Button>
-              </DialogTrigger>
-
-              <DialogContent className="w-full">
-                <DialogHeader>
-                  <DialogTitle>Select Appointment Date</DialogTitle>
-                </DialogHeader>
-                <div className="flex flex-col items-center justify-center">
-                  <Calendar />
-                  {/* <DatePicker /> */}
-                </div>
-              </DialogContent>
-            </Dialog>
+            <Button
+              variant="outline"
+              className="rounded-4xl border-black text-gray-800"
+              onClick={() => onBookAppointmentClick(practitioner?.id)}
+            >
+              Book Appointment
+            </Button>
           </div>
         </div>
       </CardContent>

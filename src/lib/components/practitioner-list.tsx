@@ -15,17 +15,22 @@ const PractitionerList: FC<PractitionerListProps> = ({
   return (
     <div className="flex flex-col gap-6 w-full lg:justify-center ">
       {(practitioners ?? []).map((practitioner) => (
-        <div className="w-full flex sm:justify-center lg:justify-start" key={practitioner.id}>
-
-        <PractitionerCard
+        <div
+          className="w-full flex sm:justify-center lg:justify-start"
           key={practitioner.id}
-          practitioner={practitioner}
-          onPractitionerClick={onPractitionerClick}
-          onBookAppointmentClick={(practitionerId) =>
-            console.log(practitionerId)
-          }
+        >
+          <PractitionerCard
+            key={practitioner.id}
+            practitioner={practitioner}
+            onPractitionerClick={onPractitionerClick}
+            onBookAppointmentClick={() =>
+              window.open(
+                `https://app.heal-wellness.co.uk/`,
+                "_blank"
+              )
+            }
           />
-          </div>
+        </div>
       ))}
     </div>
   );
