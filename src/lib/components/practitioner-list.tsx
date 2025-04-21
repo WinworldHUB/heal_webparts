@@ -25,7 +25,7 @@ const PractitionerList: FC<PractitionerListProps> = ({
             onPractitionerClick={onPractitionerClick}
             onBookAppointmentClick={() =>
               window.open(
-                `https://app.heal-wellness.co.uk/`,
+                `https://app.heal-wellness.co.uk/?practitionerId=${practitioner.id}`,
                 "_blank"
               )
             }
