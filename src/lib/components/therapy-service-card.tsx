@@ -12,6 +12,7 @@ import "swiper/css/effect-cards";
 import SwiperCore from "swiper";
 import { Pagination, Navigation, Autoplay, EffectCards } from "swiper/modules";
 import { Separator } from "./ui/separator";
+import { useRouter } from "next/navigation";
 
 SwiperCore.use([Pagination, Navigation, Autoplay, EffectCards]);
 
@@ -20,6 +21,7 @@ interface TherapyServiceCardProps {
 }
 
 const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
+  const router = useRouter();
   const [therapyDetails, setTherapyDetails] = useState<TherapyDetails | null>(
     null
   );
@@ -39,6 +41,9 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
       </div>
     );
   }
+  const handlePractitionerClick = (practitionerId: string) => {
+    router.push(`/practitioners/${practitionerId}`);
+  };
 
   return (
     <div className="w-full flex justify-center">
@@ -66,7 +71,6 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
               <Swiper
                 slidesPerView={1}
                 navigation
-                effect="cards"
                 grabCursor
                 pagination
                 loop
@@ -75,7 +79,10 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
               >
                 {therapyDetails.practitioners.map((practitioner) => (
                   <SwiperSlide key={practitioner.id}>
-                    <TherapyPractitionerCard practitioner={practitioner} />
+                    <TherapyPractitionerCard
+                      practitioner={practitioner}
+                      onPractitionerClick={handlePractitionerClick}
+                    />
                   </SwiperSlide>
                 ))}
               </Swiper>

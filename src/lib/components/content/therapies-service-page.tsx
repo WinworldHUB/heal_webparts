@@ -3,7 +3,6 @@ import TherapyServiceCard from "../therapy-service-card";
 
 // Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 
 import SwiperCore from "swiper";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
@@ -38,13 +37,12 @@ const TherapyPageServiceContent = () => {
         slidesPerView={1}
         navigation
         className="w-full cursor-grab"
-        pagination
         autoplay={{ delay: 5000, disableOnInteraction: true }}
       >
         {therapies.map((therapy) => (
           <SwiperSlide
-            key={therapy.therapyId}
-            defaultValue={therapy.therapyId}
+            key={therapy.id}
+            defaultValue={therapy.id}
             className="flex justify-center items-center"
           >
             <TherapyServiceCard therapy={therapy} />
