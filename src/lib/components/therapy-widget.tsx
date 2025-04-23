@@ -23,9 +23,9 @@ const TherapyWidget: FC<TherapyWidgetProps> = ({ therapy }) => {
 
       {/* Name + Truncated Desc */}
       <CardContent className="flex flex-col flex-grow mt-4">
-        <h3 className="text-xl font-semibold">{therapy.therapyName}</h3>
+        <h3 className="text-xl font-semibold">{therapy.name}</h3>
         <p className="mt-2 text-gray-600">
-          {truncateText(therapy.therapyDescription, 50)}
+          {truncateText(therapy.description, 50)}
         </p>
 
         <div className="pt-4 flex justify-center">

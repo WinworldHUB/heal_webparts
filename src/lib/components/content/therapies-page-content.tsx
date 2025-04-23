@@ -42,7 +42,7 @@ const TherapyPageContent = () => {
         className="w-full"
       >
         {therapies?.map((therapy) => (
-          <SwiperSlide key={therapy?.therapyId}>
+          <SwiperSlide key={therapy?.id}>
             <TherapyWidget therapy={therapy ?? ({} as Therapy)} />
           </SwiperSlide>
         ))}

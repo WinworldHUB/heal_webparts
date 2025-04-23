@@ -48,7 +48,7 @@ const ServiceFilters: FC<ServiceFiltersProps> = ({
           />
 
           <Combobox
-            options={getComboBoxOptions(therapies, "therapyId", "therapyName")}
+            options={getComboBoxOptions(therapies, "id", "name")}
             onChange={onTherapyChange}
             placeholder="Select Therapies..."
             selected={selectedTherapyId}

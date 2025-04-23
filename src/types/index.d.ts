@@ -153,9 +153,9 @@ type Practitioner = {
 };
 
 type Therapy = {
-  therapyId: string;
-  therapyName: string;
-  therapyDescription: string;
+  id: string;
+  name: string;
+  description: string;
   expiryDate: any;
   prerequisites: any;
   sessionTime: string;

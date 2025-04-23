@@ -59,7 +59,7 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
                   <div className="text-sm text-muted-foreground space-y-1">
                     <p className="font-medium text-primary">Therapies:</p>
                     {(practitioner?.therapies ?? []).map((therapy) => (
-                      <p key={therapy.therapyId}>• {therapy.therapyName}</p>
+                      <p key={therapy.id}>• {therapy.name}</p>
                     ))}
                   </div>
                 </PopoverContent>
