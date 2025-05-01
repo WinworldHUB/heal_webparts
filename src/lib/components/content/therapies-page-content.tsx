@@ -10,6 +10,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
+import { TherapyImages } from "@/lib/constants";
+import { removeWhitespace } from "@/lib/utils/string-util";
 
 // Init modules
 SwiperCore.use([Pagination, Navigation, Autoplay]);
@@ -29,6 +31,23 @@ const TherapyPageContent = () => {
     return <Loader />;
   }
 
+  const therapyList = therapies?.map((therapy) => {
+    console.log("therapy name", therapy?.name);
+    
+    const key = removeWhitespace(therapy?.name ?? "");
+    console.log("image key", key);
+    
+    const image = TherapyImages[key as keyof typeof TherapyImages] || "https://via.placeholder.com/150";
+    console.log("image", image);
+    
+    return {
+      ...therapy,
+      image,
+    };
+  }) as TherapyWithImage[];
+
+  
+
   return (
     <div className="flex justify-between items-center w-full px-4 overflow-hidden">
       <Swiper
@@ -41,9 +60,9 @@ const TherapyPageContent = () => {
         }}
         className="w-full"
       >
-        {therapies?.map((therapy) => (
+        {therapyList?.map((therapy) => (
           <SwiperSlide key={therapy?.id}>
-            <TherapyWidget therapy={therapy ?? ({} as Therapy)} />
+            <TherapyWidget therapy={therapy ?? ({} as TherapyWithImage)} />
           </SwiperSlide>
         ))}
       </Swiper>

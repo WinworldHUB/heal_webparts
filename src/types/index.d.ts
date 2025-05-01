@@ -162,4 +162,7 @@ type Therapy = {
   perSessionPrice: string;
 };
 
+type TherapyWithImage = Therapy & {
+  image?: string;
+};
 /** API Response */

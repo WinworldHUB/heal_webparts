@@ -6,7 +6,7 @@ import { PiCaretRight } from "react-icons/pi";
 import { truncateText } from "../utils/string-util";
 
 interface TherapyWidgetProps {
-  therapy: Therapy;
+  therapy: TherapyWithImage;
 }
 
 const TherapyWidget: FC<TherapyWidgetProps> = ({ therapy }) => {
@@ -15,7 +15,7 @@ const TherapyWidget: FC<TherapyWidgetProps> = ({ therapy }) => {
       {/* Avatar */}
       <Avatar className="h-44 w-44 shadow-lg">
         <AvatarImage
-          src="assets/skin_nourishment.png"
+          src={therapy.image}
           alt="Therapist"
           className="size-full object-cover rounded-full"
         />

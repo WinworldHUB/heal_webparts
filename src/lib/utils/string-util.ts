@@ -8,3 +8,7 @@ export const truncateText = (text: string, maxLength: number) => {
 export const getFullName = (firstName: string, lastName: string) => {
   return firstName + " " + lastName;
 };
+
+export const removeWhitespace = (text: string) => {
+  return text.replace(/\s+/g, "_").toLowerCase();
+}
