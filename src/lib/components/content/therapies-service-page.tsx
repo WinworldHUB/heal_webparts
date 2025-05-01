@@ -8,12 +8,13 @@ import SwiperCore from "swiper";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import useTherapy from "@/lib/hooks/useTherapy";
 import Loader from "../ui/loader";
+import { useMediaQuery } from "react-responsive";
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 const TherapyPageServiceContent = () => {
   const { getAllTherapies, therapies, loading, error } = useTherapy();
-
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   useEffect(() => {
     getAllTherapies();
   }, []);
@@ -34,7 +35,7 @@ const TherapyPageServiceContent = () => {
   return (
     <div className="flex justify-center items-center min-h-dvh w-full p-4 bg-[#f2f0ea]">
       <Swiper
-        slidesPerView={1}
+        slidesPerView={isMobile ? 1 : 4}
         navigation
         className="w-full cursor-grab"
         autoplay={{ delay: 5000, disableOnInteraction: true }}

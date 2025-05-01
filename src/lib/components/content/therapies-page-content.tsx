@@ -4,6 +4,7 @@ import TherapyWidget from "@/lib/components/therapy-widget";
 import { Loader } from "lucide-react";
 import { useState, useEffect } from "react";
 import useTherapy from "@/lib/hooks/useTherapy";
+import { useMediaQuery } from "react-responsive";
 
 // Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,7 +21,7 @@ const TherapyPageContent = () => {
   const searchParams = useSearchParams();
   const speed = searchParams.get("speed");
   const delay = speed ? parseInt(speed, 10) : 5000;
-
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const { loading, error, getAllTherapies, therapies } = useTherapy();
 
   useEffect(() => {
@@ -32,13 +33,9 @@ const TherapyPageContent = () => {
   }
 
   const therapyList = therapies?.map((therapy) => {
-    console.log("therapy name", therapy?.name);
-    
     const key = removeWhitespace(therapy?.name ?? "");
-    console.log("image key", key);
     
-    const image = TherapyImages[key as keyof typeof TherapyImages] || "https://via.placeholder.com/150";
-    console.log("image", image);
+    const image = TherapyImages[key as keyof typeof TherapyImages] || "assets/therapies/therapy_placeholder.jpg";
     
     return {
       ...therapy,
@@ -52,10 +49,10 @@ const TherapyPageContent = () => {
     <div className="flex justify-between items-center w-full px-4 overflow-hidden">
       <Swiper
         spaceBetween={20}
-        slidesPerView={4}
+        slidesPerView={isMobile ? 1 : 4}
         loop={true}
         autoplay={{
-          delay:3000,
+          delay:delay,
           disableOnInteraction: false,
         }}
         className="w-full"
