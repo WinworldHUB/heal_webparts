@@ -25,6 +25,7 @@ import React, {
     slidesPerView?: number;
     onPageChange?: (pageIndex: number) => void;
     onLoad?: (totalPages: number) => void;
+    delay?: number;
   }
   
   const Slider: FC<SliderProps> = ({
@@ -39,6 +40,7 @@ import React, {
     slidesPerView = 4,
     onPageChange,
     onLoad,
+    delay = 2500,
   }) => {
     const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
     const swiperRef = useRef<SwiperClass>(null);
@@ -77,7 +79,7 @@ import React, {
         autoplay={
           isAutoPlay
             ? {
-                delay: 2500,
+                delay: delay,
                 disableOnInteraction: false,
               }
             : isAutoPlay
