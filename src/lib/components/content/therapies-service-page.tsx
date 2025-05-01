@@ -35,8 +35,9 @@ const TherapyPageServiceContent = () => {
   return (
     <div className="flex justify-center items-center min-h-dvh w-full p-4 bg-[#f2f0ea]">
       <Swiper
-        slidesPerView={isMobile ? 1 : 4}
+        slidesPerView={1}
         navigation
+        
         className="w-full cursor-grab"
         autoplay={{ delay: 5000, disableOnInteraction: true }}
       >

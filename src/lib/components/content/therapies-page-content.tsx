@@ -13,6 +13,7 @@ import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import { TherapyImages } from "@/lib/constants";
 import { removeWhitespace } from "@/lib/utils/string-util";
+import { Skeleton, SkeletonCard } from "../ui/skeleton";
 
 // Init modules
 SwiperCore.use([Pagination, Navigation, Autoplay]);
@@ -29,7 +30,7 @@ const TherapyPageContent = () => {
   }, []);
 
   if (loading || error) {
-    return <Loader />;
+    return <SkeletonCard className="min-h-dvh w-full" />;
   }
 
   const therapyList = therapies?.map((therapy) => {
