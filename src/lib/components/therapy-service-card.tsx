@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 SwiperCore.use([Pagination, Navigation, Autoplay, EffectCards]);
 
 interface TherapyServiceCardProps {
-  therapy: Therapy;
+  therapy: TherapyWithImage;
 }
 
 const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
@@ -50,7 +50,7 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
       <div className="flex flex-col md:flex-row items-center md:items-start gap-6 max-w-5xl w-full p-4">
         <Avatar className="w-[300px] h-[300px] rounded-full overflow-hidden">
           <AvatarImage
-            src="/assets/therapy_service.png"
+            src={therapy?.image ?? "assets/therapies/therapy_placeholder.jpg"}
             className="w-full h-full object-cover bg-transparent"
           />
         </Avatar>
