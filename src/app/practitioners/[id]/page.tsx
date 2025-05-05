@@ -2,14 +2,14 @@
 
 import { Skeleton } from "@/lib/components/ui/skeleton";
 import PractitionerInfo from "@/lib/components/practitioner-info";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import React, { FC, useEffect, useState } from "react";
 import usePractitioners from "@/lib/hooks/usePractitioners";
 
 const ProfilePage = () => {
-  const params = useParams();
-
-  const practitionerId = params.id as string;
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  const practitionerId = id;
   const [practitionerDetails, setPractitionerDetails] = useState<PractitionerDetails | null>(null);
   const { getPractitionerDetails, loading, error } = usePractitioners();
 

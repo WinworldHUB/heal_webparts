@@ -12,7 +12,7 @@ import "swiper/css/effect-cards";
 import SwiperCore from "swiper";
 import { Pagination, Navigation, Autoplay, EffectCards } from "swiper/modules";
 import { Separator } from "./ui/separator";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect, RedirectType } from "next/navigation";
 import { DMS_PATHS } from "../constants";
 import useDocLinks from "../hooks/useDocLinks";
 
@@ -65,15 +65,18 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
     );
   }
   const handlePractitionerClick = (practitionerId: string) => {
-    router.push(`/practitioners/${practitionerId}`);
+    const newUrl = `http://localhost:5500?id=${practitionerId}`;
+    window.open(newUrl, "_blank");
   };
-
+  
+  
+  
   return (
     <div className="w-full flex justify-center">
       <div className="flex flex-col md:flex-row items-center md:items-start gap-6 max-w-5xl w-full p-4">
         <Avatar className="w-[300px] h-[300px] rounded-full overflow-hidden">
           <AvatarImage
-            src={therapyImage?? "/assets/therapies/therapy_placeholder.jpg"}
+            src={therapyImage ?? "/assets/therapies/therapy_placeholder.jpg"}
             className="w-full h-full object-cover bg-transparent"
           />
         </Avatar>
@@ -93,8 +96,7 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
               <Separator className="my-2 w-full" />
               <Swiper
                 slidesPerView={1}
-                navigation
-                grabCursor
+                // navigation
                 pagination
                 loop
                 className="w-full cursor-grab"

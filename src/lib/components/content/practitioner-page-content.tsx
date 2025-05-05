@@ -38,10 +38,10 @@ const PractitionerPageContent = () => {
         delay={delay}
         isAutoPlay={true}
         autoHeight={false}
-        isShowPagination={false}
-        isShowNavigation={false}
+        isShowPagination={true}
+        isShowNavigation={true}
         slidesPerView={isMobile ? 1 : 3}
-        
+          
         onPageChange={(page) => setCurrentSlide(page)}
       >
         {(practitioners ?? []).map((practitioner) => (
