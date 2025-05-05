@@ -118,3 +118,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.swiper-button-prev, .swiper-button-next {
+  color:#a99870 !important;
+  background-color:transparent !important;
+}

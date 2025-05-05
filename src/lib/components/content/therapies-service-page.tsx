@@ -5,12 +5,13 @@ import TherapyServiceCard from "../therapy-service-card";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import SwiperCore from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import useTherapy from "@/lib/hooks/useTherapy";
 import Loader from "../ui/loader";
-import { useMediaQuery } from "react-responsive";
-import { removeWhitespace } from "@/lib/utils/string-util";
-import { TherapyImages } from "@/lib/constants";
+
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
@@ -20,16 +21,6 @@ const TherapyPageServiceContent = () => {
     getAllTherapies();
   }, []);
 
-    const therapyList = therapies?.map((therapy) => {
-      const key = removeWhitespace(therapy?.name ?? "");
-      
-      const image = TherapyImages[key as keyof typeof TherapyImages] || "assets/therapies/therapy_placeholder.jpg";
-      
-      return {
-        ...therapy,
-        image,
-      };
-    }) as TherapyWithImage[];
 
   if (loading)
     return (
@@ -49,11 +40,10 @@ const TherapyPageServiceContent = () => {
       <Swiper
         slidesPerView={1}
         navigation
-        
         className="w-full cursor-grab"
         autoplay={{ delay: 5000, disableOnInteraction: true }}
       >
-        {therapyList.map((therapy) => (
+        {therapies.map((therapy) => (
           <SwiperSlide
             key={therapy.id}
             defaultValue={therapy.id}

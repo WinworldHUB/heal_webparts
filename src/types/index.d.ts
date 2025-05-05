@@ -166,3 +166,11 @@ type TherapyWithImage = Therapy & {
   image?: string;
 };
 /** API Response */
+type DocLinkDetails = {
+  id?: string;
+  title: string;
+  path: string;
+  parentId: string;
+  parentType: string;
+  url: string;
+};

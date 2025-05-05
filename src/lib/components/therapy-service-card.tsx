@@ -13,11 +13,13 @@ import SwiperCore from "swiper";
 import { Pagination, Navigation, Autoplay, EffectCards } from "swiper/modules";
 import { Separator } from "./ui/separator";
 import { useRouter } from "next/navigation";
+import { DMS_PATHS } from "../constants";
+import useDocLinks from "../hooks/useDocLinks";
 
 SwiperCore.use([Pagination, Navigation, Autoplay, EffectCards]);
 
 interface TherapyServiceCardProps {
-  therapy: TherapyWithImage;
+  therapy: Therapy;
 }
 
 const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
@@ -25,6 +27,15 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
   const [therapyDetails, setTherapyDetails] = useState<TherapyDetails | null>(
     null
   );
+  const [therapyImage, setTherapyImage] = useState<string>(
+    "/assets/therapies/therapy_placeholder.jpg"
+  );
+
+  const {
+    getDocLink,
+    error: docLinkError,
+    isLoading: docLinkLoading,
+  } = useDocLinks();
 
   const { getTherapyDetails, loading, error } = useTherapy();
 
@@ -33,6 +44,18 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
       setTherapyDetails(therapyDetails);
     });
   }, []);
+
+  useEffect(() => {
+    if (therapy) {
+      getDocLink(
+        therapy.id,
+        `${DMS_PATHS.IMAGES.BASE}${DMS_PATHS.IMAGES.THERAPY}/${therapy.id}`,
+        (docLinks) => {
+          setTherapyImage(docLinks?.[0]?.url);
+        }
+      );
+    }
+  }, [therapy]);
 
   if (loading || error) {
     return (
@@ -50,7 +73,7 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
       <div className="flex flex-col md:flex-row items-center md:items-start gap-6 max-w-5xl w-full p-4">
         <Avatar className="w-[300px] h-[300px] rounded-full overflow-hidden">
           <AvatarImage
-            src={therapy?.image ?? "assets/therapies/therapy_placeholder.jpg"}
+            src={therapyImage?? "/assets/therapies/therapy_placeholder.jpg"}
             className="w-full h-full object-cover bg-transparent"
           />
         </Avatar>

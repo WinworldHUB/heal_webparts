@@ -26,3 +26,10 @@ export const TherapyImages = {
   speech_and_language_therapist: "/assets/therapies/speech.jpg",
   skin_specialist: "/assets/therapies/skin_specialist.jpg",
 }
+
+export const DMS_PATHS = {
+  IMAGES: {
+    BASE: "images",
+    THERAPY: "/therapy",
+  },
+};
