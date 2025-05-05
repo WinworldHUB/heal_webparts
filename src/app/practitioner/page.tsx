@@ -4,17 +4,18 @@ import { Skeleton } from "@/lib/components/ui/skeleton";
 import PractitionerInfo from "@/lib/components/practitioner-info";
 import React, { useEffect, useState } from "react";
 import usePractitioners from "@/lib/hooks/usePractitioners";
+import useLocalStorage from "@/lib/hooks/useLocalStorage";
 
 const ProfilePage = () => {
-  const [practitionerId, setPractitionerId] = useState<string | null>(null);
+  const [practitionerId, setPractitionerId] = useState<string>("");
   const [practitionerDetails, setPractitionerDetails] = useState<PractitionerDetails | null>(null);
   const { getPractitionerDetails, loading, error } = usePractitioners();
-
+  const { getValue} = useLocalStorage<string>();
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.parent?.location.search || "");
-      const id = params.get("id");
-      setPractitionerId(id);
+
+      const id = getValue("practitionerId")
+      setPractitionerId(id ?? "");
       console.log("Practitioner ID from parent URL:", id);
     }
   }, []);

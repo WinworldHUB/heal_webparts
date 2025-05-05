@@ -36,7 +36,7 @@ const TherapyPractitionerCard: FC<TherapyPractitionerCardProps> = ({
             dangerouslySetInnerHTML={{
               __html: truncateText(practitioner?.businessSummary, 18),
             }}
-            className="text-gray-600 mt-2 text-sm sm:text-base"
+            className="text-gray-600 mt-2 text-sm sm:text-base truncate"
           />
         </div>
       </CardContent>

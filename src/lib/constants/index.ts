@@ -33,3 +33,5 @@ export const DMS_PATHS = {
     THERAPY: "/therapy",
   },
 };
+
+export const ENCODER_SECRET_KEY = "2ff493499f93c38bbd00f4a64941dc4e";

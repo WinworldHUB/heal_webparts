@@ -156,7 +156,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
           </div>
           <div className="p-4">
             <h3 className="text-4xl font-semibold text-gray-800 mb-6">
-              {practitioner?.firstName + practitioner.lastName}{" "}
+              {getFullName(practitioner?.firstName, practitioner?.lastName)}
             </h3>
             <RawHTML html={practitioner?.biography} />
           </div>

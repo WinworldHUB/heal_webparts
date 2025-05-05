@@ -15,6 +15,7 @@ import { Separator } from "./ui/separator";
 import { useRouter, redirect, RedirectType } from "next/navigation";
 import { DMS_PATHS } from "../constants";
 import useDocLinks from "../hooks/useDocLinks";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 SwiperCore.use([Pagination, Navigation, Autoplay, EffectCards]);
 
@@ -27,6 +28,7 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
   const [therapyDetails, setTherapyDetails] = useState<TherapyDetails | null>(
     null
   );
+  const {setValue} = useLocalStorage<string>()
   const [therapyImage, setTherapyImage] = useState<string>(
     "/assets/therapies/therapy_placeholder.jpg"
   );
@@ -65,8 +67,9 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
     );
   }
   const handlePractitionerClick = (practitionerId: string) => {
-    const newUrl = `http://localhost:5500?id=${practitionerId}`;
-    window.open(newUrl, "_blank");
+    setValue("practitionerId", practitionerId);
+    const newUrl = `https://heal-wellness.co.uk/practitioner`;
+    window.open(newUrl, "_self", "noopener,noreferrer");
   };
   
   
@@ -95,11 +98,11 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
             <>
               <Separator className="my-2 w-full" />
               <Swiper
-                slidesPerView={1}
+                slidesPerView={2}
                 // navigation
                 pagination
                 loop
-                className="w-full cursor-grab"
+                className="w-full"
                 autoplay={{ delay: 5000, disableOnInteraction: true }}
               >
                 {therapyDetails.practitioners.map((practitioner) => (
