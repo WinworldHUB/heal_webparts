@@ -159,6 +159,7 @@ type Therapy = {
   expiryDate: any;
   prerequisites: any;
   sessionTime: string;
+  isMedical?: boolean;
   perSessionPrice: string;
 };
 

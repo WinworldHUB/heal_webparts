@@ -24,7 +24,6 @@ interface TherapyServiceCardProps {
 }
 
 const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
-  const router = useRouter();
   const [therapyDetails, setTherapyDetails] = useState<TherapyDetails | null>(
     null
   );
@@ -35,8 +34,6 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
 
   const {
     getDocLink,
-    error: docLinkError,
-    isLoading: docLinkLoading,
   } = useDocLinks();
 
   const { getTherapyDetails, loading, error } = useTherapy();
