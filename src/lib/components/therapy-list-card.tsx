@@ -12,6 +12,7 @@ import {
 } from "./ui/accordion";
 import { getFullName } from "../utils/string-util";
 import { Separator } from "@radix-ui/react-separator";
+import TherapyListPractitioner from "./therapy-list-practitioner";
 
 interface TherapyListCardProps {
   therapy: Therapy;
@@ -22,7 +23,6 @@ const TherapyListCard: FC<TherapyListCardProps> = ({ therapy }) => {
     null
   );
   const { setValue } = useLocalStorage<string>();
-  const { getDocLink } = useDocLinks();
   const { getTherapyDetails } = useTherapy();
 
   useEffect(() => {
@@ -43,18 +43,15 @@ const TherapyListCard: FC<TherapyListCardProps> = ({ therapy }) => {
       <AccordionItem value={therapy.id}>
         <AccordionTrigger className="text-2xl">{therapy.name}</AccordionTrigger>
         <Separator className="bg-[#a99870] h-[1px] w-full" />
-        <AccordionContent>
-          <div className="flex flex-col gap-2 mt-2 w-100">
+        <AccordionContent >
+          <div className="flex flex-col gap-2 mt-2 w-full">
             {therapyDetails?.practitioners?.length ? (
-              therapyDetails.practitioners.map((p) => (
-                <div key={p.id} className="w-full">
-                  <span
-                    key={p.id}
-                    className="cursor-pointer text-base w-full"
-                    onClick={() => handlePractitionerClick(p.id)}
-                  >
-                    {getFullName(p.firstName, p.lastName)}
-                  </span>
+              therapyDetails.practitioners.map((practitioner) => (
+                <div key={practitioner.id} className="w-full">
+                  <TherapyListPractitioner
+                    practitioner={practitioner}
+                    handlePractitionerClick={handlePractitionerClick}
+                  />
                 </div>
               ))
             ) : (
