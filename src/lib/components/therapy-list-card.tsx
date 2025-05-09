@@ -41,7 +41,7 @@ const TherapyListCard: FC<TherapyListCardProps> = ({ therapy }) => {
   return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value={therapy.id}>
-        <AccordionTrigger className="text-2xl">{therapy.name}</AccordionTrigger>
+        <AccordionTrigger className="text-2xl hover:no-underline">{therapy.name}</AccordionTrigger>
         <Separator className="bg-[#a99870] h-[1px] w-full" />
         <AccordionContent >
           <div className="flex flex-col gap-2 mt-2 w-full">
