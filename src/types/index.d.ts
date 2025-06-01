@@ -175,3 +175,5 @@ type DocLinkDetails = {
   parentType: string;
   url: string;
 };
+
+type LoaderType = "circle" | "rectangle" | "bar";

@@ -4,7 +4,6 @@ export const EMPTY_FILTER_SELECTIONS = {
   selectedPractitionerId: null,
 } as FilterSelections;
 
-
 export const TherapyImages = {
   aesthetics: "/assets/therapies/aesthetics.jpg",
   audiology: "/assets/therapies/audiology.jpg",
@@ -25,7 +24,7 @@ export const TherapyImages = {
   psychotherapist: "/assets/therapies/psychotherapist.jpg",
   speech_and_language_therapist: "/assets/therapies/speech.jpg",
   skin_specialist: "/assets/therapies/skin_specialist.jpg",
-}
+};
 
 export const DMS_PATHS = {
   IMAGES: {
@@ -35,3 +34,12 @@ export const DMS_PATHS = {
 };
 
 export const ENCODER_SECRET_KEY = "2ff493499f93c38bbd00f4a64941dc4e";
+
+export const WEBSITE_URLS = {
+  HOME: "https://www.heal-wellness.co.uk",
+  SERVICES: "https://www.heal-wellness.co.uk/services",
+  APP: "https://app.heal-wellness.co.uk",
+};
+
+export const THERAPY_IMAGE_PLACEHOLDER =
+  "/assets/therapies/therapy_placeholder.jpg";

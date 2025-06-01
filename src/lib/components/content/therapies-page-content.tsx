@@ -14,6 +14,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { SkeletonCard } from "../ui/skeleton";
+import { openUrlInSameTab } from "@/lib/utils";
+import { WEBSITE_URLS } from "@/lib/constants";
 
 // Init modules
 SwiperCore.use([Pagination, Navigation, Autoplay]);
@@ -26,11 +28,13 @@ const TherapyPageContent = () => {
 
   const { loading, error, getAllTherapies, therapies } = useTherapy();
 
-
   useEffect(() => {
     getAllTherapies();
   }, []);
 
+  const handleLearnMoreClick = (therapyId: string) => {
+    openUrlInSameTab(WEBSITE_URLS.SERVICES);
+  };
 
   if (loading || error) {
     return <SkeletonCard className="min-h-dvh w-full" />;
@@ -51,7 +55,10 @@ const TherapyPageContent = () => {
       >
         {therapies?.map((therapy) => (
           <SwiperSlide key={therapy?.id}>
-            <TherapyWidget therapy={therapy} />
+            <TherapyWidget
+              therapy={therapy}
+              onLearnMoreClick={handleLearnMoreClick}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
