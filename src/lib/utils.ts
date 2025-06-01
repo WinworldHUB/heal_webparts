@@ -6,14 +6,18 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const openUrlInNewTab = (url: string) => {
-  const newWindow = window.open(url, "_blank", "noopener, noreferrer");
+  const newWindow = window?.open(url, "_blank", "noopener, noreferrer");
   if (newWindow) newWindow.opener = null;
 };
 
 export const openUrlInSameTab = (url: string) => {
-  if (window.parent) {
-    window.parent?.open(url, "_self");
-  } else {
+  try {
+    if (window.parent) {
+      window.parent?.open(url, "_self");
+    } else {
+      openUrlInNewTab(url);
+    }
+  } catch (error) {
     openUrlInNewTab(url);
   }
 };

@@ -12,7 +12,9 @@ const SimpleFrame: FC<SimpleFrameProps> = ({ src, style, ...props }) => {
     width: "100%",
     height: "500px",
   };
-  return <iframe src={src} style={style ?? defaultStyle} {...props} />;
+  return (
+    <iframe allow="*" src={src} style={style ?? defaultStyle} {...props} />
+  );
 };
 
 export default SimpleFrame;
