@@ -12,3 +12,6 @@ export const getFullName = (firstName: string, lastName: string) => {
 export const removeWhitespace = (text: string) => {
   return text.replace(/&/g, "and").replace(/\s+/g, "_").toLowerCase();
 };
+
+export const isEmpty = (text: string | null | undefined) =>
+  !text || text.trim() === "";

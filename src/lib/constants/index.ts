@@ -36,10 +36,13 @@ export const DMS_PATHS = {
 export const ENCODER_SECRET_KEY = "2ff493499f93c38bbd00f4a64941dc4e";
 
 export const WEBSITE_URLS = {
-  HOME: "https://www.heal-wellness.co.uk",
-  SERVICES: "https://www.heal-wellness.co.uk/services",
+  HOME: "https://heal-wellness.co.uk",
+  SERVICES: "https://heal-wellness.co.uk/services",
+  PRACTITIONERS: "https://heal-wellness.co.uk/practitioners/",
   APP: "https://app.heal-wellness.co.uk",
 };
 
 export const THERAPY_IMAGE_PLACEHOLDER =
   "/assets/therapies/therapy_placeholder.jpg";
+
+export const USER_IMAGE_PLACEHOLDER = "/assets/placeholder-profile-pic.jpg";

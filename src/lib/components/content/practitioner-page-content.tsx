@@ -8,6 +8,8 @@ import usePractitioners from "../../hooks/usePractitioners";
 import { getFullName } from "../../utils/string-util";
 import Slider from "../ui/slider";
 import { useMediaQuery } from "react-responsive";
+import { openUrlInSameTab } from "@/lib/utils";
+import { WEBSITE_URLS } from "@/lib/constants";
 
 const PractitionerPageContent = () => {
   const searchParams = useSearchParams();
@@ -18,8 +20,8 @@ const PractitionerPageContent = () => {
     usePractitioners();
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const handleCardClick = (link: string) => {
-    window.open(link, "_blank");
+  const handleCardClick = () => {
+    openUrlInSameTab(WEBSITE_URLS.PRACTITIONERS);
   };
 
   useEffect(() => {
@@ -38,10 +40,9 @@ const PractitionerPageContent = () => {
         delay={delay}
         isAutoPlay={true}
         autoHeight={false}
-        isShowPagination={true}
+        isShowPagination={false}
         isShowNavigation={true}
         slidesPerView={isMobile ? 1 : 3}
-          
         onPageChange={(page) => setCurrentSlide(page)}
       >
         {(practitioners ?? []).map((practitioner) => (
@@ -51,15 +52,11 @@ const PractitionerPageContent = () => {
           >
             <HoverCard
               practitioner={practitioner}
-              onCardClick={() =>
-                handleCardClick(
-                  `https://heal-wellness.co.uk/practitioner?id=${practitioner.id}`
-                )
-              }
+              onCardClick={handleCardClick}
             />
             <div className="flex flex-col items-center justify-center mt-4">
               <h2>
-                <span className="text-xl font-semibold text-[#193a5e]">
+                <span className="text-xl font-semibold">
                   {getFullName(practitioner.firstName, practitioner.lastName)}
                 </span>
               </h2>

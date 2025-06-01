@@ -2,9 +2,11 @@
 
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { truncateText } from "../utils/string-util";
+import { isEmpty, truncateText } from "../utils/string-util";
+import usePractitioners from "../hooks/usePractitioners";
+import { USER_IMAGE_PLACEHOLDER } from "../constants";
 
 interface HoverCardProps {
   practitioner: Practitioner;
@@ -13,6 +15,17 @@ interface HoverCardProps {
 
 const HoverCard: FC<HoverCardProps> = ({ practitioner, onCardClick }) => {
   const [hovered, setHovered] = useState(false);
+  const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
+  const { loading, error, getPractitionerProfilePic } = usePractitioners();
+
+  useEffect(() => {
+    if (practitioner) {
+      getPractitionerProfilePic(practitioner.id, (profilePic) => {
+        console.log("Profile Pic URL:", profilePic);
+        setProfilePicUrl(profilePic);
+      });
+    }
+  }, [practitioner]);
 
   return (
     <Card
@@ -23,8 +36,12 @@ const HoverCard: FC<HoverCardProps> = ({ practitioner, onCardClick }) => {
     >
       <CardContent className="p-4 h-full relative">
         <Image
-          src="https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg"
-          alt={practitioner.firstName + practitioner.lastName}
+          src={
+            profilePicUrl ?? USER_IMAGE_PLACEHOLDER
+            // "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg"
+          }
+          alt={`${practitioner.firstName} ${practitioner.lastName}`}
+          title={`${practitioner.firstName} ${practitioner.lastName}`}
           fill
           className="object-cover"
         />
@@ -35,10 +52,17 @@ const HoverCard: FC<HoverCardProps> = ({ practitioner, onCardClick }) => {
           className="absolute bottom-0 text-center left-0 w-full h-1/2 bg-[#a99870]/90 p-4 flex flex-col justify-start rounded-t-lg shadow-md overflow-hidden"
         >
           <p className="text-xl font-semibold text-white">
-            {practitioner.businessName}
+            {isEmpty(practitioner.businessName)
+              ? `${practitioner.firstName} ${practitioner.lastName}`
+              : practitioner.businessName}
           </p>
           <p className="text-lg text-white mt-1">
-            {truncateText(practitioner.businessSummary, 100)}
+            {truncateText(
+              isEmpty(practitioner.businessSummary)
+                ? practitioner.biography
+                : practitioner.businessSummary,
+              100
+            )}
           </p>
         </motion.div>
       </CardContent>
