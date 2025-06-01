@@ -31,7 +31,7 @@ const TherapyWidget: FC<TherapyWidgetProps> = ({
   const handleImageLoad = async (url: string, name?: string) => {
     const doc = await getDocumentFromUrl(url, name);
     if (!doc) {
-      setTherapyImage(THERAPY_IMAGE_PLACEHOLDER);
+      setTherapyImage(url);
     } else {
       setTherapyImage(URL.createObjectURL(doc));
     }

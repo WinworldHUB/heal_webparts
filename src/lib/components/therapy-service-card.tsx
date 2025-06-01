@@ -29,15 +29,17 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
     null
   );
   const { setValue } = useLocalStorage<string>();
-  const [therapyImage, setTherapyImage] = useState<string>(
-    "/assets/therapies/therapy_placeholder.jpg"
-  );
+  const [therapyImage, setTherapyImage] = useState<string | null>(null);
 
   const { getTherapyDetails, getTherapyImage, loading, error } = useTherapy();
 
   const handleImageDetails = async (docLink: DocLinkDetails) => {
     const doc = await getDocumentFromUrl(docLink.url, docLink.title);
-    setTherapyImage(URL.createObjectURL(doc));
+    if (doc) {
+      setTherapyImage(URL.createObjectURL(doc));
+    } else {
+      setTherapyImage(docLink.url);
+    }
   };
 
   useEffect(() => {
