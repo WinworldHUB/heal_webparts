@@ -144,7 +144,7 @@ const ServicePageContent = () => {
     );
 
   return (
-    <SimpleFlexbox flexDirection="col" className="app-bg">
+    <SimpleFlexbox flexDirection="col" className="app-bg min-h-dvh">
       {!selectedPractitioner && (
         <SimpleFlexbox className="p-4">
           <h1 className="text-nowrap">All Practitioners</h1>
@@ -175,7 +175,7 @@ const ServicePageContent = () => {
           </SimpleFlexbox>
         </SimpleFlexbox>
       )}
-      <div className="flex flex-col lg:flex-row gap-6 p-4 app-bg min-h-dvh sm:items-center md:items-start justify-center">
+      <div className="flex flex-col lg:flex-row gap-6 p-4 app-bg sm:items-center md:items-start justify-center max-h-[700px] overflow-auto">
         {/* Sidebar Filter */}
         {/* <div className="w-full sm:max-w-xl lg:max-w-sm sticky top-4 h-fit mx-auto">
         <ServiceFilters

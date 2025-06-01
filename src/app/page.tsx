@@ -6,7 +6,7 @@ export default function Home() {
       <h1>Services</h1>
       <SimpleFrame
         src="http://localhost:3000/services"
-        className="website-width"
+        className="website-width website-height"
       />
       <h1>Therapies</h1>
       <SimpleFrame src="http://localhost:3000/therapies" />
