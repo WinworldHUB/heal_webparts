@@ -38,7 +38,7 @@ const PractitionerPageContent = () => {
         delay={delay}
         isAutoPlay={true}
         autoHeight={false}
-        isShowPagination={true}
+        isShowPagination={false}
         isShowNavigation={true}
         slidesPerView={isMobile ? 1 : 3}
           
@@ -59,7 +59,7 @@ const PractitionerPageContent = () => {
             />
             <div className="flex flex-col items-center justify-center mt-4">
               <h2>
-                <span className="text-xl font-semibold text-[#193a5e]">
+                <span className="text-xl font-semibold text-black">
                   {getFullName(practitioner.firstName, practitioner.lastName)}
                 </span>
               </h2>

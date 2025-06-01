@@ -7,8 +7,10 @@ import usePractitioners from "../../hooks/usePractitioners";
 import useClinics from "../../hooks/useClinics";
 import useTherapy from "../../hooks/useTherapy";
 import PractitionerList from "../practitioner-list";
-import ServiceFilters from "../service-filters";
 import { EMPTY_FILTER_SELECTIONS } from "../../constants";
+import PractitionerPageContent from "./practitioner-page-content";
+import PractitionerInfo from "../practitioner-info";
+import { PiCaretLeftLight } from "react-icons/pi";
 
 const ServicePageContent = () => {
   const router = useRouter();
@@ -43,6 +45,9 @@ const ServicePageContent = () => {
   const [filterSelections, setFilterSelections] = useState<FilterSelections>(
     EMPTY_FILTER_SELECTIONS
   );
+  const [pageIndex, setPageIndex] = useState<number>(0);
+  const [selectedPractitioner, setSelectedPractitioner] =
+    useState<PractitionerDetails | null>(null);
 
   const handleFilterChange = ({
     selectedClinicId,
@@ -104,8 +109,13 @@ const ServicePageContent = () => {
     });
   };
 
-  const onPractitionerClick = (practitioner: Practitioner) => {
-    router.push(`/practitioners/${practitioner.id}`);
+  const onPractitionerClick = (practitionerId: string) => {
+    setPageIndex(1);
+    if (practitionerId) {
+      getPractitionerDetails(practitionerId, (practitionerDetails) =>
+        setSelectedPractitioner(practitionerDetails)
+      );
+    }
   };
 
   useEffect(() => {
@@ -130,7 +140,7 @@ const ServicePageContent = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-6 p-4 bg-[#f2f0ea] min-h-dvh sm:items-center md:items-start justify-center">
       {/* Sidebar Filter */}
-      <div className="w-full sm:max-w-xl lg:max-w-sm sticky top-4 h-fit mx-auto">
+      {/* <div className="w-full sm:max-w-xl lg:max-w-sm sticky top-4 h-fit mx-auto">
         <ServiceFilters
           clinics={clinics ?? []}
           therapies={therapies ?? []}
@@ -154,13 +164,33 @@ const ServicePageContent = () => {
             handleFilterChange(EMPTY_FILTER_SELECTIONS);
           }}
         />
-      </div>
+      </div> */}
 
       {/* Practitioner List */}
-      <PractitionerList
-        practitioners={practitioners ?? []}
-        onPractitionerClick={onPractitionerClick}
-      />
+      {pageIndex === 1 && selectedPractitioner ? (
+        <div>
+          <button
+            className="hover:underline mb-4 flex items-center gap-2 text-2xl"
+            onClick={() => {
+              setPageIndex(0);
+              setSelectedPractitioner(null);
+            }}
+          >
+            <PiCaretLeftLight className="mt-1"/>
+            Back to Practitioner List
+          </button>
+          <PractitionerInfo
+            practitionerDetails={selectedPractitioner}
+            loading={false}
+            error={""}
+          />
+        </div>
+      ) : (
+        <PractitionerList
+          practitioners={practitioners ?? []}
+          onPractitionerClick={onPractitionerClick}
+        />
+      )}
     </div>
   );
 };

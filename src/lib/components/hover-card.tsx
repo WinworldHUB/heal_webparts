@@ -4,7 +4,7 @@ import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 import { FC, useState } from "react";
 import { motion } from "framer-motion";
-import { truncateText } from "../utils/string-util";
+import { getFullName, truncateText } from "../utils/string-util";
 
 interface HoverCardProps {
   practitioner: Practitioner;
@@ -23,7 +23,10 @@ const HoverCard: FC<HoverCardProps> = ({ practitioner, onCardClick }) => {
     >
       <CardContent className="p-4 h-full relative">
         <Image
-          src="https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg"
+          src={
+            practitioner.practitionerImage ??
+            "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg"
+          }
           alt={practitioner.firstName + practitioner.lastName}
           fill
           className="object-cover"
@@ -35,10 +38,17 @@ const HoverCard: FC<HoverCardProps> = ({ practitioner, onCardClick }) => {
           className="absolute bottom-0 text-center left-0 w-full h-1/2 bg-[#a99870]/90 p-4 flex flex-col justify-start rounded-t-lg shadow-md overflow-hidden"
         >
           <p className="text-xl font-semibold text-white">
-            {practitioner.businessName}
+            {practitioner.businessName?.trim()
+              ? practitioner.businessName
+              : getFullName(practitioner.firstName, practitioner.lastName)}
           </p>
           <p className="text-lg text-white mt-1">
-            {truncateText(practitioner.businessSummary, 100)}
+            {truncateText(
+              practitioner.businessSummary?.trim()
+                ? practitioner.businessSummary
+                : practitioner.biography,
+              100
+            )}
           </p>
         </motion.div>
       </CardContent>
