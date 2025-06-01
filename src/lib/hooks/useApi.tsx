@@ -1,6 +1,14 @@
 import { useContext, useState } from "react";
 import { API_BASE_URL } from "../constants/api-constants";
 
+const OPTIONS: RequestInit = {
+  cache: "no-cache",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+};
+
 interface APIState<T> {
   loading: boolean;
   data: T;
@@ -101,6 +109,7 @@ const useApi = <T,>(baseUrl?: string): APIState<T> => {
       setLoading(true);
       const apiResponse = await fetch(`${baseUrl ?? API_BASE_URL}${url}`, {
         method: "GET",
+        ...OPTIONS,
       });
 
       const response = (await apiResponse.json()) as GeneralAPIResponse;
