@@ -12,7 +12,6 @@ import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import useTherapy from "@/lib/hooks/useTherapy";
 import Loader from "../ui/loader";
 
-
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 const TherapyPageServiceContent = () => {
@@ -20,7 +19,6 @@ const TherapyPageServiceContent = () => {
   useEffect(() => {
     getAllTherapies();
   }, []);
-
 
   if (loading)
     return (
@@ -42,6 +40,7 @@ const TherapyPageServiceContent = () => {
         navigation
         className="w-full cursor-grab"
         autoplay={{ delay: 5000, disableOnInteraction: true }}
+        loop
       >
         {therapies.map((therapy) => (
           <SwiperSlide

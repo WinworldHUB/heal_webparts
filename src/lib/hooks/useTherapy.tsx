@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { API_ROUTES } from "../constants/api-constants";
 import useApi from "./useApi";
+import { DMS_PATHS } from "../constants";
+import useDocLinks from "./useDocLinks";
 
 interface TherapyState {
   loading: boolean;
@@ -11,11 +13,16 @@ interface TherapyState {
     id: string,
     onSuccess?: (therapyDetails: TherapyDetails) => void
   ) => void;
+  getTherapyImage: (
+    therapyId: string,
+    onSuccess?: (docLink: DocLinkDetails) => void
+  ) => void;
 }
 
 const useTherapy = (): TherapyState => {
   const [error, setError] = useState<string>(null);
   const [therapies, setTherapies] = useState<Therapy[]>([]);
+  const { getDocLink } = useDocLinks();
 
   const { getData: getAllTherapiesRequest, loading: getAllClinicsLoading } =
     useApi<Therapy[]>();
@@ -56,12 +63,28 @@ const useTherapy = (): TherapyState => {
     }
   };
 
+  const getTherapyImage = async (
+    therapyId: string,
+    onSuccess?: (docLink: DocLinkDetails) => void
+  ) => {
+    // Query docLink to get the profile pic URL
+    const docLinkDetails: Partial<DocLinkDetails> = {
+      parentId: therapyId,
+      path: `${DMS_PATHS.IMAGES.BASE}${DMS_PATHS.IMAGES.THERAPY}/${therapyId}`,
+    };
+
+    await getDocLink(docLinkDetails.parentId, docLinkDetails.path, (response) =>
+      onSuccess(response)
+    );
+  };
+
   return {
     loading: getAllClinicsLoading || getTherapyDetailsLoading,
     error,
     therapies,
     getAllTherapies,
     getTherapyDetails,
+    getTherapyImage,
   };
 };
 

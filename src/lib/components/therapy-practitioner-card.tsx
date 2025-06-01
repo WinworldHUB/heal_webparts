@@ -1,8 +1,11 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Card, CardContent } from "@/lib/components/ui/card";
-import { truncateText } from "../utils/string-util";
+import { isEmpty, truncateText } from "../utils/string-util";
+import usePractitioners from "../hooks/usePractitioners";
+import { USER_IMAGE_PLACEHOLDER } from "../constants";
+import Image from "next/image";
 
 interface TherapyPractitionerCardProps {
   practitioner: Practitioner;
@@ -13,19 +16,31 @@ const TherapyPractitionerCard: FC<TherapyPractitionerCardProps> = ({
   practitioner,
   onPractitionerClick,
 }) => {
+  const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
+  const { getPractitionerProfilePic } = usePractitioners();
+
+  useEffect(() => {
+    if (practitioner) {
+      getPractitionerProfilePic(practitioner.id, (profilePic) => {
+        setProfilePicUrl(profilePic);
+      });
+    }
+  }, [practitioner]);
+
   return (
     <Card
       key={practitioner?.id}
-      className="w-full sm:max-w-[250px] p-4 rounded-2xl shadow-md"
+      className="w-full sm:max-w-[250px] p-2 rounded shadow-md"
       onClick={() => onPractitionerClick(practitioner?.id)}
     >
-      <CardContent className="flex flex-col items-start px-0 sm:flex-row gap-4">
-        <img
-          src={practitioner?.practitionerImage ?? "/assets/doctor_image.jpg"}
-          onError={(e) => (e.currentTarget.src = "/assets/doctor_image.jpg")}
+      <CardContent className="flex flex-col items-start px-0 sm:flex-row gap-2">
+        <Image
+          src={profilePicUrl ?? USER_IMAGE_PLACEHOLDER}
+          //onError={(e) => (e.currentTarget.src = "/assets/doctor_image.jpg")}
           alt={practitioner?.firstName + practitioner?.lastName}
-          className="object-cover rounded-2xl h-16 w-16"
-          loading="lazy"
+          width={60}
+          height={60}
+          className="object-cover rounded w-[60px]"
         />
 
         <div className="flex flex-col w-full">
@@ -34,7 +49,12 @@ const TherapyPractitionerCard: FC<TherapyPractitionerCardProps> = ({
           </h2>
           <p
             dangerouslySetInnerHTML={{
-              __html: truncateText(practitioner?.businessSummary, 18),
+              __html: truncateText(
+                isEmpty(practitioner?.businessSummary)
+                  ? practitioner?.biography
+                  : practitioner?.businessSummary,
+                18
+              ),
             }}
             className="text-gray-600 mt-2 text-sm sm:text-base truncate"
           />

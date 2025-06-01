@@ -13,9 +13,10 @@ import SwiperCore from "swiper";
 import { Pagination, Navigation, Autoplay, EffectCards } from "swiper/modules";
 import { Separator } from "./ui/separator";
 import { useRouter, redirect, RedirectType } from "next/navigation";
-import { DMS_PATHS } from "../constants";
+import { DMS_PATHS, THERAPY_IMAGE_PLACEHOLDER } from "../constants";
 import useDocLinks from "../hooks/useDocLinks";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { getDocumentFromUrl } from "../utils";
 
 SwiperCore.use([Pagination, Navigation, Autoplay, EffectCards]);
 
@@ -27,56 +28,56 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
   const [therapyDetails, setTherapyDetails] = useState<TherapyDetails | null>(
     null
   );
-  const {setValue} = useLocalStorage<string>()
+  const { setValue } = useLocalStorage<string>();
   const [therapyImage, setTherapyImage] = useState<string>(
     "/assets/therapies/therapy_placeholder.jpg"
   );
 
-  const {
-    getDocLink,
-  } = useDocLinks();
+  const { getTherapyDetails, getTherapyImage, loading, error } = useTherapy();
 
-  const { getTherapyDetails, loading, error } = useTherapy();
+  const handleImageDetails = async (docLink: DocLinkDetails) => {
+    const doc = await getDocumentFromUrl(docLink.url, docLink.title);
+    setTherapyImage(URL.createObjectURL(doc));
+  };
 
   useEffect(() => {
     getTherapyDetails(therapy.id, (therapyDetails) => {
+      getTherapyImage(therapyDetails?.therapy.id, handleImageDetails);
       setTherapyDetails(therapyDetails);
     });
   }, []);
 
-  useEffect(() => {
-    if (therapy) {
-      getDocLink(
-        therapy.id,
-        `${DMS_PATHS.IMAGES.BASE}${DMS_PATHS.IMAGES.THERAPY}/${therapy.id}`,
-        (docLinks) => {
-          setTherapyImage(docLinks?.[0]?.url);
-        }
-      );
-    }
-  }, [therapy]);
+  // useEffect(() => {
+  //   if (therapy) {
+  //     getDocLink(
+  //       therapy.id,
+  //       `${DMS_PATHS.IMAGES.BASE}${DMS_PATHS.IMAGES.THERAPY}/${therapy.id}`,
+  //       (docLink) => {
+  //         setTherapyImage(docLink.url);
+  //       }
+  //     );
+  //   }
+  // }, [therapy]);
 
-  if (loading || error) {
-    return (
-      <div className="bg-[#f2f0ea]">
-        <Loader />
-      </div>
-    );
-  }
+  // if (loading || error) {
+  //   return (
+  //     <div className="bg-[#f2f0ea]">
+  //       <Loader />
+  //     </div>
+  //   );
+  // }
   const handlePractitionerClick = (practitionerId: string) => {
     setValue("practitionerId", practitionerId);
     const newUrl = `https://heal-wellness.co.uk/practitioner`;
     window.open(newUrl, "_self", "noopener,noreferrer");
   };
-  
-  
-  
+
   return (
     <div className="w-full flex justify-center">
       <div className="flex flex-col md:flex-row items-center md:items-start gap-6 max-w-5xl w-full p-4">
         <Avatar className="w-[300px] h-[300px] rounded-full overflow-hidden">
           <AvatarImage
-            src={therapyImage ?? "/assets/therapies/therapy_placeholder.jpg"}
+            src={therapyImage ?? THERAPY_IMAGE_PLACEHOLDER}
             className="w-full h-full object-cover bg-transparent"
           />
         </Avatar>

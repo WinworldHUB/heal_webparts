@@ -12,6 +12,11 @@ export default function Home() {
       <SimpleFrame src="http://localhost:3000/therapies" />
       <h1>Practitioners</h1>
       <SimpleFrame src="http://localhost:3000/practitioners" />
+      <h1>Therapy / Services </h1>
+      <SimpleFrame
+        src="http://localhost:3000/therapies/services"
+        className="website-width"
+      />
     </div>
   );
 }

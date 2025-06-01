@@ -16,7 +16,7 @@ interface HoverCardProps {
 const HoverCard: FC<HoverCardProps> = ({ practitioner, onCardClick }) => {
   const [hovered, setHovered] = useState(false);
   const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
-  const { loading, error, getPractitionerProfilePic } = usePractitioners();
+  const { getPractitionerProfilePic } = usePractitioners();
 
   useEffect(() => {
     if (practitioner) {
