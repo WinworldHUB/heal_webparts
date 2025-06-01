@@ -1,6 +1,6 @@
 import { Loader } from "lucide-react";
 import React, { FC, useEffect, useState } from "react";
-import { DMS_PATHS } from "../constants";
+import { DMS_PATHS, WEBSITE_URLS } from "../constants";
 import useDocLinks from "../hooks/useDocLinks";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useTherapy from "../hooks/useTherapy";
@@ -13,6 +13,7 @@ import {
 import { getFullName } from "../utils/string-util";
 import { Separator } from "@radix-ui/react-separator";
 import TherapyListPractitioner from "./therapy-list-practitioner";
+import { openUrlInSameTab } from "../utils";
 
 interface TherapyListCardProps {
   therapy: Therapy;
@@ -29,13 +30,8 @@ const TherapyListCard: FC<TherapyListCardProps> = ({ therapy }) => {
     getTherapyDetails(therapy.id, (details) => setTherapyDetails(details));
   }, []);
 
-  const handlePractitionerClick = (practitionerId: string) => {
-    setValue("practitionerId", practitionerId);
-    window.open(
-      `https://heal-wellness.co.uk/practitioner`,
-      "_self",
-      "noopener,noreferrer"
-    );
+  const handlePractitionerClick = () => {
+    openUrlInSameTab(WEBSITE_URLS.PRACTITIONERS);
   };
 
   return (
