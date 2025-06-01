@@ -20,6 +20,7 @@ import {
   PiPillBold,
 } from "react-icons/pi";
 import Link from "next/link";
+import { getDocumentFromUrl } from "../utils";
 
 interface PractitionerInfoProps {
   practitionerDetails: PractitionerDetails | null;
@@ -35,14 +36,20 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
   const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
   const { getPractitionerProfilePic } = usePractitioners();
 
+  const handleImageDetails = async (docLink: DocLinkDetails) => {
+    const doc = await getDocumentFromUrl(docLink.url, docLink.title);
+    if (doc) {
+      setProfilePicUrl(URL.createObjectURL(doc));
+    } else {
+      setProfilePicUrl(docLink.url);
+    }
+  };
+
   useEffect(() => {
     if (practitionerDetails) {
       getPractitionerProfilePic(
-        practitionerDetails?.practitioner?.id,
-        (profilePic) => {
-          console.log("Profile Pic URL:", profilePic);
-          setProfilePicUrl(profilePic);
-        }
+        practitionerDetails.practitioner?.id,
+        handleImageDetails
       );
     }
   }, [practitionerDetails]);
@@ -228,6 +235,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
               alt="Practitioner"
               fill
               className="rounded-lg object-cover shadow-lg"
+              loading="eager"
             />
           </div>
           <div className="p-4">

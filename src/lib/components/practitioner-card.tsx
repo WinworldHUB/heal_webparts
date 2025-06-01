@@ -9,6 +9,7 @@ import usePractitioners from "../hooks/usePractitioners";
 import { USER_IMAGE_PLACEHOLDER } from "../constants";
 import SimpleButton from "./simple-button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { getDocumentFromUrl } from "../utils";
 
 interface PractitionerCardProps {
   practitioner: Practitioner;
@@ -24,11 +25,18 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
   const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
   const { getPractitionerProfilePic } = usePractitioners();
 
+  const handleImageDetails = async (docLink: DocLinkDetails) => {
+    const doc = await getDocumentFromUrl(docLink.url, docLink.title);
+    if (doc) {
+      setProfilePicUrl(URL.createObjectURL(doc));
+    } else {
+      setProfilePicUrl(docLink.url);
+    }
+  };
+
   useEffect(() => {
     if (practitioner) {
-      getPractitionerProfilePic(practitioner.id, (profilePic) => {
-        setProfilePicUrl(profilePic);
-      });
+      getPractitionerProfilePic(practitioner.id, handleImageDetails);
     }
   }, [practitioner]);
 
@@ -45,6 +53,7 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
           width={120}
           height={0}
           className="object-cover rounded"
+          loading="eager"
         />
 
         <div className="flex flex-col justify-between w-full h-full">

@@ -62,6 +62,7 @@ const TherapyWidget: FC<TherapyWidgetProps> = ({
             src={therapyImage}
             alt="Therapist"
             className="size-full object-cover rounded-full"
+            loading="eager"
           />
         ) : (
           <SimpleLoader />

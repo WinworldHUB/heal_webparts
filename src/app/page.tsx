@@ -6,10 +6,11 @@ export default function Home() {
       <h1>Services</h1>
       <SimpleFrame
         src="http://localhost:3000/services"
-        className="website-width website-height"
+        className="website-width"
+        style={{ height: "100vh" }}
       />
       <h1>Therapies</h1>
-      <SimpleFrame src="http://localhost:3000/therapies" />
+      <SimpleFrame src="http://localhost:3000/therapies" className="w-full" />
       <h1>Practitioners</h1>
       <SimpleFrame src="http://localhost:3000/practitioners" />
       <h1>Therapy / Services </h1>

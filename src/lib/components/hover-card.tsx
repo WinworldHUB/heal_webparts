@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { isEmpty, truncateText } from "../utils/string-util";
 import usePractitioners from "../hooks/usePractitioners";
 import { USER_IMAGE_PLACEHOLDER } from "../constants";
+import { getDocumentFromUrl } from "../utils";
 
 interface HoverCardProps {
   practitioner: Practitioner;
@@ -18,17 +19,24 @@ const HoverCard: FC<HoverCardProps> = ({ practitioner, onCardClick }) => {
   const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
   const { getPractitionerProfilePic } = usePractitioners();
 
+  const handleImageDetails = async (docLink: DocLinkDetails) => {
+    const doc = await getDocumentFromUrl(docLink.url, docLink.title);
+    if (doc) {
+      setProfilePicUrl(URL.createObjectURL(doc));
+    } else {
+      setProfilePicUrl(docLink.url);
+    }
+  };
+
   useEffect(() => {
     if (practitioner) {
-      getPractitionerProfilePic(practitioner.id, (profilePic) => {
-        setProfilePicUrl(profilePic);
-      });
+      getPractitionerProfilePic(practitioner.id, handleImageDetails);
     }
   }, [practitioner]);
 
   return (
     <Card
-      className="relative w-84 h-100 overflow-hidden cursor-pointer rounded p-0"
+      className="relative w-84 h-100 overflow-hidden cursor-pointer rounded p-0 hover:shadow-lg transition-shadow duration-300 ease-in-out"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={onCardClick}
@@ -40,6 +48,7 @@ const HoverCard: FC<HoverCardProps> = ({ practitioner, onCardClick }) => {
           title={`${practitioner.firstName} ${practitioner.lastName}`}
           fill
           className="object-cover"
+          loading="eager"
         />
         <motion.div
           initial={{ opacity: 0, y: 50 }}

@@ -2,6 +2,8 @@ import useTherapy from "@/lib/hooks/useTherapy";
 import { Loader } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import TherapyListCard from "../therapy-list-card";
+import SimpleTherapyAccordion from "../simple-therapy-accordian";
+import TherapyPractitioners from "../therapy-practitioners";
 
 const TherapyListContent = () => {
   const { getAllTherapies, therapies, loading, error } = useTherapy();
@@ -32,12 +34,16 @@ const TherapyListContent = () => {
               Medical Therapies
             </h2>
             <div className="flex flex-col gap-2">
-              {medicalTherapies.map((t) => (
+              <SimpleTherapyAccordion data={medicalTherapies}>
+                {medicalTherapies.map((therapy) => (
+                  <TherapyPractitioners therapy={therapy} />
+                ))}
+              </SimpleTherapyAccordion>
+              {/* {medicalTherapies.map((t) => (
                 <div key={t.id} className="w-full">
-                    
-                <TherapyListCard key={t.id} therapy={t} />
+                  <TherapyListCard key={t.id} therapy={t} />
                 </div>
-              ))}
+              ))} */}
             </div>
           </div>
 
@@ -47,12 +53,16 @@ const TherapyListContent = () => {
               Non-Medical Therapies
             </h2>
             <div className="flex flex-col gap-2 items-start">
-              {nonMedicalTherapies.map((t) => (
+              <SimpleTherapyAccordion data={medicalTherapies}>
+                {nonMedicalTherapies.map((therapy) => (
+                  <TherapyPractitioners therapy={therapy} />
+                ))}
+              </SimpleTherapyAccordion>
+              {/* {nonMedicalTherapies.map((t) => (
                 <div key={t.id} className="w-full">
                   <TherapyListCard key={t.id} therapy={t} />
                 </div>
-  
-              ))}
+              ))} */}
             </div>
           </div>
         </div>

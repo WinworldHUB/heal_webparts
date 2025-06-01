@@ -81,6 +81,7 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
           <AvatarImage
             src={therapyImage ?? THERAPY_IMAGE_PLACEHOLDER}
             className="w-full h-full object-cover bg-transparent"
+            loading="eager"
           />
         </Avatar>
 

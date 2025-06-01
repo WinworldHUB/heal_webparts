@@ -17,7 +17,7 @@ interface PractitionersState {
   ) => void;
   getPractitionerProfilePic: (
     practitionerId: string,
-    onSuccess?: (profilePicUrl: string) => void
+    onSuccess?: (profilePicUrl: DocLinkDetails) => void
   ) => void;
 }
 
@@ -73,7 +73,7 @@ const usePractitioners = (): PractitionersState => {
 
   const getPractitionerProfilePic = async (
     practitionerId: string,
-    onSuccess?: (profilePicUrl: string) => void
+    onSuccess?: (profilePicUrl: DocLinkDetails) => void
   ) => {
     // Query docLink to get the profile pic URL
     const docLinkDetails: Partial<DocLinkDetails> = {
@@ -82,7 +82,7 @@ const usePractitioners = (): PractitionersState => {
     };
 
     await getDocLink(docLinkDetails.parentId, docLinkDetails.path, (response) =>
-      onSuccess(response.url)
+      onSuccess(response)
     );
   };
 

@@ -6,6 +6,7 @@ import { isEmpty, truncateText } from "../utils/string-util";
 import usePractitioners from "../hooks/usePractitioners";
 import { USER_IMAGE_PLACEHOLDER } from "../constants";
 import Image from "next/image";
+import { getDocumentFromUrl } from "../utils";
 
 interface TherapyPractitionerCardProps {
   practitioner: Practitioner;
@@ -19,11 +20,18 @@ const TherapyPractitionerCard: FC<TherapyPractitionerCardProps> = ({
   const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
   const { getPractitionerProfilePic } = usePractitioners();
 
+  const handleImageDetails = async (docLink: DocLinkDetails) => {
+    const doc = await getDocumentFromUrl(docLink.url, docLink.title);
+    if (doc) {
+      setProfilePicUrl(URL.createObjectURL(doc));
+    } else {
+      setProfilePicUrl(docLink.url);
+    }
+  };
+
   useEffect(() => {
     if (practitioner) {
-      getPractitionerProfilePic(practitioner.id, (profilePic) => {
-        setProfilePicUrl(profilePic);
-      });
+      getPractitionerProfilePic(practitioner.id, handleImageDetails);
     }
   }, [practitioner]);
 
@@ -41,6 +49,7 @@ const TherapyPractitionerCard: FC<TherapyPractitionerCardProps> = ({
           width={60}
           height={60}
           className="object-cover rounded w-[60px]"
+          loading="eager"
         />
 
         <div className="flex flex-col w-full">

@@ -1,10 +1,13 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { getFullName } from "../utils/string-util";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import RawHTML from "./raw-html";
 import { PiCaretRight } from "react-icons/pi";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import usePractitioners from "../hooks/usePractitioners";
+import { getDocumentFromUrl } from "../utils";
+import { USER_IMAGE_PLACEHOLDER } from "../constants";
 
 interface TherapyListPractitionerProps {
   practitioner: Practitioner;
@@ -15,16 +18,35 @@ const TherapyListPractitioner: FC<TherapyListPractitionerProps> = ({
   practitioner,
   handlePractitionerClick,
 }) => {
+  const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
+  const { getPractitionerProfilePic } = usePractitioners();
+
+  const handleImageDetails = async (docLink: DocLinkDetails) => {
+    const doc = await getDocumentFromUrl(docLink.url, docLink.title);
+    if (doc) {
+      setProfilePicUrl(URL.createObjectURL(doc));
+    } else {
+      setProfilePicUrl(docLink.url);
+    }
+  };
+
+  useEffect(() => {
+    if (practitioner) {
+      getPractitionerProfilePic(practitioner.id, handleImageDetails);
+    }
+  }, [practitioner]);
+
   return (
-    <div className="w-full p-4 border-b border-[#a99870]">
+    <div className="w-full p-4 border-[#a99870]">
       <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
         <Avatar className="h-16 w-16 shadow-lg">
           <AvatarImage
+            loading="eager"
             alt={getFullName(practitioner.firstName, practitioner.lastName)}
-            src={"/assets/therapy_service.png"}
-            onError={(e) =>
-              (e.currentTarget.src = "/assets/therapy_service.png")
-            }
+            src={profilePicUrl ?? USER_IMAGE_PLACEHOLDER}
+            // onError={(e) =>
+            //   (e.currentTarget.src = "/assets/therapy_service.png")
+            // }
             className="h-16 w-16 object-cover rounded-full"
           />
         </Avatar>
