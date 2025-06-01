@@ -13,10 +13,14 @@ import SwiperCore from "swiper";
 import { Pagination, Navigation, Autoplay, EffectCards } from "swiper/modules";
 import { Separator } from "./ui/separator";
 import { useRouter, redirect, RedirectType } from "next/navigation";
-import { DMS_PATHS, THERAPY_IMAGE_PLACEHOLDER } from "../constants";
+import {
+  DMS_PATHS,
+  THERAPY_IMAGE_PLACEHOLDER,
+  WEBSITE_URLS,
+} from "../constants";
 import useDocLinks from "../hooks/useDocLinks";
 import useLocalStorage from "../hooks/useLocalStorage";
-import { getDocumentFromUrl } from "../utils";
+import { getDocumentFromUrl, openUrlInSameTab } from "../utils";
 
 SwiperCore.use([Pagination, Navigation, Autoplay, EffectCards]);
 
@@ -68,10 +72,8 @@ const TherapyServiceCard: FC<TherapyServiceCardProps> = ({ therapy }) => {
   //     </div>
   //   );
   // }
-  const handlePractitionerClick = (practitionerId: string) => {
-    setValue("practitionerId", practitionerId);
-    const newUrl = `https://heal-wellness.co.uk/practitioner`;
-    window.open(newUrl, "_self", "noopener,noreferrer");
+  const handlePractitionerClick = () => {
+    openUrlInSameTab(WEBSITE_URLS.PRACTITIONERS);
   };
 
   return (
