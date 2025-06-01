@@ -14,6 +14,7 @@ import { PiCaretLeftBold, PiCaretLeftLight } from "react-icons/pi";
 import SimpleButton from "../simple-button";
 import SimpleFlexbox from "../simple-flexbox";
 import { Combobox } from "../ui/combobox";
+import { getComboBoxOptions } from "@/lib/utils/array-utils";
 
 const ServicePageContent = () => {
   const router = useRouter();
@@ -48,7 +49,6 @@ const ServicePageContent = () => {
   const [filterSelections, setFilterSelections] = useState<FilterSelections>(
     EMPTY_FILTER_SELECTIONS
   );
-  const [pageIndex, setPageIndex] = useState<number>(0);
   const [selectedPractitioner, setSelectedPractitioner] =
     useState<PractitionerDetails | null>(null);
 
@@ -113,7 +113,6 @@ const ServicePageContent = () => {
   };
 
   const onPractitionerClick = (practitionerId: string) => {
-    setPageIndex(1);
     if (practitionerId) {
       getPractitionerDetails(practitionerId, (practitionerDetails) =>
         setSelectedPractitioner(practitionerDetails)
@@ -143,8 +142,33 @@ const ServicePageContent = () => {
   return (
     <SimpleFlexbox flexDirection="col" className="app-bg">
       <SimpleFlexbox className="p-4">
-        <h1>All Practitioners</h1>
-        <Combobox options={[]} />
+        <h1 className="text-nowrap">All Practitioners</h1>
+        <SimpleFlexbox justifyContent="end" className="gap-4">
+          <Combobox
+            options={getComboBoxOptions(therapies, "id", "name")}
+            onChange={(id) => {
+              console.log("Selected Therapy ID:", id);
+
+              handleFilterChange({
+                ...filterSelections,
+                selectedTherapyId: id,
+              });
+            }}
+            placeholder="Select Therapies..."
+            selected={filterSelections.selectedTherapyId}
+          />
+          <Combobox
+            options={getComboBoxOptions(clinics, "id", "name")}
+            onChange={(id) => {
+              handleFilterChange({
+                ...filterSelections,
+                selectedClinicId: id,
+              });
+            }}
+            placeholder="Select Clinic..."
+            selected={filterSelections.selectedClinicId}
+          />
+        </SimpleFlexbox>
       </SimpleFlexbox>
       <div className="flex flex-col lg:flex-row gap-6 p-4 app-bg min-h-dvh sm:items-center md:items-start justify-center">
         {/* Sidebar Filter */}
@@ -175,21 +199,10 @@ const ServicePageContent = () => {
       </div> */}
 
         {/* Practitioner List */}
-        {pageIndex === 1 && selectedPractitioner ? (
+        {selectedPractitioner ? (
           <div>
-            {/* <button
-            className="hover:underline mb-4 flex items-center gap-2 text-2xl"
-            onClick={() => {
-              setPageIndex(0);
-              setSelectedPractitioner(null);
-            }}
-          >
-            <PiCaretLeftLight className="mt-1"/>
-            Back to Practitioner List
-          </button> */}
             <SimpleButton
               onClick={() => {
-                setPageIndex(0);
                 setSelectedPractitioner(null);
               }}
             >

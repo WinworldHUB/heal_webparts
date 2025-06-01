@@ -8,6 +8,7 @@ import Image from "next/image";
 import usePractitioners from "../hooks/usePractitioners";
 import { USER_IMAGE_PLACEHOLDER } from "../constants";
 import SimpleButton from "./simple-button";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 interface PractitionerCardProps {
   practitioner: Practitioner;
@@ -65,13 +66,34 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
             />
           </div>
 
-          <div className="flex gap-2 justify-end items-end">
+         
+
+          <div className="flex gap-2 justify-between items-end">
             {/* <Button
               className="bg-green-600 text-white hover:bg-green-700 rounded-4xl"
               onClick={() => onPractitionerClick(practitioner.id)}
             >
               View Profile
             </Button> */}
+             {practitioner?.therapies && (
+            <div>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    Info
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent side="right" className="w-50 ml-3">
+                  <div className="text-sm text-muted-foreground space-y-1">
+                    <p className="font-medium text-primary">Therapies:</p>
+                    {(practitioner?.therapies ?? []).map((therapy) => (
+                      <p key={therapy.id}>• {therapy.name}</p>
+                    ))}
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div>
+          )}
             <SimpleButton onClick={() => onPractitionerClick(practitioner.id)}>
               View Profile
             </SimpleButton>
