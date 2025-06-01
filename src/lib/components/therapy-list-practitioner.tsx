@@ -11,7 +11,7 @@ import { USER_IMAGE_PLACEHOLDER } from "../constants";
 
 interface TherapyListPractitionerProps {
   practitioner: Practitioner;
-  handlePractitionerClick: (practitionerId: string) => void;
+  handlePractitionerClick: () => void;
 }
 
 const TherapyListPractitioner: FC<TherapyListPractitionerProps> = ({
@@ -52,7 +52,7 @@ const TherapyListPractitioner: FC<TherapyListPractitionerProps> = ({
         </Avatar>
 
         <div className="flex flex-col">
-          <span className="text-2xl font-normal cursor-pointer">
+          <span className="text-2xl font-normal">
             {getFullName(practitioner.firstName, practitioner.lastName)}
           </span>
           <div className="mt-1 text-[16px] text-gray-700">
@@ -60,8 +60,8 @@ const TherapyListPractitioner: FC<TherapyListPractitionerProps> = ({
           </div>
           <div className="pt-4 flex justify-start mt-4 mb-2">
             <Button
-              onClick={() => handlePractitionerClick(practitioner.id)}
-              className="group bg-transparent w-40 border border-[#a99870] text-[#a99870] px-4 py-2 rounded-4xl flex items-center justify-center transition-all duration-300 hover:bg-[#a99870] hover:text-white"
+              onClick={handlePractitionerClick}
+              className="group bg-transparent w-40 border border-[#a99870] text-[#a99870] px-4 py-2 rounded-4xl flex items-center justify-center transition-all duration-300 hover:bg-[#a99870] hover:text-white cursor-pointer"
             >
               Learn More
               <span className="max-w-0 overflow-hidden transition-all group-hover:max-w-fit group-hover:ml-2 duration-300 flex items-center">

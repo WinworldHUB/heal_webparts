@@ -53,7 +53,7 @@ const TherapyListContent = () => {
               Non-Medical Therapies
             </h2>
             <div className="flex flex-col gap-2 items-start">
-              <SimpleTherapyAccordion data={medicalTherapies}>
+              <SimpleTherapyAccordion data={nonMedicalTherapies}>
                 {nonMedicalTherapies.map((therapy) => (
                   <TherapyPractitioners therapy={therapy} />
                 ))}
