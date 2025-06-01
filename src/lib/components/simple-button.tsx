@@ -5,11 +5,12 @@ interface SimpleButtonProps {
   text?: string;
   children?: React.ReactNode;
   onClick?: () => void;
+  className?: string;
 }
 
-const SimpleButton: FC<SimpleButtonProps> = ({ text, children, onClick }) => {
+const SimpleButton: FC<SimpleButtonProps> = ({ text, children, onClick,className }) => {
   return (
-    <Button className="cursor-pointer" onClick={onClick}>
+    <Button className={`cursor-pointer ${className}`} onClick={onClick}>
       {children ?? text}
     </Button>
   );

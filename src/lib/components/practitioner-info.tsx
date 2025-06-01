@@ -17,6 +17,7 @@ import {
   PiEnvelopeBold,
   PiEnvelopeLight,
   PiMailboxLight,
+  PiPillBold,
 } from "react-icons/pi";
 import Link from "next/link";
 
@@ -196,6 +197,27 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
                 </AccordionItem>
               ))}
             </Accordion>
+          </div>
+
+          <div className="flex flex-col h-full bg-white rounded-l-lg shadow-sm p-4">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+              Therapies
+            </h2>
+            <div className="flex flex-col gap-2">
+              {practitionerDetails?.therapies?.length > 0 ? (
+                practitionerDetails?.therapies.map((therapy) => (
+                  <div
+                    key={therapy?.id}
+                    className="flex items-center text-gray-700 mb-2"
+                  >
+                    <PiPillBold size={20} className="mr-2" />
+                    <span>{therapy?.name}</span>
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-500">No therapies listed</p>
+              )}
+            </div>
           </div>
         </div>
 

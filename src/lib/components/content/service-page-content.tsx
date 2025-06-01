@@ -175,37 +175,10 @@ const ServicePageContent = () => {
           </SimpleFlexbox>
         </SimpleFlexbox>
       )}
-      <div className="flex flex-col lg:flex-row gap-6 p-4 app-bg sm:items-center md:items-start justify-center max-h-[700px] overflow-auto">
-        {/* Sidebar Filter */}
-        {/* <div className="w-full sm:max-w-xl lg:max-w-sm sticky top-4 h-fit mx-auto">
-        <ServiceFilters
-          clinics={clinics ?? []}
-          therapies={therapies ?? []}
-          practitioners={practitioners ?? []}
-          selectedClinicId={filterSelections.selectedClinicId}
-          selectedTherapyId={filterSelections.selectedTherapyId}
-          selectedPractitionerId={filterSelections.selectedPractitionerId}
-          onClinicChange={(id) => {
-            handleFilterChange({ ...filterSelections, selectedClinicId: id });
-          }}
-          onTherapyChange={(id) => {
-            handleFilterChange({ ...filterSelections, selectedTherapyId: id });
-          }}
-          onPractitionerChange={(id) => {
-            handleFilterChange({
-              ...filterSelections,
-              selectedPractitionerId: id,
-            });
-          }}
-          onClearClicked={() => {
-            handleFilterChange(EMPTY_FILTER_SELECTIONS);
-          }}
-        />
-      </div> */}
-
+      <div className="flex flex-col lg:flex-row gap-6 p-4 app-bg sm:items-center md:items-start justify-center">
         {/* Practitioner List */}
         {selectedPractitioner ? (
-          <div>
+          <div className="">
             <SimpleButton
               onClick={() => {
                 setSelectedPractitioner(null);
@@ -216,6 +189,7 @@ const ServicePageContent = () => {
                 <span>All Practitioners</span>
               </SimpleFlexbox>
             </SimpleButton>
+
             <PractitionerInfo
               practitionerDetails={selectedPractitioner}
               loading={false}
