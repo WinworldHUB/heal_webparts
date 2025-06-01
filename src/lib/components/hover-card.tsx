@@ -21,7 +21,6 @@ const HoverCard: FC<HoverCardProps> = ({ practitioner, onCardClick }) => {
   useEffect(() => {
     if (practitioner) {
       getPractitionerProfilePic(practitioner.id, (profilePic) => {
-        console.log("Profile Pic URL:", profilePic);
         setProfilePicUrl(profilePic);
       });
     }

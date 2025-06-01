@@ -22,7 +22,7 @@ type ComboboxProps = {
   onChange?: (value: string) => void;
 };
 
-export const Combobox:React.FC<ComboboxProps> = ({
+export const Combobox: React.FC<ComboboxProps> = ({
   options,
   placeholder = "Select option...",
   selected = "",
@@ -33,9 +33,18 @@ export const Combobox:React.FC<ComboboxProps> = ({
 
   const handleSelect = (currentValue: string) => {
     const newValue = currentValue === value ? "" : currentValue;
-    setValue(newValue);
-    setOpen(false);
     onChange?.(newValue);
+    setValue(newValue);
+    // const newValue = currentValue === value ? "" : currentValue;
+    // setValue(newValue);
+    // setOpen(false);
+
+    // if (newValue !== "123") {
+    //   const itemId = options.find((option) => option.label === newValue)?.value;
+    //   onChange?.(itemId);
+    // } else {
+    //   onChange?.(newValue);
+    // }
   };
 
   return (
@@ -55,7 +64,7 @@ export const Combobox:React.FC<ComboboxProps> = ({
       </PopoverTrigger>
       <PopoverContent className="p-0">
         <Command>
-          <CommandInput placeholder="Search..." className="h-9" />
+          {/* <CommandInput placeholder="Search..." className="h-9" /> */}
           <CommandList>
             <CommandEmpty>No option found.</CommandEmpty>
             <CommandGroup>

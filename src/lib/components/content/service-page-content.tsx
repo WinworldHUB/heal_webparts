@@ -89,7 +89,7 @@ const ServicePageContent = () => {
       getTherapyDetails(therapyId, (therapyDetails) => {
         if (therapyDetails) {
           setClinics(therapyDetails.clinics);
-          setTherapies([therapyDetails.therapy]);
+          //setTherapies([therapyDetails.therapy]);
           setPractitioners(therapyDetails.practitioners);
         }
       });
@@ -122,7 +122,11 @@ const ServicePageContent = () => {
 
   useEffect(() => {
     getAllClinics(setClinics);
-    getAllTherapies(setTherapies);
+    getAllTherapies((allTherapies) => {
+      setTherapies(allTherapies);
+      const values = getComboBoxOptions(allTherapies, "id", "name");
+      console.log("Therapies ComboBox Options:", values);
+    });
     getAllPractitioners(setPractitioners);
   }, []);
 
@@ -141,35 +145,36 @@ const ServicePageContent = () => {
 
   return (
     <SimpleFlexbox flexDirection="col" className="app-bg">
-      <SimpleFlexbox className="p-4">
-        <h1 className="text-nowrap">All Practitioners</h1>
-        <SimpleFlexbox justifyContent="end" className="gap-4">
-          <Combobox
-            options={getComboBoxOptions(therapies, "id", "name")}
-            onChange={(id) => {
-              console.log("Selected Therapy ID:", id);
-
-              handleFilterChange({
-                ...filterSelections,
-                selectedTherapyId: id,
-              });
-            }}
-            placeholder="Select Therapies..."
-            selected={filterSelections.selectedTherapyId}
-          />
-          <Combobox
-            options={getComboBoxOptions(clinics, "id", "name")}
-            onChange={(id) => {
-              handleFilterChange({
-                ...filterSelections,
-                selectedClinicId: id,
-              });
-            }}
-            placeholder="Select Clinic..."
-            selected={filterSelections.selectedClinicId}
-          />
+      {!selectedPractitioner && (
+        <SimpleFlexbox className="p-4">
+          <h1 className="text-nowrap">All Practitioners</h1>
+          <SimpleFlexbox justifyContent="end" className="gap-4">
+            <Combobox
+              options={getComboBoxOptions(therapies, "id", "name")}
+              onChange={(id) => {
+                console.log("Selected Therapy ID:", id);
+                handleFilterChange({
+                  ...filterSelections,
+                  selectedTherapyId: id,
+                });
+              }}
+              placeholder="Select Therapies..."
+              selected={filterSelections.selectedTherapyId}
+            />
+            <Combobox
+              options={getComboBoxOptions(clinics, "id", "name")}
+              onChange={(id) => {
+                handleFilterChange({
+                  ...filterSelections,
+                  selectedClinicId: id,
+                });
+              }}
+              placeholder="Select Clinic..."
+              selected={filterSelections.selectedClinicId}
+            />
+          </SimpleFlexbox>
         </SimpleFlexbox>
-      </SimpleFlexbox>
+      )}
       <div className="flex flex-col lg:flex-row gap-6 p-4 app-bg min-h-dvh sm:items-center md:items-start justify-center">
         {/* Sidebar Filter */}
         {/* <div className="w-full sm:max-w-xl lg:max-w-sm sticky top-4 h-fit mx-auto">

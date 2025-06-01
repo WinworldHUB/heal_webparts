@@ -22,12 +22,11 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
   onBookAppointmentClick,
 }) => {
   const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
-  const { loading, error, getPractitionerProfilePic } = usePractitioners();
+  const { getPractitionerProfilePic } = usePractitioners();
 
   useEffect(() => {
     if (practitioner) {
       getPractitionerProfilePic(practitioner.id, (profilePic) => {
-        console.log("Profile Pic URL:", profilePic);
         setProfilePicUrl(profilePic);
       });
     }
@@ -36,15 +35,15 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
   return (
     <Card
       key={practitioner?.id}
-      className="w-full sm:w-4/5 lg:w-full p-4 rounded shadow-md h-60"
+      className="w-full sm:w-4/5 lg:w-full p-4 rounded shadow-sm h-50 border-app-golden cursor-pointer hover:shadow-lg"
     >
       <CardContent className="flex flex-row gap-4 h-full px-0">
         <Image
           src={profilePicUrl ?? USER_IMAGE_PLACEHOLDER}
           //onError={(e) => (e.currentTarget.src = "/assets/doctor_image.jpg")}
           alt={practitioner?.firstName + practitioner?.lastName}
-          width={160}
-          height={160}
+          width={120}
+          height={0}
           className="object-cover rounded"
         />
 
@@ -66,34 +65,32 @@ const PractitionerCard: FC<PractitionerCardProps> = ({
             />
           </div>
 
-         
-
-          <div className="flex gap-2 justify-between items-end">
+          <div className="flex gap-2 justify-end items-end">
             {/* <Button
               className="bg-green-600 text-white hover:bg-green-700 rounded-4xl"
               onClick={() => onPractitionerClick(practitioner.id)}
             >
               View Profile
             </Button> */}
-             {practitioner?.therapies && (
-            <div>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" size="sm">
-                    Info
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent side="right" className="w-50 ml-3">
-                  <div className="text-sm text-muted-foreground space-y-1">
-                    <p className="font-medium text-primary">Therapies:</p>
-                    {(practitioner?.therapies ?? []).map((therapy) => (
-                      <p key={therapy.id}>• {therapy.name}</p>
-                    ))}
-                  </div>
-                </PopoverContent>
-              </Popover>
-            </div>
-          )}
+            {/* {practitioner?.therapies && (
+              <div>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" size="sm">
+                      Therapies
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent side="right" className="w-50 ml-3">
+                    <div className="text-sm text-muted-foreground space-y-1">
+                      <p className="font-medium text-primary">Therapies:</p>
+                      {(practitioner?.therapies ?? []).map((therapy) => (
+                        <p key={therapy.id}>• {therapy.name}</p>
+                      ))}
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            )} */}
             <SimpleButton onClick={() => onPractitionerClick(practitioner.id)}>
               View Profile
             </SimpleButton>

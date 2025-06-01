@@ -1,6 +1,6 @@
 import { Skeleton } from "@/lib/components/ui/skeleton";
 import React, { FC, useEffect, useState } from "react";
-import { FaPhone, FaEnvelope } from "react-icons/fa6";
+import { FaPhone, FaEnvelope, FaGlobe } from "react-icons/fa6";
 import Image from "next/image";
 import { Separator } from "@/lib/components/ui/separator";
 import {
@@ -13,6 +13,12 @@ import RawHTML from "./raw-html";
 import { getFullName } from "../utils/string-util";
 import usePractitioners from "../hooks/usePractitioners";
 import { USER_IMAGE_PLACEHOLDER } from "../constants";
+import {
+  PiEnvelopeBold,
+  PiEnvelopeLight,
+  PiMailboxLight,
+} from "react-icons/pi";
+import Link from "next/link";
 
 interface PractitionerInfoProps {
   practitionerDetails: PractitionerDetails | null;
@@ -93,14 +99,45 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
               </h2>
 
               <div className="flex flex-row items-start text-start">
-                <FaPhone size={16} className="text-black mt-1 mx-2" />
-                <p className="text-gray-700 mb-4">{practitioner?.email}</p>
+                <FaGlobe size={16} className="text-black mt-1 mx-2" />
+                <p className="text-gray-700 mb-4">
+                  <Link
+                    href={practitioner?.websiteLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    {practitioner?.websiteLink}
+                  </Link>
+                </p>
               </div>
 
               <div className="flex flex-row items-start text-start">
                 <FaEnvelope size={16} className="text-black mt-1 mx-2" />
                 <p className="text-gray-700 mb-4">
-                  {practitioner?.contactNumber}
+                  <Link
+                    href={`mailto:${practitioner?.email}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    {practitioner?.email}
+                  </Link>
+                </p>
+              </div>
+
+              <div className="flex flex-row items-start text-start">
+                <FaPhone size={16} className="text-black mt-1 mx-2" />
+
+                <p className="text-gray-700 mb-4">
+                  <Link
+                    href={`tel:${practitioner?.contactNumber}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    {practitioner?.contactNumber}
+                  </Link>
                 </p>
               </div>
             </div>

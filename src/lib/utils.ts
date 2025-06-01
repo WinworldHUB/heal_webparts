@@ -23,6 +23,10 @@ export const getDocumentFromUrl = async (
   name: string = "document"
 ): Promise<File | null> => {
   try {
+    if (!url) {
+      console.error("No URL provided to fetch document.");
+      return null;
+    }
     const response = await fetch(url);
     if (!response.ok) {
       return null;
