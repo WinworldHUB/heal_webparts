@@ -4,33 +4,27 @@ import PractitionerCard from "./practitioner-card";
 
 interface PractitionerListProps {
   practitioners: Practitioner[];
-  onPractitionerClick: (practitioner: Practitioner) => void;
+  onPractitionerClick: (practitionerId: string) => void;
 }
 
 const PractitionerList: FC<PractitionerListProps> = ({
   practitioners,
   onPractitionerClick,
 }) => {
-  console.log("PractitionerList", practitioners);
   return (
-    <div className="flex flex-col gap-6 w-full lg:justify-center ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
       {(practitioners ?? []).map((practitioner) => (
-        <div
-          className="w-full flex sm:justify-center lg:justify-start"
+        <PractitionerCard
           key={practitioner.id}
-        >
-          <PractitionerCard
-            key={practitioner.id}
-            practitioner={practitioner}
-            onPractitionerClick={onPractitionerClick}
-            onBookAppointmentClick={() =>
-              window.open(
-                `https://app.heal-wellness.co.uk/?practitionerId=${practitioner.id}`,
-                "_blank"
-              )
-            }
-          />
-        </div>
+          practitioner={practitioner}
+          onPractitionerClick={onPractitionerClick}
+          onBookAppointmentClick={() =>
+            window.open(
+              `https://app.heal-wellness.co.uk/?practitionerId=${practitioner.id}`,
+              "_blank"
+            )
+          }
+        />
       ))}
     </div>
   );

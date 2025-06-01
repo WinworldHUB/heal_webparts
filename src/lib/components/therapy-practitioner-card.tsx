@@ -21,7 +21,7 @@ const TherapyPractitionerCard: FC<TherapyPractitionerCardProps> = ({
     >
       <CardContent className="flex flex-col items-start px-0 sm:flex-row gap-4">
         <img
-          src={practitioner?.practitionerImage}
+          src={practitioner?.practitionerImage ?? "/assets/doctor_image.jpg"}
           onError={(e) => (e.currentTarget.src = "/assets/doctor_image.jpg")}
           alt={practitioner?.firstName + practitioner?.lastName}
           className="object-cover rounded-2xl h-16 w-16"
