@@ -42,8 +42,8 @@ const TherapyWidget: FC<TherapyWidgetProps> = ({
       getDocLink(
         therapy.id,
         `${DMS_PATHS.IMAGES.BASE}${DMS_PATHS.IMAGES.THERAPY}/${therapy.id}`,
-        (docLinks) => {
-          handleImageLoad(docLinks?.[0]?.url, docLinks?.[0]?.title);
+        (docLink) => {
+          handleImageLoad(docLink?.url, docLink?.title);
         }
       );
     }

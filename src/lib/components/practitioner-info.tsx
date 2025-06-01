@@ -1,5 +1,5 @@
 import { Skeleton } from "@/lib/components/ui/skeleton";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { FaPhone, FaEnvelope } from "react-icons/fa6";
 import Image from "next/image";
 import { Separator } from "@/lib/components/ui/separator";
@@ -11,6 +11,8 @@ import {
 } from "./ui/accordion";
 import RawHTML from "./raw-html";
 import { getFullName } from "../utils/string-util";
+import usePractitioners from "../hooks/usePractitioners";
+import { USER_IMAGE_PLACEHOLDER } from "../constants";
 
 interface PractitionerInfoProps {
   practitionerDetails: PractitionerDetails | null;
@@ -23,6 +25,21 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
   loading,
   error,
 }) => {
+  const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
+  const { getPractitionerProfilePic } = usePractitioners();
+
+  useEffect(() => {
+    if (practitionerDetails) {
+      getPractitionerProfilePic(
+        practitionerDetails?.practitioner?.id,
+        (profilePic) => {
+          console.log("Profile Pic URL:", profilePic);
+          setProfilePicUrl(profilePic);
+        }
+      );
+    }
+  }, [practitionerDetails]);
+
   if (!practitionerDetails) {
     return (
       <div className="flex justify-center items-center w-full">
@@ -60,7 +77,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
     <div className="bg-[#f2f0ea] min-h-dvh flex flex-col items-center py-4">
       <div className="flex flex-row justify-center items-start gap-8 w-full">
         <div className="flex flex-col gap-2 w-1/3">
-          <div className="flex flex-col h-full bg-white w-full shadow-lg p-4">
+          <div className="flex flex-col h-full bg-white w-full shadow-sm p-4">
             <div className="flex flex-col items-start  text-start mb-2">
               <h1 className="text-2xl font-semibold text-gray-800 mb-4">
                 {practitioner?.businessName ??
@@ -88,7 +105,7 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
               </div>
             </div>
           </div>
-          <div className="flex flex-col h-full bg-white rounded-l-lg shadow-lg p-4">
+          <div className="flex flex-col h-full bg-white rounded-l-lg shadow-sm p-4">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               Clinic Availability
             </h2>
@@ -148,10 +165,10 @@ const PractitionerInfo: FC<PractitionerInfoProps> = ({
         <div className="flex flex-col w-full h-full p-0 border-0 bg-transparent">
           <div className="w-full 2xl:w-3/4 h-96 relative mb-4">
             <Image
-              src="/assets/doctor_image.jpg"
+              src={profilePicUrl ?? USER_IMAGE_PLACEHOLDER}
               alt="Practitioner"
               fill
-              className="rounded-lg object-cover"
+              className="rounded-lg object-cover shadow-lg"
             />
           </div>
           <div className="p-4">

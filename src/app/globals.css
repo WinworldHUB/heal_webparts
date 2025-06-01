@@ -119,7 +119,16 @@
   }
 }
 
-.swiper-button-prev, .swiper-button-next {
-  color:#a99870 !important;
-  background-color:transparent !important;
+.swiper-button-prev,
+.swiper-button-next {
+  color: #a99870 !important;
+  background-color: transparent !important;
+}
+
+.app-bg {
+  background-color: #f2f0ea !important;
+}
+
+h1 {
+  font-size: 2.25rem !important;
 }

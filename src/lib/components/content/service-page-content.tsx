@@ -10,7 +10,10 @@ import PractitionerList from "../practitioner-list";
 import { EMPTY_FILTER_SELECTIONS } from "../../constants";
 import PractitionerPageContent from "./practitioner-page-content";
 import PractitionerInfo from "../practitioner-info";
-import { PiCaretLeftLight } from "react-icons/pi";
+import { PiCaretLeftBold, PiCaretLeftLight } from "react-icons/pi";
+import SimpleButton from "../simple-button";
+import SimpleFlexbox from "../simple-flexbox";
+import { Combobox } from "../ui/combobox";
 
 const ServicePageContent = () => {
   const router = useRouter();
@@ -138,9 +141,14 @@ const ServicePageContent = () => {
     );
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 p-4 bg-[#f2f0ea] min-h-dvh sm:items-center md:items-start justify-center">
-      {/* Sidebar Filter */}
-      {/* <div className="w-full sm:max-w-xl lg:max-w-sm sticky top-4 h-fit mx-auto">
+    <SimpleFlexbox flexDirection="col" className="app-bg">
+      <SimpleFlexbox className="p-4">
+        <h1>All Practitioners</h1>
+        <Combobox options={[]} />
+      </SimpleFlexbox>
+      <div className="flex flex-col lg:flex-row gap-6 p-4 app-bg min-h-dvh sm:items-center md:items-start justify-center">
+        {/* Sidebar Filter */}
+        {/* <div className="w-full sm:max-w-xl lg:max-w-sm sticky top-4 h-fit mx-auto">
         <ServiceFilters
           clinics={clinics ?? []}
           therapies={therapies ?? []}
@@ -166,10 +174,10 @@ const ServicePageContent = () => {
         />
       </div> */}
 
-      {/* Practitioner List */}
-      {pageIndex === 1 && selectedPractitioner ? (
-        <div>
-          <button
+        {/* Practitioner List */}
+        {pageIndex === 1 && selectedPractitioner ? (
+          <div>
+            {/* <button
             className="hover:underline mb-4 flex items-center gap-2 text-2xl"
             onClick={() => {
               setPageIndex(0);
@@ -178,20 +186,32 @@ const ServicePageContent = () => {
           >
             <PiCaretLeftLight className="mt-1"/>
             Back to Practitioner List
-          </button>
-          <PractitionerInfo
-            practitionerDetails={selectedPractitioner}
-            loading={false}
-            error={""}
+          </button> */}
+            <SimpleButton
+              onClick={() => {
+                setPageIndex(0);
+                setSelectedPractitioner(null);
+              }}
+            >
+              <SimpleFlexbox>
+                <PiCaretLeftBold />
+                <span>All Practitioners</span>
+              </SimpleFlexbox>
+            </SimpleButton>
+            <PractitionerInfo
+              practitionerDetails={selectedPractitioner}
+              loading={false}
+              error={""}
+            />
+          </div>
+        ) : (
+          <PractitionerList
+            practitioners={practitioners ?? []}
+            onPractitionerClick={onPractitionerClick}
           />
-        </div>
-      ) : (
-        <PractitionerList
-          practitioners={practitioners ?? []}
-          onPractitionerClick={onPractitionerClick}
-        />
-      )}
-    </div>
+        )}
+      </div>
+    </SimpleFlexbox>
   );
 };
 

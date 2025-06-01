@@ -29,17 +29,14 @@ const HoverCard: FC<HoverCardProps> = ({ practitioner, onCardClick }) => {
 
   return (
     <Card
-      className="relative w-84 h-100 overflow-hidden cursor-pointer p-0"
+      className="relative w-84 h-100 overflow-hidden cursor-pointer rounded p-0"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={onCardClick}
     >
       <CardContent className="p-4 h-full relative">
         <Image
-          src={
-            profilePicUrl ?? USER_IMAGE_PLACEHOLDER
-            // "https://stanmorewellnessclinic.com/wp-content/uploads/2024/11/Luis-Osteo-67-scaled.jpg"
-          }
+          src={profilePicUrl ?? USER_IMAGE_PLACEHOLDER}
           alt={`${practitioner.firstName} ${practitioner.lastName}`}
           title={`${practitioner.firstName} ${practitioner.lastName}`}
           fill
